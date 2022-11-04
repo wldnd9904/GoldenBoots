@@ -65,7 +65,7 @@ a {
 `;
 
 function App() {
-	const [isDark, setIsDark] = useState<Boolean>(true);
+	const [isDark, setIsDark] = useState<Boolean>(false);
 	const toggleDark = () => setIsDark((current) => !current)
   return (
     <>
