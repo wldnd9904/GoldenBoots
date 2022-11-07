@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import { DEFAULT_BREAKPOINTS } from 'react-bootstrap/esm/ThemeProvider';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -10,26 +11,31 @@ import { Link } from 'react-router-dom';
 
 function Header() {
   return (
-        <Navbar bg="light" expand={'lg'} className="mb-3">
+        <Navbar bg="light" expand={'md'} className="mb-3">
           <Container fluid>
-            <Navbar.Brand href="/client/home">Mr.Daebak</Navbar.Brand>
-            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
+            <Navbar.Brand>
+                  <Link to={`home`}><img src="daebak.png"/></Link></Navbar.Brand>
+            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} />
             <Navbar.Offcanvas
-              aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
+              aria-labelledby={`offcanvasNavbarLabel-expand-md`}
               placement="end"
             >
               <Offcanvas.Header closeButton>
-                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`}>
+                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-md`}>
                   Offcanvas
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="/client/order">주문하기</Nav.Link>
-                  <Nav.Link href="/client/voucher">상품권</Nav.Link>
+                  <Nav.Link>
+                  <Link to={`order`}>주문하기</Link>
+                    </Nav.Link>
+                  <Nav.Link>
+                  <Link to={`voucher`}>상품권</Link>
+                  </Nav.Link>
                   <NavDropdown
                     title="Dropdown"
-                    id={`offcanvasNavbarDropdown-expand-lg`}
+                    id={`offcanvasNavbarDropdown-expand-md`}
                   >
                     <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                     <NavDropdown.Item href="#action4">

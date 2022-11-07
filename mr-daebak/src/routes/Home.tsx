@@ -12,14 +12,15 @@ const Container = styled.div`
 `;
 
 function Home(){
-    return (
-        <Container>
+    return (<>
             <Helmet>
                 <title>미스터 대박 디너 서비스!</title>
             </Helmet>
+        <Container>
             <span>Home</span>
             <CarouselView />
         </Container>
+        </>
     )
 }
 export default Home;
