@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import React from "react";
 import Header from "../Header";
+import Menu from "../interfaces/menuView";
 
 const Container = styled.div`
     padding: 0px 20px;
@@ -14,24 +15,8 @@ const Container = styled.div`
 `;
 
 const MenuList = styled.div`
-    display:block;
-`;
-
-const MenuView = styled.div<IMenuView>`
-    position: relative;
     display:inline-block;
-    width:250px;
-    height:250px;
-    background-color: tomato;
-    border:1px solid;
-    margin: 15px;
 `;
-
-interface IMenuView{
-    name: string;
-    image: string;
-    key: number;
-}
 
 function Order(){
     return (<>
@@ -40,18 +25,16 @@ function Order(){
             </Helmet>
         <Container>
             <MenuList>
-                <MenuView name="asdf" image="a" key={1}>1212312312312313</MenuView>
-                <MenuView name="asdf" image="a" key={1}>123</MenuView>
-                <MenuView name="asdf" image="a" key={1}>123</MenuView>
-                <MenuView name="asdf" image="a" key={1}>123</MenuView>
-                <MenuView name="asdf" image="a" key={1}>1212312312312313</MenuView>
-                <MenuView name="asdf" image="a" key={1}>123</MenuView>
-                <MenuView name="asdf" image="a" key={1}>123</MenuView>
-                <MenuView name="asdf" image="a" key={1}>123</MenuView>
-                <MenuView name="asdf" image="a" key={1}>1212312312312313</MenuView>
-                <MenuView name="asdf" image="a" key={1}>123</MenuView>
-                <MenuView name="asdf" image="a" key={1}>123</MenuView>
-                <MenuView name="asdf" image="a" key={1}>123</MenuView>
+                <Menu />
+                <Menu />
+                <Menu />
+                <Menu />
+                <Menu />
+                <Menu />
+                <Menu />
+                <Menu />
+                <Menu />
+                <Menu />
             </MenuList>
         </Container>
         </>

@@ -1,85 +1,64 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { useQuery } from "react-query";
-import React, { useEffect, useState } from "react";
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import { Link } from 'react-router-dom';
 
-const Container = styled.div`
-    width: 100%;
-    height: auto;
-    padding: 0px 40px;
-    background-color: tomato;
-    position:fixed;
-    z-index: 1;
-`;
-const TopBar = styled.div`
-    width:100%;
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
-    padding : 5px;
-    position:relative;
-`;
+function Header() {
+  return (
+        <Navbar bg="light" expand={'lg'} className="mb-3">
+          <Container fluid>
+            <Navbar.Brand href="/client/home">Mr.Daebak</Navbar.Brand>
+            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
+            <Navbar.Offcanvas
+              aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
+              placement="end"
+            >
+              <Offcanvas.Header closeButton>
+                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`}>
+                  Offcanvas
+                </Offcanvas.Title>
+              </Offcanvas.Header>
+              <Offcanvas.Body>
+                <Nav className="justify-content-end flex-grow-1 pe-3">
+                  <Nav.Link href="/client/order">주문하기</Nav.Link>
+                  <Nav.Link href="/client/voucher">상품권</Nav.Link>
+                  <NavDropdown
+                    title="Dropdown"
+                    id={`offcanvasNavbarDropdown-expand-lg`}
+                  >
+                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                    <NavDropdown.Item href="#action4">
+                      Another action
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="#action5">
+                      Something else here
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </Nav>
+                <Form className="d-flex">
+                  <Form.Control
+                    type="search"
+                    placeholder="Search"
+                    className="me-2"
+                    aria-label="Search"
+                  />
+                  <Button variant="outline-success">Search</Button>
+                  <Button variant="outline-success">🎤</Button>
+                </Form>
+              </Offcanvas.Body>
+            </Navbar.Offcanvas>
+          </Container>
+          <Container>
 
-const Search = styled.input`
-    font-size:20px;
-`;
-const MenuList = styled.ul`
-    list-style: none;
-	width:100%;
-	height: 100%;
-    padding: 5px;
-	display: flex;
-    align-items: center;
-	justify-content: space-between;
-`;
-const Menu = styled.li`
-	font-size:20px;
-	height: 100%;
-	display: flex;
-	align-items: center;
-`;
-const Spacer = styled.div`
-    height:80px;
-`;
-
-function Header(){
-    const [scrollY, setScrollY] = useState(0);
-    const handleScroll = () => {
-      const scrollPosition = window.pageYOffset;
-      setScrollY(scrollPosition)
-    };
-    useEffect( () => {
-      window.addEventListener('scroll', handleScroll);
-      return () => {
-        window.removeEventListener('scroll', handleScroll)
-      }
-    }, []);
-    return (
-        <>
-        <Container>
-            {scrollY<10?
-            <TopBar>
-                <Menu>MrDaebak</Menu>
-                <Search/>
-                <Menu>로그인/회원가입</Menu>
-            </TopBar>
-            :
-            null
-            }
-            <MenuList>
-                <Menu>
-                   <Link to={`order`}>Order</Link>
-               </Menu>
-                <Menu>
-                    <Link to={`voucher`}>Voucher</Link>
-                </Menu>
-                <Menu>mamama</Menu>
-                <Menu>papapa</Menu>
-                <Menu>lalala</Menu>
-            </MenuList>
-        </Container>
-        <Spacer/>
-        </>
-    )
+          </Container>
+        </Navbar>
+  );
 }
+
 export default Header;

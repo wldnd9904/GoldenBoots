@@ -3,22 +3,23 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import React from "react";
+import CarouselView from "../interfaces/carouselView";
 
 const Container = styled.div`
     padding: 0px 20px;
-    max-width:480px;
     margin:0 auto;
     position:relative;
 `;
 
-function Voucher(){
+function Home(){
     return (
         <Container>
             <Helmet>
-                <title>상품권</title>
+                <title>미스터 대박 디너 서비스!</title>
             </Helmet>
-            <span>Voucher</span>
+            <span>Home</span>
+            <CarouselView />
         </Container>
     )
 }
-export default Voucher;
+export default Home;

@@ -12,8 +12,11 @@
     "@types/react-dom": "^18.0.8",
     "@types/react-helmet": "^6.1.5",
     "@types/react-query": "^1.2.9",
+    "bootstrap": "^5.2.2",
+    "gh-pages": "^4.0.0",
     "query": "^0.2.0",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-query": "^3.39.2",
@@ -27,7 +30,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -48,6 +53,9 @@
     ]
   },
   "devDependencies": {
+    "@types/bootstrap": "^5.2.5",
+    "@types/react-bootstrap": "^0.32.31",
     "@types/styled-components": "^5.1.26"
-  }
+  },
+  "homepage": "https://wldnd9904.github.io/goldenboots/"
 }
