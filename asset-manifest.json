@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/GoldenBoots/static/css/main.76031048.css",
-    "main.js": "/GoldenBoots/static/js/main.a81d4260.js",
+    "main.js": "/GoldenBoots/static/js/main.c2ec7c3e.js",
     "index.html": "/GoldenBoots/index.html",
     "main.76031048.css.map": "/GoldenBoots/static/css/main.76031048.css.map",
-    "main.a81d4260.js.map": "/GoldenBoots/static/js/main.a81d4260.js.map"
+    "main.c2ec7c3e.js.map": "/GoldenBoots/static/js/main.c2ec7c3e.js.map"
   },
   "entrypoints": [
     "static/css/main.76031048.css",
-    "static/js/main.a81d4260.js"
+    "static/js/main.c2ec7c3e.js"
   ]
 }
