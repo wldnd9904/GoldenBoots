@@ -1,30 +1,18 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { useQuery } from "react-query";
 import React from "react";
-import Header from "../Header";
 import Menu from "../interfaces/menuView";
-
-const Container = styled.div`
-    padding: 0px 20px;
-    width:880px;
-    margin:0 auto;
-    position:relative;
-    background:teal;
-`;
-
-const MenuList = styled.div`
-    display:inline-block;
-`;
+import Container from 'react-bootstrap/Container';
+import { Row } from "react-bootstrap";
+import CartList from "../interfaces/cartListView";
 
 function Order(){
-    return (<>
+    return (
+        <>
             <Helmet>
                 <title>주문하기</title>
             </Helmet>
-        <Container>
-            <MenuList>
+        <Container fluid>
+            <Row>
                 <Menu />
                 <Menu />
                 <Menu />
@@ -35,8 +23,9 @@ function Order(){
                 <Menu />
                 <Menu />
                 <Menu />
-            </MenuList>
+            </Row>
         </Container>
+        <CartList/>
         </>
     )
 }

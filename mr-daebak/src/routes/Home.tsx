@@ -19,6 +19,13 @@ function Home(){
         <Container>
             <span>Home</span>
             <CarouselView />
+            <CarouselView />
+            <CarouselView />
+            <CarouselView />
+            <CarouselView />
+            <CarouselView />
+            <CarouselView />
+            <CarouselView />
         </Container>
         </>
     )
