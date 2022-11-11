@@ -9,7 +9,6 @@ interface ILoginForm{
   show: boolean;
   isRegister: boolean;
   handleClose: ()=>void;
-  
 };
 
 function LoginForm({show, isRegister, handleClose}:ILoginForm) {
