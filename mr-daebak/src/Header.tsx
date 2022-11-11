@@ -64,6 +64,9 @@ function Header() {
                   <Nav.Link>
                     <Link to={`voucher`}>상품권</Link>
                   </Nav.Link>
+                  <Nav.Link>
+                    <Link to={`event`}>이벤트</Link>
+                  </Nav.Link>
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
