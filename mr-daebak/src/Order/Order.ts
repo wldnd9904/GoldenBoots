@@ -1,4 +1,5 @@
 export interface IMenu{
+    ID:number,
     src_thumb: string;
     src_big: string;
     name: string;

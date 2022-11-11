@@ -7,10 +7,12 @@ import CartList from "../interfaces/cartListView";
 import { IMenu } from "../Order/Order";
 
 const MenuList:[IMenu] = [
-    {   name:"프렌치 디너",
+    {   
+        ID:2,
+        name:"프렌치 디너",
         desc:"커피 한 잔, 와인 한 잔, 샐러드, 스테이크 제공",
-        src_thumb:"https://github.com/wldnd9904/GoldenBoots/blob/master/mr-daebak/src/Images/french.png?raw=true",
-        src_big:"https://github.com/wldnd9904/GoldenBoots/blob/master/mr-daebak/src/Images/french.png?raw=true",
+        src_thumb:"https://github.com/wldnd9904/GoldenBoots/blob/master/mr-daebak/src/Images/2_thumb.png?raw=true",
+        src_big:"https://github.com/wldnd9904/GoldenBoots/blob/master/mr-daebak/src/Images/2_big.png?raw=true",
         price:15000,
         salad:true, 
         steak:true, 
@@ -47,6 +49,7 @@ function Order(){
             <Row>
                 {MenuList.map(menu => 
                 <Menu 
+                    ID={menu.ID}
                     src_thumb={menu.src_thumb}
                     src_big={menu.src_big}
                     name={menu.name}

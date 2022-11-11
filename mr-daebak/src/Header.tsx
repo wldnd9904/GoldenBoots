@@ -27,7 +27,7 @@ function Header() {
           <Container fluid>
             <Navbar.Brand>
               <Link to={`home`}>
-                <img alt="미스터 대박 서비스" src="https://github.com/wldnd9904/GoldenBoots/blob/master/mr-daebak/src/daebak.png?raw=true" width="60px"/>
+                <img alt="미스터 대박 서비스" src="https://github.com/wldnd9904/GoldenBoots/blob/master/mr-daebak/src/Images/daebak.png?raw=true" width="60px"/>
               </Link>
             </Navbar.Brand>
             <Form className="center d-flex">

@@ -4,15 +4,28 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton';
 import {IMenu} from '../Order/Order';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
 
+interface IRadio{
+  name: string,
+  value: string,
+}
+
 function Menu(params:IMenu) {
   const [show, setShow] = useState(false);
   const handleOpen = () => setShow(true);
   const handleClose = () => setShow(false);
+  const [radioValue, setRadioValue] = useState('1');
+  const radios = [
+    { name: '빼기', value: '1' },
+    { name: '적당히', value: '2' },
+    { name: '많이', value: '3' },
+  ];
   return (
     <>
       <Card style={{ width: '18rem' }}>
@@ -36,42 +49,26 @@ function Menu(params:IMenu) {
         </Modal.Header>
         <img src={params.src_big} />
         <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="formAddress2">
-              <Form.Label>상세주소</Form.Label>
-              <Form.Control placeholder="정보기술관 326호" />
-            </Form.Group>
-
-            <Row className="mb-3">
-              <Form.Group as={Col} controlId="formName">
-                <Form.Label>이름</Form.Label>
-                <Form.Control placeholder="손흥민"/>
-              </Form.Group>
-
-              <Form.Group as={Col} controlId="formSex">
-                <Form.Label>성별</Form.Label>
-                <Form.Select defaultValue="Choose...">
-                  <option>선택안함</option>
-                  <option>남성</option>
-                  <option>여성</option>
-                  <option>기타</option>
-                </Form.Select>
-              </Form.Group>
-
-              <Form.Group as={Col} controlId="formBornDate">
-                <Form.Label>생년월일</Form.Label>
-                <Form.Control placeholder="yyyy-mm-dd"/>
-              </Form.Group>
-            </Row>
-
-            <Form.Group className="mb-3" id="formStaff">
-              <Form.Check type="checkbox" label="직원용 계정" />
-            </Form.Group>
-          </Form>
+          <ButtonGroup>
+            {radios.map((radio, idx) => (
+              <ToggleButton
+                key={idx}
+                id={`radio-${idx}`}
+                type="radio"
+                variant={idx % 2 ? 'outline-success' : 'outline-danger'}
+                name="radio"
+                value={radio.value}
+                checked={radioValue == radio.value}
+                onChange={(e) => setRadioValue(e.currentTarget.value)}
+              >
+                {radio.name}
+              </ToggleButton>
+            ))}
+          </ButtonGroup>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" type="submit">
-                회원가입
+                장바구니에 담기
           </Button>
         </Modal.Footer>
       </Modal>
