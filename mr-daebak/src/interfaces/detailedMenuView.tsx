@@ -1,48 +1,43 @@
 import { useState } from 'react';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
+import { IDetailedMenuType } from '../Order/Menu';
 
-interface IDetailedMenu{
-    id:number;
-    name: string;
-    isCountable: boolean;
-    action: (a:string)=>void;
-  }
-  const quantity = [
-    { name: '빼기', value: '-1' },
-    { name: '적게', value: '0' },
-    { name: '보통', value: '1' },
-    { name: '많이', value: '2' },
-  ];
-  const count = [
-    { name: '0', value: '0' },
-    { name: '1', value: '1' },
-    { name: '2', value: '2' },
-    { name: '3', value: '3' },
-    { name: '4', value: '4' },
-    { name: '5', value: '5' },
-  ];
-  function DetailedMenu(params:IDetailedMenu){
-    const [radioValue, setRadioValue] = useState('1');
-    const type = params.isCountable?count:quantity;
+
+  function DetailedMenu(params:IDetailedMenuType){
+    const [value, setValue] = useState<number>();
     return (
       <>
-      <ButtonGroup>
-        {params.name}
-        {type.map((radio,idx)=>(
-        <ToggleButton
-                  id={`${params.id}_${idx}`}
+        <h2>{params.label}</h2>
+        {
+          {
+            'Q':<ButtonGroup>
+                  
+                </ButtonGroup>,
+            'C':<>
+                </>,
+            'B':<ButtonGroup>
+                  <ToggleButton
+                  id={`${params.name}_true`}
                   type="radio"
                   variant="outline-primary"
-                  name={radio.name}
-                  value={radio.value}
-                  checked={radioValue == radio.value}
-                  onChange={(e) => {setRadioValue(e.currentTarget.value)}}
-                >
-                  {radio.name}
-        </ToggleButton>
-        ))}
-      </ButtonGroup>
+                  name="넣기"
+                  value={1}
+                  checked={value == 1}>
+                  "넣기"
+                  </ToggleButton>
+                  <ToggleButton
+                  id={`${params.name}_false`}
+                  type="radio"
+                  variant="outline-primary"
+                  name="빼기"
+                  value={0}
+                  checked={value == 0}>
+                  "빼기"
+                  </ToggleButton>
+                </ButtonGroup>,
+          }[params.type]
+        }
       </>
     );
   }
