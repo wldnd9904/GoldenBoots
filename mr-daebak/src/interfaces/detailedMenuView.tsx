@@ -27,8 +27,8 @@ interface IDetailedMenu{
     const type = params.isCountable?count:quantity;
     return (
       <>
-        {params.name}
       <ButtonGroup>
+        {params.name}
         {type.map((radio,idx)=>(
         <ToggleButton
                   id={`${params.id}_${idx}`}

@@ -10,7 +10,7 @@ import {IMenu, IOrder} from '../Order/Order';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
-import DetailedMenu from './detailedMenu';
+import DetailedMenu from './detailedMenuView';
 
 let order:IOrder;
 

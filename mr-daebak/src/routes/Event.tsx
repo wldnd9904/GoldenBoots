@@ -1,9 +1,6 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { useQuery } from "react-query";
-import React from "react";
 import Container from 'react-bootstrap/Container';
+import EventList from "../interfaces/eventListView";
 
 function Event(){
     return (
@@ -12,7 +9,7 @@ function Event(){
                     <title>이벤트</title>
             </Helmet>
             <Container>
-                <span>Event</span>
+                <EventList />
             </Container>
         </>
     )
