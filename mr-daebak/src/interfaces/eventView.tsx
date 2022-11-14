@@ -31,7 +31,7 @@ function EventView(params:IEvent) {
         <img width="100%" alt={params.name} src={params.src_big} />
         </Modal.Body>
         <Modal.Footer>
-            {   params.voucherID!==0?
+            {   params.voucherID!==-1?
                 <Button variant="primary" type="submit">
                 쿠폰 수령하기
                 </Button>

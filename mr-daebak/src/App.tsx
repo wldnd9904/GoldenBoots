@@ -4,6 +4,8 @@ import {createGlobalStyle} from "styled-components";
 import { ThemeProvider } from 'styled-components';
 import {darkTheme, lightTheme} from "./theme"
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { atom, RecoilRoot, useRecoilValue } from 'recoil';
+import { userDataAtom } from './People/People';
 
 const GlobalStyle = createGlobalStyle`
 //@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -64,16 +66,18 @@ a {
 }
 `;
 
+const isDarkAtom = atom({
+	key:"isDark",
+	default:false,
+});
+
 function App() {
-	const [isDark, setIsDark] = useState<Boolean>(false);
-	const toggleDark = () => setIsDark((current) => !current)
+	const isDark = useRecoilValue(isDarkAtom);
   return (
-    <>
-    <ThemeProvider theme={isDark? darkTheme:lightTheme}>
-    	<GlobalStyle />
-    	<Router />
-    </ThemeProvider>
-    </>
+		<ThemeProvider theme={isDark? darkTheme:lightTheme}>
+			<GlobalStyle />
+			<Router />
+		</ThemeProvider>
   );
 }
 

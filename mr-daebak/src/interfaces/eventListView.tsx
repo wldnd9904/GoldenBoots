@@ -10,7 +10,7 @@ const eventList:IEvent[] = [
         to: "2020-02-03",
         src_thumbnail: "https://cdn.dominos.co.kr/admin/upload/event/20221108_lj4LAFLa.png",
         src_big: "https://cdn.dominos.co.kr/renewal2018/w/event/221112_doubleUp/img.jpg",
-        voucherID: 0,
+        voucherID: -1,
     },
     {   
         eventID: 2,
@@ -19,7 +19,7 @@ const eventList:IEvent[] = [
         to: "2020-02-03",
         src_thumbnail: "https://cdn.dominos.co.kr/admin/upload/event/20221101_WUe2aN3t.jpg",
         src_big: "http://cdn.dominos.co.kr/renewal2018/w/event/221004_wildWestSteak/img.jpg",
-        voucherID: 0,
+        voucherID: -1,
     },
     {   
         eventID: 3,
@@ -28,7 +28,7 @@ const eventList:IEvent[] = [
         to: "2020-02-03",
         src_thumbnail: "https://cdn.dominos.co.kr/admin/upload/event/20221108_lj4LAFLa.png",
         src_big: "https://cdn.dominos.co.kr/renewal2018/w/event/221112_doubleUp/img.jpg",
-        voucherID: 0,
+        voucherID: -1,
     },
 ];
 

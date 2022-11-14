@@ -33,10 +33,10 @@ function Menu(params:IMenu) {
         <img alt={params.dinner_name} src={params.src_big} />
         <Modal.Body>
           {detailedMenuTypeList.map((detail:IDetailedMenuType,idx)=>(
-            eval('params.'+detail.name)===undefined?
-            null
-            :
+            detail.name in params && params[detail.name as keyof IMenu]!==undefined?
             <DetailedMenu key={detail.label} name={detail.name} label={detail.label} type={detail.type} price={detail.price}/>
+            :
+            null
           ))}
         </Modal.Body>
         <Modal.Footer>
