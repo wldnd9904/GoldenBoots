@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import { useForm } from 'react-hook-form';
 
 interface ILoginForm{
   show: boolean;
@@ -12,6 +13,10 @@ interface ILoginForm{
 };
 
 function LoginForm({show, isRegister, handleClose}:ILoginForm) {
+  const { register, handleSubmit } = useForm();
+  const onValid = (data:any) => {
+    console.log(data);
+  };
   return (
     <Modal
     show={show}
@@ -25,22 +30,55 @@ function LoginForm({show, isRegister, handleClose}:ILoginForm) {
         <Modal.Title>회원가입</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
-          <Row className="mb-3">
+        <Form onSubmit={handleSubmit(onValid)}>
             <Form.Group as={Col} controlId="formEmail">
               <Form.Label>아이디</Form.Label>
-              <Form.Control type="email" placeholder="ID" />
+              <Form.Control {...register("userID", {required:true})} type="ID" placeholder="ID" />
             </Form.Group>
 
             <Form.Group as={Col} controlId="formPassword">
               <Form.Label>패스워드</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control {...register("password", {required:true})} type="password" placeholder="Password" />
             </Form.Group>
-          </Row>
+            <Form.Group as={Col} controlId="formPassword">
+              <Form.Label>패스워드 확인</Form.Label>
+              <Form.Control {...register("password1", {required:true})} type="password" placeholder="Password" />
+            </Form.Group>
 
           <Form.Group className="mb-3" controlId="formEmail">
             <Form.Label>이메일</Form.Label>
-            <Form.Control placeholder="heungmin@uos.ac.kr" />
+            <Form.Control {...register("email", {required:true})} type="email" placeholder="heungmin@uos.ac.kr" />
+          </Form.Group>
+
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formName">
+              <Form.Label>이름</Form.Label>
+              <Form.Control {...register("name", {required:true})} placeholder="손흥민"/>
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="formSex">
+              <Form.Label>성별</Form.Label>
+              <Form.Select {...register("sex", {required:true})} defaultValue="Choose...">
+                <option>선택안함</option>
+                <option>남성</option>
+                <option>여성</option>
+                <option>기타</option>
+              </Form.Select>
+            </Form.Group>
+          </Row>
+
+          <Form.Group as={Col} controlId="formName">
+              <Form.Label>전화번호</Form.Label>
+              <Form.Control {...register("phone", {required:true})} type="tel" placeholder="010-0000-0000"/>
+            </Form.Group>
+
+          <Form.Group as={Col} controlId="formBornDate">
+              <Form.Label>생년월일</Form.Label>
+              <Form.Control {...register("birth", {required:true})} type="date" placeholder="yyyy-mm-dd"/>
+            </Form.Group>
+
+          <Form.Group className="mb-3" id="formStaff">
+            <Form.Check type="checkbox" label="직원용 계정" />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formAddress1">
@@ -52,38 +90,12 @@ function LoginForm({show, isRegister, handleClose}:ILoginForm) {
             <Form.Label>상세주소</Form.Label>
             <Form.Control placeholder="정보기술관 326호" />
           </Form.Group>
-
-          <Row className="mb-3">
-            <Form.Group as={Col} controlId="formName">
-              <Form.Label>이름</Form.Label>
-              <Form.Control placeholder="손흥민"/>
-            </Form.Group>
-
-            <Form.Group as={Col} controlId="formSex">
-              <Form.Label>성별</Form.Label>
-              <Form.Select defaultValue="Choose...">
-                <option>선택안함</option>
-                <option>남성</option>
-                <option>여성</option>
-                <option>기타</option>
-              </Form.Select>
-            </Form.Group>
-
-            <Form.Group as={Col} controlId="formBornDate">
-              <Form.Label>생년월일</Form.Label>
-              <Form.Control placeholder="yyyy-mm-dd"/>
-            </Form.Group>
-          </Row>
-
-          <Form.Group className="mb-3" id="formStaff">
-            <Form.Check type="checkbox" label="직원용 계정" />
-          </Form.Group>
+          <Button variant="primary" type="submit">
+              회원가입
+        </Button>
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" type="submit">
-              회원가입
-        </Button>
       </Modal.Footer>
     </>
     :

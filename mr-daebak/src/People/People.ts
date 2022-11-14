@@ -11,6 +11,12 @@ export interface IPeople{
     isStaff: boolean;
 };
 
+export interface ICustomer extends IPeople{};
+
+export interface IStaff extends IPeople{
+    staffID: number;
+};
+
 export interface IAddress{
     address1: string;
     address2: string;
