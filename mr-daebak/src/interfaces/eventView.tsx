@@ -25,13 +25,13 @@ function EventView(params:IEvent) {
       >
         <Modal.Header closeButton>
           <Modal.Title>{params.name}</Modal.Title>
-          <p>{" " + params.from + " ~ " + params.to}</p>
+          <h2>{`${params.from} ~ ${params.to}`}</h2>
         </Modal.Header>
         <Modal.Body>
-        <img width="100%" src={params.src_big} />
+        <img width="100%" alt={params.name} src={params.src_big} />
         </Modal.Body>
         <Modal.Footer>
-            {   params.voucherID!=0?
+            {   params.voucherID!==0?
                 <Button variant="primary" type="submit">
                 쿠폰 수령하기
                 </Button>

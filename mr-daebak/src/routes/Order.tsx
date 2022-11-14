@@ -1,20 +1,23 @@
-import { Helmet } from "react-helmet";
 import Menu from "../interfaces/menuView";
 import Container from 'react-bootstrap/Container';
 import { Row } from "react-bootstrap";
 import CartList from "../interfaces/cartListView";
 import {menuList} from "../Order/Menu";
+import { HelmetProvider, Helmet } from "react-helmet-async";
 
 function Order(){
     return (
         <>
-            <Helmet>
-                <title>주문하기</title>
-            </Helmet>
+            <HelmetProvider>
+                <Helmet>
+                    <title>주문하기</title>
+                </Helmet>
+            </HelmetProvider>
         <Container fluid>
             <Row>
                 {menuList.map(menu => 
                 <Menu 
+                    key={menu.dinnerID}
                     dinnerID={menu.dinnerID}
                     dinner_name={menu.dinner_name}
                     desc={menu.desc}

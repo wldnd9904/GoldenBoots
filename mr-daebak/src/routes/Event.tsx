@@ -1,13 +1,15 @@
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import Container from 'react-bootstrap/Container';
 import EventList from "../interfaces/eventListView";
 
 function Event(){
     return (
         <>
-            <Helmet>
+            <HelmetProvider>
+                <Helmet>
                     <title>이벤트</title>
-            </Helmet>
+                </Helmet>
+            </HelmetProvider>
             <Container>
                 <EventList />
             </Container>

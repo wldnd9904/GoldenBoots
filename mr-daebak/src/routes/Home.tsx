@@ -1,9 +1,6 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
-import { useQuery } from "react-query";
-import React from "react";
 import CarouselView from "../interfaces/carouselView";
+import { HelmetProvider, Helmet } from "react-helmet-async";
 
 const Container = styled.div`
     padding: 0px 20px;
@@ -13,9 +10,11 @@ const Container = styled.div`
 
 function Home(){
     return (<>
-            <Helmet>
-                <title>미스터 대박 디너 서비스!</title>
-            </Helmet>
+            <HelmetProvider>
+                <Helmet>
+                    <title>이벤트</title>
+                </Helmet>
+            </HelmetProvider>
         <Container>
             <span>Home</span>
             <CarouselView />

@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import DetailedMenu from './detailedMenuView';
 import { detailedMenuTypeList, IDetailedMenuType, IMenu } from '../Order/Menu';
 
@@ -30,13 +30,13 @@ function Menu(params:IMenu) {
         <Modal.Header closeButton>
           <Modal.Title>{params.dinner_name}</Modal.Title>
         </Modal.Header>
-        <img src={params.src_big} />
+        <img alt={params.dinner_name} src={params.src_big} />
         <Modal.Body>
           {detailedMenuTypeList.map((detail:IDetailedMenuType,idx)=>(
-            eval('params.'+detail.name)==undefined?
+            eval('params.'+detail.name)===undefined?
             null
             :
-            <DetailedMenu name={detail.name} label={detail.label} type={detail.type} price={detail.price}/>
+            <DetailedMenu key={detail.label} name={detail.name} label={detail.label} type={detail.type} price={detail.price}/>
           ))}
         </Modal.Body>
         <Modal.Footer>

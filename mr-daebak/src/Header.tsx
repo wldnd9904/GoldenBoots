@@ -25,10 +25,8 @@ function Header() {
       {['md'].map((expand) => (
         <Navbar fixed="top" key={expand} bg="white" expand={expand} className="mb-3">
           <Container fluid>
-            <Navbar.Brand>
-              <Link to={`home`}>
+            <Navbar.Brand as={Link} to={'home'}>
                 <img alt="미스터 대박 서비스" src="https://github.com/wldnd9904/GoldenBoots/blob/master/mr-daebak/src/Images/daebak.png?raw=true" width="60px"/>
-              </Link>
             </Navbar.Brand>
             <Form className="center d-flex">
               <Form.Control
@@ -58,14 +56,14 @@ function Header() {
                   <Nav.Link onClick={login}>
                       로그인
                   </Nav.Link>
-                  <Nav.Link>
-                    <Link to={`order`}>주문하기</Link>
+                  <Nav.Link as={Link} to={'order'}>
+                    주문하기
                   </Nav.Link>  
-                  <Nav.Link>
-                    <Link to={`voucher`}>상품권</Link>
+                  <Nav.Link as={Link} to={'voucher'}>
+                    상품권
                   </Nav.Link>
-                  <Nav.Link>
-                    <Link to={`event`}>이벤트</Link>
+                  <Nav.Link as={Link} to={'event'}>
+                    이벤트
                   </Nav.Link>
                 </Nav>
               </Offcanvas.Body>

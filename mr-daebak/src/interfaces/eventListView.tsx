@@ -13,7 +13,7 @@ const eventList:IEvent[] = [
         voucherID: 0,
     },
     {   
-        eventID: 1,
+        eventID: 2,
         name: "이벤트",
         from: "2020-02-02",
         to: "2020-02-03",
@@ -22,7 +22,7 @@ const eventList:IEvent[] = [
         voucherID: 0,
     },
     {   
-        eventID: 1,
+        eventID: 3,
         name: "이벤트",
         from: "2020-02-02",
         to: "2020-02-03",
@@ -37,7 +37,8 @@ function EventList(){
         <Container>
         { eventList.map((eventItem:IEvent) => (
             <EventView
-            eventID={0}
+            key={eventItem.eventID}
+            eventID={eventItem.eventID}
             name={eventItem.name}
             from={eventItem.from}
             to={eventItem.to}

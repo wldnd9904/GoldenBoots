@@ -5,7 +5,7 @@ import { IDetailedMenuType } from '../Order/Menu';
 
 
   function DetailedMenu(params:IDetailedMenuType){
-    const [value, setValue] = useState<number>();
+    const [value, setValue] = useState<number>(1);
     return (
       <>
         <h2>{params.label}</h2>
@@ -23,7 +23,8 @@ import { IDetailedMenuType } from '../Order/Menu';
                   variant="outline-primary"
                   name="넣기"
                   value={1}
-                  checked={value == 1}>
+                  checked={value === 1}
+                  onClick={()=>setValue(1)}>
                   "넣기"
                   </ToggleButton>
                   <ToggleButton
@@ -32,7 +33,8 @@ import { IDetailedMenuType } from '../Order/Menu';
                   variant="outline-primary"
                   name="빼기"
                   value={0}
-                  checked={value == 0}>
+                  checked={value === 0}
+                  onClick={()=>setValue(0)}>
                   "빼기"
                   </ToggleButton>
                 </ButtonGroup>,
