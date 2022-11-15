@@ -17,7 +17,7 @@ interface IModalForm{
 };
 
 function LoginForm({show, handleClose}:IModalForm) {
-  const { register, handleSubmit, formState:{errors}, setError} = useForm<ILoginForm>();
+  const { register, handleSubmit, formState:{errors}} = useForm<ILoginForm>();
   const onValid = (data:ILoginForm) => {
     alert("good");
   };
@@ -47,6 +47,7 @@ function LoginForm({show, handleClose}:IModalForm) {
           <Button variant="primary" type="submit">
             로그인
           </Button>
+              {errors?.extraError? (<Badge bg="secondary">{`${errors?.extraError?.message}`}</Badge>):null}
         </Form>
       </Modal.Body>
       <Modal.Footer>
