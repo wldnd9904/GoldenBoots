@@ -7,6 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from 'react-router-dom';
 import LoginForm from './interfaces/loginForm';
+import RegisterForm from './interfaces/registerForm';
 
 function Header() {
   const [isRegister, setIsRegister] = useState(true);
@@ -71,7 +72,12 @@ function Header() {
           </Container>
         </Navbar>
       ))}
-      <LoginForm show={show} isRegister={isRegister} handleClose={handleClose} />
+      {
+      isRegister?
+      <RegisterForm show={show} handleClose={handleClose} />
+        :
+      <LoginForm show={show} handleClose={handleClose} />
+      }
     </>
   );
 }

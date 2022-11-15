@@ -1,125 +1,56 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
 import { useForm } from 'react-hook-form';
 
 interface ILoginForm{
+  userID: string;
+  password: string;
+  extraError?: string;
+}
+
+interface IModalForm{
   show: boolean;
-  isRegister: boolean;
   handleClose: ()=>void;
 };
 
-function LoginForm({show, isRegister, handleClose}:ILoginForm) {
-  const { register, handleSubmit } = useForm();
-  const onValid = (data:any) => {
-    console.log(data);
+function LoginForm({show, handleClose}:IModalForm) {
+  const { register, handleSubmit, formState:{errors}, setError} = useForm<ILoginForm>();
+  const onValid = (data:ILoginForm) => {
+    alert("good");
   };
+  console.log(errors);
   return (
     <Modal
     show={show}
     onHide={handleClose}
     backdrop="static"
     keyboard={false}
-  >
-    {isRegister?
-    <>
-      <Modal.Header closeButton>
-        <Modal.Title>회원가입</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form onSubmit={handleSubmit(onValid)}>
-            <Form.Group as={Col} controlId="formEmail">
-              <Form.Label>아이디</Form.Label>
-              <Form.Control {...register("userID", {required:true})} type="ID" placeholder="ID" />
-            </Form.Group>
-
-            <Form.Group as={Col} controlId="formPassword">
-              <Form.Label>패스워드</Form.Label>
-              <Form.Control {...register("password", {required:true})} type="password" placeholder="Password" />
-            </Form.Group>
-            <Form.Group as={Col} controlId="formPassword">
-              <Form.Label>패스워드 확인</Form.Label>
-              <Form.Control {...register("password1", {required:true})} type="password" placeholder="Password" />
-            </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formEmail">
-            <Form.Label>이메일</Form.Label>
-            <Form.Control {...register("email", {required:true})} type="email" placeholder="heungmin@uos.ac.kr" />
-          </Form.Group>
-
-          <Row className="mb-3">
-            <Form.Group as={Col} controlId="formName">
-              <Form.Label>이름</Form.Label>
-              <Form.Control {...register("name", {required:true})} placeholder="손흥민"/>
-            </Form.Group>
-
-            <Form.Group as={Col} controlId="formSex">
-              <Form.Label>성별</Form.Label>
-              <Form.Select {...register("sex", {required:true})} defaultValue="Choose...">
-                <option>선택안함</option>
-                <option>남성</option>
-                <option>여성</option>
-                <option>기타</option>
-              </Form.Select>
-            </Form.Group>
-          </Row>
-
-          <Form.Group as={Col} controlId="formName">
-              <Form.Label>전화번호</Form.Label>
-              <Form.Control {...register("phone", {required:true})} type="tel" placeholder="010-0000-0000"/>
-            </Form.Group>
-
-          <Form.Group as={Col} controlId="formBornDate">
-              <Form.Label>생년월일</Form.Label>
-              <Form.Control {...register("birth", {required:true})} type="date" placeholder="yyyy-mm-dd"/>
-            </Form.Group>
-
-          <Form.Group className="mb-3" id="formStaff">
-            <Form.Check type="checkbox" label="직원용 계정" />
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formAddress1">
-            <Form.Label>주소</Form.Label>
-            <Form.Control placeholder="서울특별시 동대문구 전농동" />
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formAddress2">
-            <Form.Label>상세주소</Form.Label>
-            <Form.Control placeholder="정보기술관 326호" />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-              회원가입
-        </Button>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-      </Modal.Footer>
-    </>
-    :
-    <>
+    >
       <Modal.Header closeButton>
         <Modal.Title>로그인</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
-          <Form.Group className="mb-3" controlId="formGroupId">
+        <Form onSubmit={handleSubmit(onValid)}>
+          <Form.Group className="mb-3" controlId="formLoginId">
             <Form.Label>아이디</Form.Label>
-            <Form.Control type="id" placeholder="ID" />
+              <Form.Control {...register("userID", {required:"값이 필요합니다."})} type="id" placeholder="ID" />
+              {errors?.userID? (<Badge bg="secondary">{`${errors?.userID?.message}`}</Badge>):null}
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formGroupPassword">
-            <Form.Label>패스워드</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
+          <Form.Group className="mb-3" controlId="formLoginPassword">
+              <Form.Label>비밀번호</Form.Label>
+              <Form.Control {...register("password", {required:"값이 필요합니다."})} type="password" placeholder="Password" />
+              {errors?.password? (<Badge bg="secondary">{`${errors?.password?.message}`}</Badge>):null}
           </Form.Group>
+          <Button variant="primary" type="submit">
+            로그인
+          </Button>
         </Form>
-        <Button variant="primary" onClick={handleClose}>
-          로그인
-        </Button>
       </Modal.Body>
       <Modal.Footer>
-        <div className="d-grid gap-2">
+        <div className="d-flex gap-2">
           <Button variant="outline-dark">
             <svg id="twitter" viewBox="0 0 16 16" width="16px" height="16px">
               <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"></path>
@@ -140,9 +71,7 @@ function LoginForm({show, isRegister, handleClose}:ILoginForm) {
           </Button>
         </div>
       </Modal.Footer>
-    </>
-    }
-  </Modal>
+    </Modal>
   );
 }
 
