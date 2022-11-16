@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
+import { useRecoilState } from 'recoil';
+import { IPeople, userDataAtom } from '../People/People';
 
 interface ILoginForm{
   userID: string;
@@ -17,9 +19,22 @@ interface IModalForm{
 };
 
 function LoginForm({show, handleClose}:IModalForm) {
+  const [userData, setUserData] = useRecoilState<IPeople>(userDataAtom);
   const { register, handleSubmit, formState:{errors}} = useForm<ILoginForm>();
   const onValid = (data:ILoginForm) => {
-    alert("good");
+    let demodata:IPeople = {
+      userID: data.userID,
+      password: data.password,
+      email: '123',
+      name: "123",
+      sex: '123',
+      phone: '123',
+      birth: '123',
+      isStaff: false
+    };
+    setUserData(demodata);
+    alert("로그인되었습니다.");
+    handleClose();
   };
   console.log(errors);
   return (

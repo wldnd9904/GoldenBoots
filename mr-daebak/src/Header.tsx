@@ -6,10 +6,13 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import LoginForm from './interfaces/loginForm';
 import RegisterForm from './interfaces/registerForm';
+import { IPeople, userDataAtom } from './People/People';
 
 function Header() {
+  const [userData, setUserData] = useRecoilState<IPeople>(userDataAtom);
   const [isRegister, setIsRegister] = useState(true);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -46,17 +49,26 @@ function Header() {
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                  로그인 해주세요.
+                  {userData?`${userData?.name}님`:"로그인 해주세요."}
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link onClick={register}>
-                      회원가입
-                  </Nav.Link>
-                  <Nav.Link onClick={login}>
-                      로그인
-                  </Nav.Link>
+                  {
+                  userData?
+                    <Nav.Link onClick={register}>
+                        {userData?.name}
+                    </Nav.Link>
+                  :
+                  <>
+                    <Nav.Link onClick={register}>
+                        회원가입
+                    </Nav.Link>
+                    <Nav.Link onClick={login}>
+                        로그인
+                    </Nav.Link>
+                  </>
+                  }
                   <Nav.Link as={Link} to={'order'}>
                     주문하기
                   </Nav.Link>  

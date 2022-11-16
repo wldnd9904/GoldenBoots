@@ -1,10 +1,10 @@
 import { atom } from "recoil";
 
 export interface IPeople{
-    userID: number;
+    userID: string;
     password: string;
     email: string;
-    name: number;
+    name: string;
     sex: string;
     phone: string;
     birth: string;
@@ -29,7 +29,8 @@ export interface IAnonymousAddress{
     expire: string;
 }
 
-export const userDataAtom = atom({
+export const userDataAtom = atom<IPeople>({
     key : "userData",
-    default : false,
+    default : undefined,
 });
+
