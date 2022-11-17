@@ -1,13 +1,17 @@
 {
   "files": {
-    "main.css": "/GoldenBoots/static/css/main.76031048.css",
-    "main.js": "/GoldenBoots/static/js/main.5d070b9b.js",
+    "main.css": "/GoldenBoots/static/css/main.dea5f8aa.css",
+    "main.js": "/GoldenBoots/static/js/main.cb1ca8f0.js",
+    "static/media/slick.svg": "/GoldenBoots/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/GoldenBoots/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/GoldenBoots/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/GoldenBoots/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/GoldenBoots/index.html",
-    "main.76031048.css.map": "/GoldenBoots/static/css/main.76031048.css.map",
-    "main.5d070b9b.js.map": "/GoldenBoots/static/js/main.5d070b9b.js.map"
+    "main.dea5f8aa.css.map": "/GoldenBoots/static/css/main.dea5f8aa.css.map",
+    "main.cb1ca8f0.js.map": "/GoldenBoots/static/js/main.cb1ca8f0.js.map"
   },
   "entrypoints": [
-    "static/css/main.76031048.css",
-    "static/js/main.5d070b9b.js"
+    "static/css/main.dea5f8aa.css",
+    "static/js/main.cb1ca8f0.js"
   ]
 }
