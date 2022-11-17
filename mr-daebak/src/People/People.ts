@@ -18,9 +18,11 @@ export interface IStaff extends IPeople{
 };
 
 export interface IAddress{
+    name: string;
+    addressID: number;
     address1: string;
     address2: string;
-    userID: number;
+    userID: string;
 }
 
 export interface IAnonymousAddress{

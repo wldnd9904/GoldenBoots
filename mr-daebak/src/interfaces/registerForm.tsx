@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { useForm } from 'react-hook-form';
 import { IPeople } from '../People/People';
+import AddressSelectorView from './addressSelectorView';
 
 interface IRegisterForm extends IPeople{
   password1: string;
@@ -138,21 +139,19 @@ function RegisterForm({show, handleClose}:IModal) {
               {errors?.phone? (<Badge bg="secondary">{`${errors?.phone?.message}`}</Badge>):null}
             </Form.Group>
 
-          <Form.Group as={Col} controlId="formBornDate">
+            <Form.Group as={Col} controlId="formBornDate">
               <Form.Label>생년월일</Form.Label>
               <Form.Control {...register("birth", {required:"값이 필요합니다."})} type="date" placeholder="yyyy-mm-dd"/>
               {errors?.birth? (<Badge bg="secondary">{`${errors?.birth?.message}`}</Badge>):null}
             </Form.Group>
+            
 
-          {/*<Form.Group className="mb-3" controlId="formAddress1">
-            <Form.Label>주소</Form.Label>
-            <Form.Control placeholder="서울특별시 동대문구 전농동" />
-          </Form.Group>
+            <AddressSelectorView selectable={false} onSelect={function (a: number): void {
+            throw new Error('Function not implemented.');
+          } } onDelete={function (a: number): void {
+            throw new Error('Function not implemented.');
+          } } />
 
-          <Form.Group className="mb-3" controlId="formAddress2">
-            <Form.Label>상세주소</Form.Label>
-            <Form.Control placeholder="정보기술관 326호" />
-              </Form.Group>*/}
           <Button variant="primary" type="submit">
               회원가입
           </Button>

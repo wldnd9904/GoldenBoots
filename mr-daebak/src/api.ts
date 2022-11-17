@@ -1,11 +1,9 @@
-import { useRecoilState } from 'recoil';
-import { IPeople, userDataAtom } from "./People/People";
+import { IPeople } from "./People/People";
 
 const BASE_URL = "";
 
 export async function getUserData(id:string,pw:string) {
-    const [userData, setUserData] = useRecoilState<IPeople>(userDataAtom);
-    const data = await fetch(`${BASE_URL}/coins`).then((result) => result.json());
-    setUserData(data);
-    return true;
+    const promise = await fetch(`${BASE_URL}/coins`);
+    const json:IPeople = await promise.json();
+    return json;
 }

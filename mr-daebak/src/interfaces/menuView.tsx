@@ -4,6 +4,8 @@ import Card from 'react-bootstrap/Card';
 import { useState } from 'react';
 import DetailedMenu from './detailedMenuView';
 import { detailedMenuTypeList, IDetailedMenuType, IMenu } from '../Order/Menu';
+import Placeholder from 'react-bootstrap/Placeholder';
+import AddressSelectorView from './addressSelectorView';
 
 function Menu(params:IMenu) {
   const [show, setShow] = useState(false);
@@ -38,6 +40,11 @@ function Menu(params:IMenu) {
             :
             null
           ))}
+          <AddressSelectorView selectable={true} onSelect={function (a: number): void {
+            throw new Error('Function not implemented.');
+          } } onDelete={function (a: number): void {
+            throw new Error('Function not implemented.');
+          } } />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" type="submit">

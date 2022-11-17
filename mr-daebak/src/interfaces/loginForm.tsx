@@ -22,8 +22,10 @@ interface IModalForm{
 function LoginForm({show, handleClose}:IModalForm) {
   const [userData, setUserData] = useRecoilState<IPeople>(userDataAtom);
   const { register, handleSubmit, formState:{errors}} = useForm<ILoginForm>();
-  const onValid = (data:ILoginForm) => {
-    if(getUserData(data.userID,data.password) == false )return;
+  const onValid = async (data:ILoginForm) => {
+    const fetchedUserData = await getUserData(data.userID,data.password);
+    if(fetchedUserData==undefined) return;
+    setUserData(fetchedUserData);
     alert("로그인되었습니다.");
     handleClose();
   };
