@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import { IPeople, userDataAtom } from '../People/People';
 import { getUserData } from '../api';
+import PeopleManager from '../People/PeopleManager';
 
 interface ILoginForm{
   userID: string;
@@ -21,12 +22,17 @@ interface IModalForm{
 
 function LoginForm({show, handleClose}:IModalForm) {
   const [userData, setUserData] = useRecoilState<IPeople>(userDataAtom);
-  const { register, handleSubmit, formState:{errors}} = useForm<ILoginForm>();
+  const { register, handleSubmit, formState:{errors},reset, setValue} = useForm<ILoginForm>();
   const onValid = async (data:ILoginForm) => {
-    const fetchedUserData = await getUserData(data.userID,data.password);
-    if(fetchedUserData==undefined) return;
-    setUserData(fetchedUserData);
+    const fetchedData = await PeopleManager.login(data.userID,data.password);
+    console.log(fetchedData);
+    if(!fetchedData) {
+      alert("로그인에 실패하였습니다.");
+      setValue("password","");
+      return;
+    }
     alert("로그인되었습니다.");
+    reset();
     handleClose();
   };
   console.log(errors);

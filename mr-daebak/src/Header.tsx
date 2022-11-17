@@ -10,7 +10,8 @@ import { useRecoilState } from 'recoil';
 import LoginForm from './interfaces/loginForm';
 import MyPage from './interfaces/myPage';
 import RegisterForm from './interfaces/registerForm';
-import { IPeople, userDataAtom } from './People/People';
+import { IPeople } from './People/People';
+import { userDataAtom } from './People/PeopleManager';
 
 function Header() {
   const [userData, setUserData] = useRecoilState<IPeople>(userDataAtom);

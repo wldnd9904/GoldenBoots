@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import styled from 'styled-components';
 import Image from 'react-bootstrap/Image';
+import RecentOrderView from './recentOrderView';
+import { IOrder } from '../Order/Order';
 
 
 const OverLay = styled.div`
@@ -26,11 +28,12 @@ function CartList() {
 
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+          <Offcanvas.Title>장바구니</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          Some text as placeholder. In real life you can have the elements you
-          have chosen. Like, text, images, lists, etc.
+          <RecentOrderView onAdd={function (order: IOrder): void {
+            throw new Error('Function not implemented.');
+          } } />
         </Offcanvas.Body>
       </Offcanvas>
     </>
