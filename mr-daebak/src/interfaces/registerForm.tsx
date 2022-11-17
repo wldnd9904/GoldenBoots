@@ -19,12 +19,19 @@ interface IModal{
 };
 
 function RegisterForm({show, handleClose}:IModal) {
-  const { register, handleSubmit, formState:{errors}, setError} = useForm<IRegisterForm>();
+  const { register, handleSubmit, formState:{errors}, setError, reset} = useForm<IRegisterForm>();
   const onValid = (data:IRegisterForm) => {
     if(data.password1 !== data.password){
-      setError("password1", {message:"비밀번호가 일치하지 않습니다."},{shouldFocus:true})
+      setError("password1", {message:"비밀번호가 일치하지 않습니다."},{shouldFocus:true});
+      return;
     }
-    alert("good")
+    //TODO: 아이디 중복확인
+    //아이디를 포스트하고 백엔드에서 아이디 있는지 검사하고 없다고 반환
+    //setError
+    //회원가입 정보 포스트 
+    reset();
+    alert("회원가입이 완료되었습니다. 로그인 해 주세요.");
+    handleClose();
   };
   console.log(errors);
   return (
