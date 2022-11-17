@@ -8,21 +8,26 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import LoginForm from './interfaces/loginForm';
+import MyPage from './interfaces/myPage';
 import RegisterForm from './interfaces/registerForm';
 import { IPeople, userDataAtom } from './People/People';
 
 function Header() {
   const [userData, setUserData] = useRecoilState<IPeople>(userDataAtom);
-  const [isRegister, setIsRegister] = useState(true);
+  const [modalType, setModalType] = useState("R");
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const register = () => {
     setShow(true);
-    setIsRegister(true);
+    setModalType("R");
   };
   const login = () => {
     setShow(true);
-    setIsRegister(false);
+    setModalType("L");
+  };
+  const myPage = () => {
+    setShow(true);
+    setModalType("M");
   };
   return (
     <>
@@ -56,8 +61,8 @@ function Header() {
                 <Nav className="justify-content-end flex-grow-1 pe-3">
                   {
                   userData?
-                    <Nav.Link onClick={register}>
-                        {userData?.name}
+                    <Nav.Link onClick={myPage}>
+                        내 정보
                     </Nav.Link>
                   :
                   <>
@@ -85,10 +90,11 @@ function Header() {
         </Navbar>
       ))}
       {
-      isRegister?
-      <RegisterForm show={show} handleClose={handleClose} />
-        :
-      <LoginForm show={show} handleClose={handleClose} />
+        {
+          "R":<RegisterForm show={show} handleClose={handleClose} />,
+          "L":<LoginForm show={show} handleClose={handleClose} />,
+          "M":<MyPage show={show} handleClose={handleClose} />
+        }[modalType]
       }
     </>
   );
