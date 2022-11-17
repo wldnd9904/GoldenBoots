@@ -31,8 +31,3 @@ export interface IAnonymousAddress{
     expire: string;
 }
 
-export const userDataAtom = atom<IPeople>({
-    key : "userData",
-    default : undefined,
-});
-

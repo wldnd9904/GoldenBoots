@@ -6,8 +6,9 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { useForm } from 'react-hook-form';
-import { IPeople, userDataAtom } from '../People/People';
+import { IPeople } from '../People/People';
 import { useRecoilState } from 'recoil';
+import { userDataAtom } from '../People/PeopleManager';
 
 interface IRegisterForm extends IPeople{
   password1: string;

@@ -5,9 +5,9 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
-import { IPeople, userDataAtom } from '../People/People';
+import { IPeople } from '../People/People';
 import { getUserData } from '../api';
-import PeopleManager from '../People/PeopleManager';
+import PeopleManager, { userDataAtom } from '../People/PeopleManager';
 
 interface ILoginForm{
   userID: string;
