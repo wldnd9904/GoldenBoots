@@ -25,7 +25,7 @@ app.get("/", function (요청, 응답) {
 
 app.get("/dbtest",(req,res)=>{
   connection.connect();
-  connection.query('SELECT * from dbcustomer', (error, rows, fields) => {
+  connection.query('SELECT * from customer', (error, rows, fields) => {
   if (error) throw error;
   //console.log('Customer info is: ', rows);
   res.send(rows);
