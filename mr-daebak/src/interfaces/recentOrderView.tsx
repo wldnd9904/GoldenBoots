@@ -1,9 +1,8 @@
-import React, { Component, useState } from "react";
+import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Button, Card, CloseButton, Placeholder } from "react-bootstrap";
-import { IAddress } from "../People/People";
+import { Button, Card } from "react-bootstrap";
 import styled from "styled-components";
 import { IOrder } from "../Order/Order";
 
@@ -47,7 +46,7 @@ const demoOrders:IOrder[]=[
   plate_normal: undefined,
   dinner_price: undefined,
   styleID: undefined,
-  style_name: undefined,
+  style_name: "팦파",
   plate_box: undefined,
   nepkin_normal: undefined,
   nepkin_white_cotton: undefined,
@@ -87,7 +86,7 @@ const demoOrders:IOrder[]=[
   plate_normal: undefined,
   dinner_price: undefined,
   styleID: undefined,
-  style_name: undefined,
+  style_name: "초차",
   plate_box: undefined,
   nepkin_normal: undefined,
   nepkin_white_cotton: undefined,
@@ -102,6 +101,7 @@ const demoOrders:IOrder[]=[
   style_price: undefined
 },
 ];
+
 interface IRecentOrderView{
   onAdd: (order:IOrder)=>void;
 }
@@ -130,19 +130,6 @@ function RecentOrderView(params:IRecentOrderView){
             </Card>
           ))
         }
-        <Card>
-          <Card.Header>
-            <span style={{opacity:0}}>_</span>
-          </Card.Header>
-          <Card.Body>
-            <Card.Title>
-              <span style={{opacity:0}}>_</span>
-            </Card.Title>
-            <Card.Text>
-              <span style={{opacity:0}}>_</span>
-            </Card.Text>
-          </Card.Body>
-        </Card>
       </Slider>
     </Container>
   );

@@ -1,5 +1,3 @@
-import { atom } from "recoil";
-
 export interface IPeople{
     userID: string;
     password: string;

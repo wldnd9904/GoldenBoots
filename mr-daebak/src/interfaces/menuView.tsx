@@ -6,6 +6,7 @@ import DetailedMenu from './detailedMenuView';
 import { detailedMenuTypeList, IDetailedMenuType, IMenu } from '../Order/Menu';
 import Placeholder from 'react-bootstrap/Placeholder';
 import AddressSelectorView from './addressSelectorView';
+import LazyImage from './lazyImage';
 
 function Menu(params:IMenu) {
   const [show, setShow] = useState(false);
@@ -13,8 +14,8 @@ function Menu(params:IMenu) {
   const handleClose = () => setShow(false);
   return (
     <>
-      <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src={params.src_thumbnail} />
+      <Card style={{ width: '22rem' }}>
+        <Card.Img as={LazyImage} variant="top" src={params.src_thumbnail}/>
         <Card.Body>
           <Card.Title>{params.dinner_name}</Card.Title>
           <Card.Text>

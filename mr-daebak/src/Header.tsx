@@ -10,6 +10,7 @@ import { useRecoilState } from 'recoil';
 import LoginForm from './interfaces/loginForm';
 import MyPage from './interfaces/myPage';
 import RegisterForm from './interfaces/registerForm';
+import SpeechRecognitionView from './interfaces/speechRecognitionView';
 import { IPeople } from './People/People';
 import { userDataAtom } from './People/PeopleManager';
 
@@ -30,10 +31,14 @@ function Header() {
     setShow(true);
     setModalType("M");
   };
+  const speech = () => {
+    setShow(true);
+    setModalType("S");
+  };
   return (
     <>
       {['md'].map((expand) => (
-        <Navbar fixed="top" key={expand} bg="white" expand={expand} className="mb-3">
+        <Navbar fixed="top" key={expand} bg="white" expand={expand} className="mb-3" style={{boxShadow: "0px -10px 20px 1px gray"}}>
           <Container fluid>
             <Navbar.Brand as={Link} to={'home'}>
                 <img alt="미스터 대박 서비스" src="https://github.com/wldnd9904/GoldenBoots/blob/master/mr-daebak/src/Images/daebak.png?raw=true" width="60px"/>
@@ -45,7 +50,9 @@ function Header() {
                 className="me-2"
                 aria-label="Search"
               />
-              <Button variant="outline-success">Search</Button>
+              <Button variant="outline-success" onClick={speech}>
+                
+              </Button>
             </Form>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
@@ -94,7 +101,8 @@ function Header() {
         {
           "R":<RegisterForm show={show} handleClose={handleClose} />,
           "L":<LoginForm show={show} handleClose={handleClose} />,
-          "M":<MyPage show={show} handleClose={handleClose} />
+          "M":<MyPage show={show} handleClose={handleClose} />,
+          "S":<SpeechRecognitionView show={show} handleClose={handleClose} />
         }[modalType]
       }
     </>

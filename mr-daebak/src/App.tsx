@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Router from "./Router";
 import {createGlobalStyle} from "styled-components";
 import { ThemeProvider } from 'styled-components';

@@ -7,7 +7,6 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { useForm } from 'react-hook-form';
 import { IPeople } from '../People/People';
-import AddressSelectorView from './addressSelectorView';
 
 interface IRegisterForm extends IPeople{
   password1: string;
@@ -45,8 +44,8 @@ function RegisterForm({show, handleClose}:IModal) {
       <Modal.Header closeButton>
         <Modal.Title>회원가입</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
         <Form onSubmit={handleSubmit(onValid)}>
+      <Modal.Body>
             <Form.Group as={Col} controlId="formEmail">
               <Form.Label>아이디</Form.Label>
               <Form.Control {...register("userID", {
@@ -144,22 +143,15 @@ function RegisterForm({show, handleClose}:IModal) {
               <Form.Control {...register("birth", {required:"값이 필요합니다."})} type="date" placeholder="yyyy-mm-dd"/>
               {errors?.birth? (<Badge bg="secondary">{`${errors?.birth?.message}`}</Badge>):null}
             </Form.Group>
-            
 
-            <AddressSelectorView selectable={false} onSelect={function (a: number): void {
-            throw new Error('Function not implemented.');
-          } } onDelete={function (a: number): void {
-            throw new Error('Function not implemented.');
-          } } />
-
+          {errors?.extraError? (<Badge bg="secondary">{`${errors?.extraError?.message}`}</Badge>):null}
+      </Modal.Body>
+      <Modal.Footer>
           <Button variant="primary" type="submit">
               회원가입
           </Button>
-          {errors?.extraError? (<Badge bg="secondary">{`${errors?.extraError?.message}`}</Badge>):null}
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
       </Modal.Footer>
+        </Form>
     </Modal>
   );
 }
