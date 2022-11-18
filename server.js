@@ -10,14 +10,17 @@ const connection = mysql.createConnection({
   port: 8200
 });
 
-app.listen(8080, function () {
-  console.log("listening on 8080");
+app.listen(3000, function () {
+  console.log("listening on 3000");
+  console.log(path.join(__dirname, "mr-daebak/build/index.html"));
 });
 
 app.use(express.static(path.join(__dirname, "mr-daebak/build")));
 
+
 app.get("/", function (요청, 응답) {
   응답.sendFile(path.join(__dirname, "/mr-daebak/build/index.html"));
+
 });
 
 app.get("/dbtest",(req,res)=>{

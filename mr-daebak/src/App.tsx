@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Router from "./Router";
 import {createGlobalStyle} from "styled-components";
 import { ThemeProvider } from 'styled-components';
 import {darkTheme, lightTheme} from "./theme"
-import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { atom, RecoilRoot, useRecoilValue } from 'recoil';
-import { userDataAtom } from './People/People';
+import { atom, useRecoilValue } from 'recoil';
 
 const GlobalStyle = createGlobalStyle`
 //@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');

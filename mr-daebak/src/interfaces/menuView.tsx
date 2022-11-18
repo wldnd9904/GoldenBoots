@@ -4,6 +4,9 @@ import Card from 'react-bootstrap/Card';
 import { useState } from 'react';
 import DetailedMenu from './detailedMenuView';
 import { detailedMenuTypeList, IDetailedMenuType, IMenu } from '../Order/Menu';
+import Placeholder from 'react-bootstrap/Placeholder';
+import AddressSelectorView from './addressSelectorView';
+import LazyImage from './lazyImage';
 
 function Menu(params:IMenu) {
   const [show, setShow] = useState(false);
@@ -11,8 +14,8 @@ function Menu(params:IMenu) {
   const handleClose = () => setShow(false);
   return (
     <>
-      <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src={params.src_thumbnail} />
+      <Card style={{ width: '22rem' }}>
+        <Card.Img as={LazyImage} variant="top" src={params.src_thumbnail}/>
         <Card.Body>
           <Card.Title>{params.dinner_name}</Card.Title>
           <Card.Text>
@@ -38,6 +41,11 @@ function Menu(params:IMenu) {
             :
             null
           ))}
+          <AddressSelectorView selectable={true} onSelect={function (a: number): void {
+            throw new Error('Function not implemented.');
+          } } onDelete={function (a: number): void {
+            throw new Error('Function not implemented.');
+          } } />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" type="submit">
