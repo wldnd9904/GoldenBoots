@@ -23,13 +23,13 @@ function LoginForm({show, handleClose}:IModalForm) {
   const [userData, setUserData] = useRecoilState<IPeople>(userDataAtom);
   const { register, handleSubmit, formState:{errors},reset, setValue} = useForm<ILoginForm>();
   const onValid = async (data:ILoginForm) => {
-    /*const fetchedData = await PeopleManager.login(data.userID,data.password);
+    const fetchedData = await PeopleManager.login(data.userID,data.password);
     console.log(fetchedData);
     if(!fetchedData) {
       alert("로그인에 실패하였습니다.");
       setValue("password","");
       return;
-    }*/
+    }
     alert("로그인되었습니다.");
     reset();
     handleClose();
