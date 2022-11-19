@@ -50,7 +50,7 @@ export const menuList:IMenu[] = [
         steak: 1,
         coffee: undefined,
         salad: undefined,
-        egg_scramble: undefined,
+        egg_scramble: 2,
         bacon: undefined,
         bread: undefined,
         bread_baguette: undefined,

@@ -21,7 +21,6 @@ const Container = styled.div`
 const demoOrders:IOrder[]=[
 {
   userID: "sdf",
-  menuID: 0,
   time: "1986-11-23 11:20",
   address1: "뫄뫄",
   address2: "솨솨",
@@ -61,7 +60,6 @@ const demoOrders:IOrder[]=[
   style_price: undefined
 },{
   userID: "sdf",
-  menuID: 0,
   time: "1986-11-23 11:20",
   address1: "뫄뫄",
   address2: "솨솨",

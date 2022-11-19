@@ -19,12 +19,12 @@
     "query": "^0.2.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
+    "react-bootstrap-range-slider": "^3.0.8",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-helmet-async": "^1.3.0",
     "react-hook-form": "^7.39.3",
     "react-query": "^3.39.2",
-    "react-range": "^1.8.14",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
@@ -68,5 +68,6 @@
     "@types/react-speech-recognition": "^3.9.0",
     "@types/styled-components": "^5.1.26",
     "shx": "^0.3.4"
-  }
+  },
+  "homepage": "https://wldnd9904.github.io/GoldenBoots"
 }
