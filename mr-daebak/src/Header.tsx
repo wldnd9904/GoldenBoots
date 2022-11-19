@@ -13,52 +13,63 @@ import RegisterForm from './interfaces/registerForm';
 import SpeechRecognitionView from './interfaces/speechRecognitionView';
 import { IPeople } from './People/People';
 import { userDataAtom } from './People/PeopleManager';
+import {ReactComponent as Mic} from './Images/microphone.svg'
+import styled from 'styled-components';
+
+const MicBtn = styled(Mic)`
+  :hover{
+    transition:transform 0.1s linear;
+    transform:scale(1.1);
+    opacity:0.8;
+  }
+`;
 
 function Header() {
   const [userData, setUserData] = useRecoilState<IPeople>(userDataAtom);
   const [modalType, setModalType] = useState("R");
+  const [navShow, setNavShow] = useState(false);
+  const handleNavClose = () => setNavShow(false);
+  const handleNavShow = () => setNavShow(true);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const register = () => {
     setShow(true);
+    setNavShow(false);
     setModalType("R");
   };
   const login = () => {
     setShow(true);
+    setNavShow(false);
     setModalType("L");
   };
   const myPage = () => {
     setShow(true);
+    setNavShow(false);
     setModalType("M");
   };
   const speech = () => {
     setShow(true);
+    setNavShow(false);
     setModalType("S");
   };
   return (
     <>
       {['md'].map((expand) => (
-        <Navbar fixed="top" key={expand} bg="white" expand={expand} className="mb-3" style={{boxShadow: "0px -10px 20px 1px gray"}}>
+        <Navbar fixed="top"  key={expand} bg="white" expand={expand} className="mb-3" style={{boxShadow: "0px -10px 20px 1px gray"}}>
           <Container fluid>
             <Navbar.Brand as={Link} to={'home'}>
                 <img alt="미스터 대박 서비스" src="https://github.com/wldnd9904/GoldenBoots/blob/master/mr-daebak/src/Images/daebak.png?raw=true" width="60px"/>
             </Navbar.Brand>
-            <Form className="center d-flex">
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="outline-success" onClick={speech}>
-                
-              </Button>
-            </Form>
-            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+              <div style={{position:"absolute", left:"50%", marginLeft:"-20px"}}>
+                <MicBtn onClick={speech} width="40px" height="40px"/>
+              </div>
+            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} onClick={handleNavShow} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
               placement="end"
+              show={navShow}
+              onHide={handleNavClose}
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
@@ -66,7 +77,7 @@ function Header() {
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
-                <Nav className="justify-content-end flex-grow-1 pe-3">
+                <Nav className="justify-content-end flex-grow-1 pe-3" onClick={()=>setNavShow(false)}>
                   {
                   userData?
                     <Nav.Link onClick={myPage}>

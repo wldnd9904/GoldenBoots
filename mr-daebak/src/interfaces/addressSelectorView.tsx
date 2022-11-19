@@ -127,7 +127,7 @@ function AddressSelectorView(params:IAddressSelectorView){
               <Input {...register("address2", {required:"값이 필요합니다."})} type="text" placeholder="정보기술관 326호" />
               {errors?.address2? (<Badge bg="secondary">{`${errors?.address2?.message}`}</Badge>):null}
               </Card.Text>
-              <Box>
+              <Box style={{left:"90%"}}>
                 <Button variant="outline-secondary" type="submit">+</Button>
               </Box>
             </Card.Body>

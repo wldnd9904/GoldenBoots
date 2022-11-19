@@ -1,4 +1,4 @@
-import Container from 'react-bootstrap/Container';
+import { Row, Col } from 'react-bootstrap';
 import {IEvent} from '../Homepage/Event';
 import EventView from './eventView';
 
@@ -34,19 +34,15 @@ const eventList:IEvent[] = [
 
 function EventList(){
     return(
-        <Container>
-        { eventList.map((eventItem:IEvent) => (
-            <EventView
-            key={eventItem.eventID}
-            eventID={eventItem.eventID}
-            name={eventItem.name}
-            from={eventItem.from}
-            to={eventItem.to}
-            src_thumbnail={eventItem.src_thumbnail}
-            src_big={eventItem.src_big}
-            voucherID={eventItem.voucherID} />
-        ))}
-        </Container>
+        <div style={{padding:"20px"}}>
+            <Row xs={1} md={2} lg={3} className="g-4">
+                { eventList.map((eventItem:IEvent, idx) => (
+                    <Col>
+                        <EventView key={idx} {...eventItem}/>
+                    </Col>
+                ))}
+            </Row>
+        </div>
     );
 }
 

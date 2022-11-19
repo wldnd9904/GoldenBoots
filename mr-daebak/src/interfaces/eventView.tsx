@@ -3,7 +3,16 @@ import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
 import { useState } from 'react';
 import { IEvent } from '../Homepage/Event';
+import styled from 'styled-components';
 
+const Hover=styled.div`
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  :hover{
+    transition:transform 0.1s linear;
+    transform:scale(1.02);
+    z-index:2;
+  }
+`;
 
 function EventView(params:IEvent) {
   const [show, setShow] = useState(false);
@@ -11,7 +20,7 @@ function EventView(params:IEvent) {
   const handleClose = () => setShow(false);
   return (
     <>
-      <Card style={{ width: '18rem' }} onClick={handleOpen}>
+      <Card as={Hover} style={{ width: '24rem' }} onClick={handleOpen}>
         <Card.Img variant="top" src={params.src_thumbnail} />
         <Card.Body>
           <Card.Title>{params.name}</Card.Title>

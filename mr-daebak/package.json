@@ -67,5 +67,6 @@
     "@types/react-speech-recognition": "^3.9.0",
     "@types/styled-components": "^5.1.26",
     "shx": "^0.3.4"
-  }
+  },
+  "homepage": "https://wldnd9904.github.io/GoldenBoots"
 }

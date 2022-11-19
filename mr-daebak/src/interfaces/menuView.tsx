@@ -7,6 +7,16 @@ import { detailedMenuTypeList, IDetailedMenuType, IMenu } from '../Order/Menu';
 import Placeholder from 'react-bootstrap/Placeholder';
 import AddressSelectorView from './addressSelectorView';
 import LazyImage from './lazyImage';
+import styled from 'styled-components';
+
+const Hover=styled.div`
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  :hover{
+    transition:transform 0.1s linear;
+    transform:scale(1.02);
+    z-index:2;
+  }
+`;
 
 function Menu(params:IMenu) {
   const [show, setShow] = useState(false);
@@ -14,7 +24,7 @@ function Menu(params:IMenu) {
   const handleClose = () => setShow(false);
   return (
     <>
-      <Card style={{ width: '22rem' }}>
+      <Card as={Hover} style={{ width: '22rem' }}>
         <Card.Img as={LazyImage} variant="top" src={params.src_thumbnail}/>
         <Card.Body>
           <Card.Title>{params.dinner_name}</Card.Title>
