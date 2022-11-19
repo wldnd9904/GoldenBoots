@@ -34,7 +34,6 @@ function LoginForm({show, handleClose}:IModalForm) {
     reset();
     handleClose();
   };
-  console.log(errors);
   return (
     <Modal
     show={show}

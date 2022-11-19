@@ -54,6 +54,10 @@ function Header() {
   };
   return (
     <>
+      <div style={{position:"absolute", top:"-1000px"}}>
+      <img loading="eager" src="https://via.placeholder.com/300x200?text=+" alt="placeholder"/>
+      <img loading="eager" src="https://via.placeholder.com/512x412?text=+" alt="placeholder"/>
+      </div>
       {['md'].map((expand) => (
         <Navbar fixed="top"  key={expand} bg="white" expand={expand} className="mb-3" style={{boxShadow: "0px -10px 20px 1px gray"}}>
           <Container fluid>

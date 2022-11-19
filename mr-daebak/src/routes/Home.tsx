@@ -12,7 +12,7 @@ function Home(){
     return (<>
             <HelmetProvider>
                 <Helmet>
-                    <title>이벤트</title>
+                    <title>미스터 대박 디너 서비스!</title>
                 </Helmet>
             </HelmetProvider>
         <Container>

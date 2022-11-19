@@ -20,8 +20,8 @@ function EventView(params:IEvent) {
   const handleClose = () => setShow(false);
   return (
     <>
-      <Card as={Hover} style={{ width: '24rem' }} onClick={handleOpen}>
-        <Card.Img variant="top" src={params.src_thumbnail} />
+      <Card as={Hover} style={{ width: '22rem' }} onClick={handleOpen}>
+        <Card.Img loading="lazy" variant="top" src={params.src_thumbnail} />
         <Card.Body>
           <Card.Title>{params.name}</Card.Title>
         </Card.Body>

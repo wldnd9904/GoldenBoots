@@ -16,11 +16,11 @@ function Order(){
             <div style={{padding:"20px"}}>
                 <Row xs={1} md={2} lg={3} xl={4} className="g-4">
                 {menuList.map((menu, idx) =>
-                    <Col>
+                    <Col key={idx}>
                         <Menu key={idx} {...menu} />
                     </Col>
                 )}                {menuList.map((menu, idx) =>
-                    <Col>
+                    <Col key={idx}>
                         <Menu key={idx} {...menu} />
                     </Col>
                 )}
