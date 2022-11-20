@@ -8,6 +8,12 @@ export interface IPeople{
     birth: string;
     isStaff: boolean;
 };
+
+export interface IRegisterForm extends IPeople{
+    password1: string;
+    extraError?: string;
+}
+
 export const demoPeople:IPeople={
     userID: "",
     password: "",

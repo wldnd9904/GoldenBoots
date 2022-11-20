@@ -6,12 +6,8 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { useForm } from 'react-hook-form';
-import { IPeople } from '../People/People';
-
-interface IRegisterForm extends IPeople{
-  password1: string;
-  extraError?: string;
-}
+import { IPeople, IRegisterForm } from '../People/People';
+import PeopleManager from '../People/PeopleManager';
 
 interface IModal{
   show: boolean;
@@ -25,13 +21,10 @@ function RegisterForm({show, handleClose}:IModal) {
       setError("password1", {message:"비밀번호가 일치하지 않습니다."},{shouldFocus:true});
       return;
     }
-    //TODO: 아이디 중복확인
-    //아이디를 포스트하고 백엔드에서 아이디 있는지 검사하고 없다고 반환
-    //setError
-    //회원가입 정보 포스트 
-    reset();
-    alert("회원가입이 완료되었습니다. 로그인 해 주세요.");
-    handleClose();
+    PeopleManager.register(data);
+    //reset();
+    //alert("회원가입이 완료되었습니다. 로그인 해 주세요.");
+    //handleClose();
   };
   console.log(errors);
   return (

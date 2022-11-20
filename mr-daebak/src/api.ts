@@ -1,8 +1,13 @@
+import axios from "axios";
 import { IEvent } from "./Homepage/Event";
 import { IVoucher } from "./Homepage/Voucher";
-import { IPeople } from "./People/People";
+import { IPeople, IRegisterForm } from "./People/People";
 
-const BASE_URL = "localhost:3000";
+const BASE_URL = "http://13.209.17.152:3000";
+
+export function registerAPI(data:IRegisterForm){
+    axios.post(BASE_URL+"/register",data).then((response)=>console.log(response)).catch((error)=>console.log(error))
+}
 
 export async function getUserData(id:string,pw:string) {
     const promise = await fetch(`${BASE_URL}/dbtest`);

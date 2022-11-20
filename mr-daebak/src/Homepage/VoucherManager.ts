@@ -2,7 +2,7 @@ import { atom, useRecoilState } from "recoil";
 import { getUserData, getVoucherData } from "../api";
 import { IVoucher } from "./Voucher";
 
-export default class PeopleManager{
+export default class VoucherManager{
     public static getVouchers(id:string):IVoucher[]{
         return getVoucherData(id);
     }
