@@ -21,6 +21,7 @@ function RegisterForm({show, handleClose}:IModal) {
       setError("password1", {message:"비밀번호가 일치하지 않습니다."},{shouldFocus:true});
       return;
     }
+    console.log(data);
     PeopleManager.register(data);
     //reset();
     //alert("회원가입이 완료되었습니다. 로그인 해 주세요.");

@@ -6,7 +6,8 @@ import { IPeople, IRegisterForm } from "./People/People";
 const BASE_URL = "http://13.209.17.152:3000";
 
 export function registerAPI(data:IRegisterForm){
-    axios.post(BASE_URL+"/register",data).then((response)=>console.log(response)).catch((error)=>console.log(error))
+    console.log(data);
+    axios.post(BASE_URL+"/register",data,{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>console.log(response)).catch((error)=>console.log(error))
 }
 
 export async function getUserData(id:string,pw:string) {
