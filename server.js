@@ -34,7 +34,7 @@ app.get("/", function (요청, 응답) {
 
 });
 
-app.post('/',function(req,res){
+app.post('/register',function(req,res){
   const userID=req.body.userID
   const password=req.body.password
   const email=req.body.email
