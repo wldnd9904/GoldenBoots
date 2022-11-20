@@ -11,6 +11,6 @@ export const dinnerListAtom = atom<IDinner[]>({
 });
 
 export const styleListAtom = atom<IStyle[]>({
-    key : "dinnerList",
+    key : "styleList",
     default : [],
 });
