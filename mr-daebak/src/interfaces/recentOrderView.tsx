@@ -57,7 +57,8 @@ const demoOrders:IOrder[]=[
   vase_flower: undefined,
   tray_silver: undefined,
   tray_plastic: undefined,
-  style_price: undefined
+  style_price: undefined,
+  grillType : "2",
 },{
   userID: "sdf",
   time: "1986-11-23 11:20",
@@ -96,7 +97,8 @@ const demoOrders:IOrder[]=[
   vase_flower: undefined,
   tray_silver: undefined,
   tray_plastic: undefined,
-  style_price: undefined
+  style_price: undefined,
+  grillType: "3",
 },
 ];
 
@@ -117,7 +119,7 @@ function RecentOrderView(params:IRecentOrderView){
       <Slider {...settings} >
         {
           demoOrders.map((data:IOrder, idx)=>(
-            <Card key={idx}>
+            <Card key={idx} onClick={()=>params.onAdd(data)}>
               <Card.Header>
                 {data.dinner_name}
               </Card.Header>

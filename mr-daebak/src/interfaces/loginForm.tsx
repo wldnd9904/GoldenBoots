@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
-import { IPeople } from '../People/People';
+import { demoPeople, IPeople } from '../People/People';
 import PeopleManager, { userDataAtom } from '../People/PeopleManager';
 
 interface ILoginForm{
@@ -23,6 +23,7 @@ function LoginForm({show, handleClose}:IModalForm) {
   const [userData, setUserData] = useRecoilState<IPeople>(userDataAtom);
   const { register, handleSubmit, formState:{errors},reset, setValue} = useForm<ILoginForm>();
   const onValid = async (data:ILoginForm) => {
+    setUserData(demoPeople)
     const fetchedData = await PeopleManager.login(data.userID,data.password);
     console.log(fetchedData);
     if(!fetchedData) {

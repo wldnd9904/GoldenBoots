@@ -8,7 +8,16 @@ export interface IPeople{
     birth: string;
     isStaff: boolean;
 };
-
+export const demoPeople:IPeople={
+    userID: "",
+    password: "",
+    email: "",
+    name: "",
+    sex: "",
+    phone: "",
+    birth: "",
+    isStaff: false
+}
 export interface ICustomer extends IPeople{};
 
 export interface IStaff extends IPeople{

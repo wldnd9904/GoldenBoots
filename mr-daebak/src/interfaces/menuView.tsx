@@ -2,12 +2,14 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
 import { ReactNode, useState } from 'react';
-import { detailedMenuTypeList, IDetailedMenuType, IMenu } from '../Order/Menu';
+import { detailedMenuTypeList, IDetailedMenuType, IMenu, IStyle, styleList } from '../Order/Menu';
 import AddressSelectorView from './addressSelectorView';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { IOrder } from '../Order/Order';
-import { Badge, Form } from 'react-bootstrap';
+import { Badge, Form, Tab, Tabs } from 'react-bootstrap';
+import { useRecoilValue } from 'recoil';
+import { userDataAtom } from '../People/PeopleManager';
 
 const Hover=styled.div`
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -19,12 +21,17 @@ const Hover=styled.div`
 `;
 
 function Menu(params:IMenu) {
+  const userData = useRecoilValue(userDataAtom);
   const [show, setShow] = useState(false);
-  const { register, handleSubmit, formState:{errors},clearErrors, setValue, setError, reset} = useForm<IOrder>();
+  const { register, handleSubmit, formState:{errors},clearErrors, setValue, setError, reset, getValues} = useForm<IOrder>();
   const handleOpen = () => {
     reset();
     setValue("dinnerID", params.dinnerID);
     setShow(true);
+  }
+  const setStyle = (style:IStyle) => {
+    reset({...style});
+    console.log(getValues());
   }
   const handleClose = () => setShow(false);
   const onValid = async (data:IOrder) => {
@@ -62,15 +69,20 @@ function Menu(params:IMenu) {
         <img loading="lazy" alt={params.dinner_name} src={params.src_big} onLoad={(e)=>e.currentTarget.previousElementSibling?.remove()}/>
         <Form onSubmit={handleSubmit(onValid)}>
           <Modal.Body>
-            {detailedMenuTypeList.map((detail:IDetailedMenuType,idx)=>(
-              detail.name in params && params[detail.name as keyof IMenu]!==undefined?
+            <Tabs className="mb-3" defaultActiveKey={"0"} onSelect={(key)=>setStyle(styleList[parseInt(key?key:"0")])}>
+              {styleList.map((style, idx) =>
+              <Tab key={idx} eventKey={idx} title={style.style_name}/>)
+              }
+            </Tabs>{/*
+            {Object.keys(getValues()).map((key:string,idx)=>(
+              <>
               <Form.Group key={idx} className="mb-3" controlId={`${idx}`}>
-                <Form.Label>{detail.label}:</Form.Label>
+                <Form.Label>{detailedMenuTypeList[key]?.label}:</Form.Label>
                 <Form.Label>{{
                       "Q": "보통",
                       "C": 1,
                       "B": "넣기",
-                    }[detail.type]}</Form.Label>
+                    }[detailedMenuTypeList[key]?.type]}</Form.Label>
                 <Form.Range                   
                     step={1}
                     min={0}
@@ -78,17 +90,17 @@ function Menu(params:IMenu) {
                       "Q": 3,
                       "C": 10,
                       "B": 1,
-                    }[detail.type]}
+                    }[detailedMenuTypeList[key]?.type]}
                     defaultValue={{
                       "Q": 2,
                       "C": 1,
                       "B": 1,
-                    }[detail.type]}
-                    {...register((detail.name as keyof IOrder))}
+                    }[detailedMenuTypeList[key]?.type]}
+                    {...register((detailedMenuTypeList[key]?.name as keyof IOrder))}
                     onChange={(e)=>{
-                      setValue(detail.name as keyof IOrder,e.currentTarget.value)
+                      setValue(detailedMenuTypeList[key]?.name as keyof IOrder,e.currentTarget.value)
                       if(e.currentTarget.previousElementSibling)
-                      switch(detail.type){
+                      switch(detailedMenuTypeList[key]?.type){
                         case "Q": {
                           let value="";
                           switch(e.currentTarget.value){
@@ -109,21 +121,64 @@ function Menu(params:IMenu) {
                     }
                     />
               </Form.Group>
-              :
-              null
+              {detailedMenuTypeList[key]?.name=="steak"?
+                <Form.Group key={"grillType"} className="mb-3" controlId={`${idx}`}>
+                <Form.Label>{detailedMenuTypeList[key]?.label}:</Form.Label>
+                <Form.Label>미디움</Form.Label>
+                <Form.Range                   
+                    step={1}
+                    min={0}
+                    max={4}
+                    defaultValue={2}
+                    {...register(("grillType"))}
+                    onChange={(e)=>{
+                      setValue("grillType",e.currentTarget.value)
+                      if(e.currentTarget.previousElementSibling){
+                          let value="";
+                          switch(e.currentTarget.value){
+                            case "0": value="레어";break;
+                            case "1": value="미디움 레어";break;
+                            case "2": value="미디움";break;
+                            case "3": value="미디움 웰던";break;
+                            case "4": value="웰던";break;
+                            default: value="error";break;
+                          }
+                          e.currentTarget.previousElementSibling.textContent=value;
+                        }
+                      }
+                    }/>
+                </Form.Group>
+                    :null}
+              </>
             ))}
-            <Form.Group>
-              <Form.Label>주소</Form.Label>
-              <AddressSelectorView
-              selectable={true}
-              onSelect={(address)=>{
-                setValue("address1",address.address1);
-                setValue("address2",address.address2);
-                clearErrors("address1");
-              }}
-              onDelete={()=>{}}/>
-              {errors?.address1? (<Badge bg="secondary">{`${errors?.address1?.message}`}</Badge>):null}
-            </Form.Group>
+                  */}
+            {userData?
+              <Form.Group>
+                <Form.Label>주소</Form.Label>
+                <AddressSelectorView
+                selectable={true}
+                onSelect={(address)=>{
+                  setValue("address1",address.address1);
+                  setValue("address2",address.address2);
+                  clearErrors("address1");
+                }}
+                onDelete={()=>{}}/>
+                {errors?.address1? (<Badge bg="secondary">{`${errors?.address1?.message}`}</Badge>):null}
+              </Form.Group>
+              :
+              <>
+              <Form.Group className="mb-3" controlId="formAddress1">
+                <Form.Label>주소</Form.Label>
+                <Form.Control {...register("address1", {required:"값이 필요합니다."})} type="text" placeholder="서울특별시 동대문구 전농동 서울시립대로" />
+                {errors?.address1? (<Badge bg="secondary">{`${errors?.address1?.message}`}</Badge>):null}
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formAddress2">
+                <Form.Label>상세주소</Form.Label>
+                <Form.Control {...register("address2", {required:"값이 필요합니다."})} type="text" placeholder="정보기술관 326호" />
+                {errors?.address2? (<Badge bg="secondary">{`${errors?.address1?.message}`}</Badge>):null}
+              </Form.Group>
+              </>
+            }
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" type="submit">

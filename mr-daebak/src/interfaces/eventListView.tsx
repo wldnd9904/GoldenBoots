@@ -36,6 +36,7 @@ function EventList(){
     return(
         <div style={{padding:"20px"}}>
             <Row xs={1} md={2} lg={3} className="g-4">
+                { eventList?null:"진행중인 이벤트가 없습니다."}
                 { eventList.map((eventItem:IEvent, idx) => (
                     <Col>
                         <EventView key={idx} {...eventItem}/>

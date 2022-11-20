@@ -7,4 +7,5 @@ export interface IOrder extends IDinner, IStyle{
     address1 : string;
     address2 : string;
     voucherID : number;
+    grillType : string;
 };

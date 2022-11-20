@@ -1,17 +1,15 @@
-import {Helmet, HelmetProvider} from 'react-helmet-async'
-import Container from 'react-bootstrap/Container';
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import VoucherList from "../interfaces/voucherListView";
 
 function Voucher(){
     return (
         <>
-        <HelmetProvider>
-            <Helmet>
-                <title>상품권</title>
-            </Helmet>
-        </HelmetProvider>
-            <Container>
-                <span>Voucher</span>
-            </Container>
+            <HelmetProvider>
+                <Helmet>
+                    <title>상품권</title>
+                </Helmet>
+            </HelmetProvider>
+                <VoucherList />
         </>
     )
 }
