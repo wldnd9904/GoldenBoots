@@ -21,7 +21,6 @@ const Container = styled.div`
 const demoOrders:IOrder[]=[
 {
   userID: "sdf",
-  menuID: 0,
   time: "1986-11-23 11:20",
   address1: "뫄뫄",
   address2: "솨솨",
@@ -58,10 +57,10 @@ const demoOrders:IOrder[]=[
   vase_flower: undefined,
   tray_silver: undefined,
   tray_plastic: undefined,
-  style_price: undefined
+  style_price: undefined,
+  grillType : "2",
 },{
   userID: "sdf",
-  menuID: 0,
   time: "1986-11-23 11:20",
   address1: "뫄뫄",
   address2: "솨솨",
@@ -98,7 +97,8 @@ const demoOrders:IOrder[]=[
   vase_flower: undefined,
   tray_silver: undefined,
   tray_plastic: undefined,
-  style_price: undefined
+  style_price: undefined,
+  grillType: "3",
 },
 ];
 
@@ -119,7 +119,7 @@ function RecentOrderView(params:IRecentOrderView){
       <Slider {...settings} >
         {
           demoOrders.map((data:IOrder, idx)=>(
-            <Card key={idx}>
+            <Card key={idx} onClick={()=>params.onAdd(data)}>
               <Card.Header>
                 {data.dinner_name}
               </Card.Header>

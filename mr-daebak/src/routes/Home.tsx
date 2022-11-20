@@ -16,14 +16,6 @@ function Home(){
                 </Helmet>
             </HelmetProvider>
         <Container>
-            <span>Home</span>
-            <CarouselView />
-            <CarouselView />
-            <CarouselView />
-            <CarouselView />
-            <CarouselView />
-            <CarouselView />
-            <CarouselView />
             <CarouselView />
         </Container>
         </>

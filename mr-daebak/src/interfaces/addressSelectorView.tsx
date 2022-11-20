@@ -39,7 +39,7 @@ const demoAddress:IAddress[] = [
 
 interface IAddressSelectorView{
   selectable:boolean;
-  onSelect: (a:number)=>void;
+  onSelect: (address:IAddress)=>void;
   onDelete: (a:number)=>void;
 }
 
@@ -92,7 +92,7 @@ function AddressSelectorView(params:IAddressSelectorView){
             border={selected==idx?"primary":""}
             onClick={()=>{
               if(params.selectable){
-                setSelected(idx); params.onSelect(idx)
+                setSelected(idx); params.onSelect(data)
               }
             }
           }

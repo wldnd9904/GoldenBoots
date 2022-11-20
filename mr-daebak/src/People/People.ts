@@ -9,6 +9,21 @@ export interface IPeople{
     isStaff: boolean;
 };
 
+export interface IRegisterForm extends IPeople{
+    password1: string;
+    extraError?: string;
+}
+
+export const demoPeople:IPeople={
+    userID: "",
+    password: "",
+    email: "",
+    name: "",
+    sex: "",
+    phone: "",
+    birth: "",
+    isStaff: false
+}
 export interface ICustomer extends IPeople{};
 
 export interface IStaff extends IPeople{
