@@ -1,5 +1,5 @@
 import { atom, useRecoilState } from "recoil";
-import { getUserData, getVoucherData } from "../api";
+import { getVoucherData } from "../api";
 import { IVoucher } from "./Voucher";
 
 export default class VoucherManager{

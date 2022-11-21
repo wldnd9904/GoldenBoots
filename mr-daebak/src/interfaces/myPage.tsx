@@ -39,7 +39,7 @@ function MyPage({show, handleClose}:IModal) {
   useEffect(() => {
     if(userData)reset(userData);
     setValue("password1","");
-  });
+  },[]);
   return (
     <Modal
     show={show}

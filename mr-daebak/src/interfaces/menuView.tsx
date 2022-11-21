@@ -30,7 +30,7 @@ function Menu(params:IDinner) {
   const styleList = useRecoilValue(styleListAtom);
   const [detailList, setDetailList] = useState<string[]>([]);
   const [show, setShow] = useState(false);
-  const { register, handleSubmit, formState:{errors},clearErrors, setValue, setError, reset, getValues} = useForm<IOrder>();
+  const { register, handleSubmit, formState:{errors},clearErrors, setValue, setError, reset, getValues, watch} = useForm<IOrder>();
   const handleOpen = () => {
     reset();
     setStyle(styleList[0]);
@@ -39,7 +39,13 @@ function Menu(params:IDinner) {
   const setStyle = (style:IStyle) => {
     reset();
     setValue("dinnerID", params.dinnerID);
+    setValue("dinner_name", params.dinner_name);
+    setValue("styleID",style.styleID);
+    setValue("style_name", style.style_name);
     setValue("userID", userData?userData.userID:"");
+    Object.keys(params).map((key)=>{
+      setValue(key,params[key]);
+    })
     setDetailList([...Object.keys(params),...Object.keys(style)]);
     detailList.map((detail)=>console.log(detailedMenuTypeList[detail]))
   }
@@ -52,6 +58,7 @@ function Menu(params:IDinner) {
     setOrderList(OrderManager.addOrder([...orderList],data));
     alert("주문을 장바구니에 담았습니다.")
     handleClose();
+    console.log(data);
   };
   return (
     <>
@@ -102,10 +109,12 @@ function Menu(params:IDinner) {
                         min={0}
                         max={{
                           "Q": 3,
-                          "C": 10,
+                          "C": 5,
                           "B": 1,
                         }[detailedMenuTypeList[key]?.type]}
-                        defaultValue={{
+                        defaultValue={
+                          params[key]?params[key]
+                          :{
                           "Q": 2,
                           "C": 1,
                           "B": 1,
@@ -140,12 +149,12 @@ function Menu(params:IDinner) {
                     <Form.Group key={"grillType"} className="mb-3" controlId={`grillType`}>
                     <Form.Label key={`grillType_1`}>{detailedMenuTypeList[key]?.label}:</Form.Label>
                     <Form.Label key={`grillType_2`}>미디움</Form.Label>
-                    <Form.Range 
+                    <Form.Range
                         key={`grillType_3`}                  
                         step={1}
                         min={0}
                         max={4}
-                        defaultValue={2}
+                        defaultValue={params[key]?params[key]:2}
                         {...register(("grillType"))}
                         onChange={(e)=>{
                           setValue("grillType",e.currentTarget.value)

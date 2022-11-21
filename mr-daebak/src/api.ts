@@ -2,7 +2,8 @@ import axios from "axios";
 import { IEvent } from "./Homepage/Event";
 import { IVoucher } from "./Homepage/Voucher";
 import { IDetailedMenuTypeList, IDinner, IStyle } from "./Order/Menu";
-import { IPeople, IRegisterForm } from "./People/People";
+import { IOrder } from "./Order/Order";
+import { IAddress, IPeople, IRegisterForm } from "./People/People";
 
 const BASE_URL = "http://13.209.17.152:3000";
 
@@ -11,13 +12,16 @@ export function registerAPI(data:IRegisterForm){
     axios.post(BASE_URL+"/register",data,{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>console.log(response)).catch((error)=>console.log(error))
 }
 
-export async function getUserData(id:string,pw:string) {
-    const promise = await fetch(`${BASE_URL}/dbtest`);
-    console.log(await promise.json());
-    const json:IPeople = await promise.json();
-    return json;
+const demoUserData:IPeople={
+    userID: "",
+    password: "",
+    email: "",
+    name: "",
+    sex: "",
+    phone: "",
+    birth: "",
+    isStaff: false
 }
-
 const demoEvents:IEvent[] =[    {   
     eventID: 1,
     name: "이벤트",
@@ -46,7 +50,6 @@ const demoEvents:IEvent[] =[    {
     voucherID: -1,
 },
 ];
-
 const demoVouchers:IVoucher[] = [
     {   
         voucherID: 0,
@@ -136,7 +139,109 @@ const demoStyles:IStyle[] = [
         napkin_linen :2, 
         plate_ceramic :2,
     },
-]
+];
+const demoAddress:IAddress[] = [
+    {
+      name:"ss",
+      addressID:0,
+      address1:"뫄뫄",
+      address2:"솨솨",
+      userID:"sadf"
+    },
+    {
+      name:"gg",
+      addressID:1,
+      address1:"뫄뫄2",
+      address2:"솨솨2",
+      userID:"sadf2"
+    },
+];
+const demoRecentOrder:IOrder[]=[
+    {
+      userID: "sdf",
+      time: "1986-11-23 11:20",
+      address1: "뫄뫄",
+      address2: "솨솨",
+      voucherID: 0,
+      dinnerID: 0,
+      dinner_name: "라라",
+      desc: "sdfdsf",
+      src_thumbnail: undefined,
+      src_big: undefined,
+      wine: undefined,
+      steak: undefined,
+      coffee: undefined,
+      salad: undefined,
+      egg_scramble: undefined,
+      bacon: undefined,
+      bread: undefined,
+      bread_baguette: undefined,
+      champagne: undefined,
+      cheese: undefined,
+      heart_little: undefined,
+      cupid: undefined,
+      plate_normal: undefined,
+      dinner_price: undefined,
+      styleID: undefined,
+      style_name: "팦파",
+      plate_box: undefined,
+      nepkin_normal: undefined,
+      nepkin_white_cotton: undefined,
+      nepkin_linen: undefined,
+      plate_ceramic: undefined,
+      glass_plastic: undefined,
+      glass_ceramic: undefined,
+      tray_wood: undefined,
+      vase_flower: undefined,
+      tray_silver: undefined,
+      tray_plastic: undefined,
+      style_price: undefined,
+      grillType : "2",
+    },{
+      userID: "sdf",
+      time: "1986-11-23 11:20",
+      address1: "뫄뫄",
+      address2: "솨솨",
+      voucherID: 0,
+      dinnerID: 0,
+      dinner_name: "라라",
+      desc: "sdfdsf",
+      src_thumbnail: undefined,
+      src_big: undefined,
+      wine: undefined,
+      steak: undefined,
+      coffee: undefined,
+      salad: undefined,
+      egg_scramble: undefined,
+      bacon: undefined,
+      bread: undefined,
+      bread_baguette: undefined,
+      champagne: undefined,
+      cheese: undefined,
+      heart_little: undefined,
+      cupid: undefined,
+      plate_normal: undefined,
+      dinner_price: undefined,
+      styleID: undefined,
+      style_name: "초차",
+      plate_box: undefined,
+      nepkin_normal: undefined,
+      nepkin_white_cotton: undefined,
+      nepkin_linen: undefined,
+      plate_ceramic: undefined,
+      glass_plastic: undefined,
+      glass_ceramic: undefined,
+      tray_wood: undefined,
+      vase_flower: undefined,
+      tray_silver: undefined,
+      tray_plastic: undefined,
+      style_price: undefined,
+      grillType: "3",
+    },
+];
+
+
+
 export function getEventData():IEvent[] {
     return demoEvents;
 }
@@ -151,4 +256,13 @@ export function getDinnerData():IDinner[] {
 }
 export function getDetailedMenuTypeListData():IDetailedMenuTypeList{
     return demoDetailedMenuTypeList;
+}
+export function getAddressData():IAddress[] {
+    return demoAddress;
+}
+export function getUserDataAPI():IPeople {
+    return demoUserData;
+}
+export function getRecentOrderAPI():IOrder[]{
+    return demoRecentOrder;
 }

@@ -5,8 +5,9 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
-import { demoPeople, IPeople } from '../People/People';
-import PeopleManager, { userDataAtom } from '../People/PeopleManager';
+import { IAddress, IPeople } from '../People/People';
+import PeopleManager, { addressDataAtom, userDataAtom } from '../People/PeopleManager';
+import OrderManager, { recentOrderAtom } from '../Order/OrderManager';
 
 interface ILoginForm{
   userID: string;
@@ -20,10 +21,14 @@ interface IModalForm{
 };
 
 function LoginForm({show, handleClose}:IModalForm) {
+  const [recentOrder, setRecentOrder] = useRecoilState(recentOrderAtom);
   const [userData, setUserData] = useRecoilState<IPeople>(userDataAtom);
   const { register, handleSubmit, formState:{errors},reset, setValue} = useForm<ILoginForm>();
+  const [addressData, setAddressData] = useRecoilState<IAddress[]>(addressDataAtom);
   const onValid = async (data:ILoginForm) => {
-    setUserData(demoPeople)
+    setUserData(PeopleManager.getUserData());
+    setAddressData(PeopleManager.getAddress());
+    setRecentOrder(OrderManager.getRecentOrder());
     alert("로그인되었습니다.");
     reset();
     handleClose();

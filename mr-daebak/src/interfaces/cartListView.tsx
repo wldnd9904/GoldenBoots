@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import styled from 'styled-components';
@@ -7,14 +7,14 @@ import RecentOrderView from './recentOrderView';
 import { IOrder } from '../Order/Order';
 import { userDataAtom } from '../People/PeopleManager';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { orderListAtom } from '../Order/OrderManager';
+import OrderManager, { orderListAtom, recentOrderAtom } from '../Order/OrderManager';
 import Order from './orderView';
 
 
 const OverLay = styled.div`
   position:fixed;
   bottom:10px;
-  right:10px;
+  left:10px;
   :hover{
     transition:transform 0.1s linear;
     transform:scale(1.1);
@@ -23,7 +23,8 @@ const OverLay = styled.div`
 
 function CartList() {
   const userData = useRecoilValue(userDataAtom);
-  const [orderList, setOrderList] = useRecoilState(orderListAtom);
+  const recentOrder = useRecoilValue(recentOrderAtom);
+  const orderList = useRecoilValue(orderListAtom);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -41,9 +42,7 @@ function CartList() {
           {userData?
           <>
             최근 주문 내역
-            <RecentOrderView onAdd={function (order: IOrder): void {
-              throw new Error('Function not implemented.');
-            } } />
+            <RecentOrderView />
           </>
           :
           null
