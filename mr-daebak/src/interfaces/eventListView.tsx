@@ -7,8 +7,9 @@ import EventView from './eventView';
 
 function EventList(){
     const [eventData, setEventData] = useRecoilState(eventDataAtom);
-    useEffect(()=>{
-        setEventData(EventManager.getEvents());
+    useEffect(()=>{(async () =>{
+        setEventData(await EventManager.getEvents());
+    })();
     },[]);
     return(
         <div style={{padding:"20px"}}>

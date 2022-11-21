@@ -3,8 +3,8 @@ import { atom, useRecoilState } from "recoil";
 import { getEventData } from '../api';
 
 export default class EventManager{
-    public static getEvents(): IEvent[]{
-        return getEventData();
+    public static async getEvents(){
+        return await getEventData();
     }
 
     public static addEvent():void{

@@ -1,24 +1,16 @@
-const cors =require('cors');
+const cors = require("cors");
 const express = require("express");
 const path = require("path");
 const app = express();
-const mysql      = require('mysql');
-const session = require('express-session');
-const MemoryStore=require('memorystore')(session);
+const mysql = require("mysql");
+const session = require("express-session");
+const MemoryStore = require("memorystore")(session);
 
-let corsOptions={
-  origin:"*",
-  credential:true
-}
+let corsOptions = {
+  origin: "*",
+  credential: true,
+};
 app.use(cors(corsOptions));
-
-const connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '1234',
-  database : 'daebak',
-  port: 3306
-});
 
 app.listen(3000, function () {
   console.log("listening on 3000");
@@ -27,52 +19,63 @@ app.listen(3000, function () {
 
 app.use(express.static(path.join(__dirname, "mr-daebak/build")));
 
-app.use(express.urlencoded({
-  extended: true
-}))
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 
-const sessionObj={
-  secret:'kong',
+const sessionObj = {
+  secret: "kong",
   resave: false,
   saveUninitialized: true,
-  store: new MemoryStore({checkPeriod: 300000}),
-  cookie:{
-    maxAge:300000
+  store: new MemoryStore({ checkPeriod: 300000 }),
+  cookie: {
+    maxAge: 300000,
   },
-}
+};
 app.use(session(sessionObj));
 
-app.get("/", function (req, res) {
-  console.log(req)
-  res.sendFile(path.join(__dirname, "/mr-daebak/build/index.html"));
-
-});
-
-connection.connect();
-
-app.post('/register',function(req,res){
-  const userID=req.body.userID
-  const password=req.body.password
-  const email=req.body.email
-  const name=req.body.name
-  const isStaff=req.body.isStaff
-  const sex=req.body.sex
-  const phone=req.body.phone
-  const birth=req.body.birth
-  var sql_insert={userID:userID, password:password, email:email, name:name, isStaff:isStaff,
-    sex:sex,phone:phone,birth:birth}
-  connection.query('select userID from customer where userID=?',[userID],function(err,rows){
-    if(rows.length){
-      res.json({'result':'fail'})
-    }else{
-      connection.query('insert into customer set?',sql_insert,function(err,rows){
-        if(err) throw err;
-        console.log('ok')
-        res.json({'result':'ok'})
-      })
+app.post("/register", function (req, res) {
+  console.log("gd");
+  const userID = req.body.userID;
+  const password = req.body.password;
+  const email = req.body.email;
+  const name = req.body.name;
+  const isStaff = req.body.isStaff;
+  const sex = req.body.sex;
+  const phone = req.body.phone;
+  const birth = req.body.birth;
+  var sql_insert = {
+    userID: userID,
+    password: password,
+    email: email,
+    name: name,
+    isStaff: isStaff,
+    sex: sex,
+    phone: phone,
+    birth: birth,
+  };
+  connection.query(
+    "select userID from customer where userID=?",
+    [userID],
+    function (err, rows) {
+      if (rows.length) {
+        res.json({ result: "fail" });
+      } else {
+        connection.query(
+          "insert into customer set?",
+          sql_insert,
+          function (err, rows) {
+            if (err) throw err;
+            console.log("ok");
+            res.json({ result: "ok" });
+          }
+        );
+      }
     }
-  })
-})
+  );
+});
 
 /*app.post('/login',function(req,res){
   const userID=req.body.userID

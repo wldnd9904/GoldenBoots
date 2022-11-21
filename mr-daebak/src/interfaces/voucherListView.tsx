@@ -10,8 +10,8 @@ import VoucherView from './voucherView';
 function VoucherList(){
   const userData = useRecoilValue(userDataAtom);
   const [voucherData, setVoucherData] = useRecoilState(voucherDataAtom);
-  const showVouchers = () =>{
-      setVoucherData(VoucherManager.getVouchers(userData.userID));
+  const showVouchers = async () =>{
+      setVoucherData(await VoucherManager.getVouchers(userData.userID));
   };
     return(
         <div style={{padding:"20px"}}>
