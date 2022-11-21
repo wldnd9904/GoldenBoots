@@ -5,7 +5,7 @@ import { IDetailedMenuTypeList, IDinner, IStyle } from "./Order/Menu";
 import { IOrder } from "./Order/Order";
 import { IAddress, IPeople, IRegisterForm } from "./People/People";
 
-const BASE_URL = "http://13.209.17.152:3000";
+const BASE_URL = "http://15.165.159.24:3000";
 
 export function registerAPI(data:IRegisterForm){
     console.log(data);
