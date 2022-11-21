@@ -17,8 +17,8 @@ export default class PeopleManager{
 
     }
 
-    public static register(data:IRegisterForm):void{
-        registerAPI(data);
+    public static async register(data:IRegisterForm){
+        return await registerAPI(data);
     }
 
     public static removeUserData(userID:string):void{

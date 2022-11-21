@@ -7,10 +7,6 @@ import { IAddress, IPeople, IRegisterForm } from "./People/People";
 
 const BASE_URL = "http://15.165.159.24:3000";
 
-export function registerAPI(data:IRegisterForm){
-    console.log(data);
-    axios.post(BASE_URL+"/register",data,{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>console.log(response)).catch((error)=>console.log(error))
-}
 
 const demoUserData:IPeople={
     userID: "",
@@ -241,11 +237,18 @@ const demoRecentOrder:IOrder[]=[
 ];
 
 
-
+export async function registerAPI(data:IRegisterForm){
+    let message = await axios.post(BASE_URL+"/register",data,{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data.result).catch((error)=>error);
+    return message;
+}
+export async function loginAPI(id:string,pw:string){
+    let message = await axios.post(BASE_URL+"/login",{userID:id,password:pw},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    return message;
+}
 export function getEventData():IEvent[] {
     return demoEvents;
 }
-export function getVoucherData(userid:string):IVoucher[] {
+export function getVoucherData(userID:string):IVoucher[] {
     return demoVouchers;
 }
 export function getStyleData():IStyle[] {
