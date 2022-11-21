@@ -6,12 +6,12 @@ import AddressSelectorView from './addressSelectorView';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { IOrder } from '../Order/Order';
-import { Badge, Form, Tab, Tabs } from 'react-bootstrap';
+import { Badge, CloseButton, Form, Tab, Tabs } from 'react-bootstrap';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userDataAtom } from '../People/PeopleManager';
 import OrderManager, { orderListAtom } from '../Order/OrderManager';
 import { detailListAtom, dinnerListAtom, styleListAtom } from '../Order/MenuManager';
-import { IDinner, IStyle } from '../Order/Menu';
+import { IStyle } from '../Order/Menu';
 
 const Hover=styled.div`
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -22,18 +22,25 @@ const Hover=styled.div`
   }
 `;
 
-function Menu(params:IDinner) {
+interface IOrderProps {
+    idx:number;
+    params:IOrder;
+}
+
+function Order({idx,params}:IOrderProps) {
   const userData = useRecoilValue(userDataAtom);
-  const detailedMenuTypeList = useRecoilValue(detailListAtom);
+  const styleList = useRecoilValue(styleListAtom);
   const dinnerList = useRecoilValue(dinnerListAtom);
   const [orderList, setOrderList] = useRecoilState(orderListAtom);
-  const styleList = useRecoilValue(styleListAtom);
+  const detailedMenuTypeList = useRecoilValue(detailListAtom);
   const [detailList, setDetailList] = useState<string[]>([]);
   const [show, setShow] = useState(false);
   const { register, handleSubmit, formState:{errors},clearErrors, setValue, setError, reset, getValues} = useForm<IOrder>();
   const handleOpen = () => {
     reset();
-    setStyle(styleList[0]);
+    Object.keys(params).map(key=>{
+        setValue(key,params[key]);
+    })
     setShow(true);
   }
   const setStyle = (style:IStyle) => {
@@ -43,27 +50,29 @@ function Menu(params:IDinner) {
     setDetailList([...Object.keys(params),...Object.keys(style)]);
     detailList.map((detail)=>console.log(detailedMenuTypeList[detail]))
   }
-  const handleClose = () => setShow(false);
-  const onValid = (data:IOrder) => {
+  const handleClose = () => {
+    setShow(false);
+  }
+  const onValid = async (data:IOrder) => {
     if(data.address1==null||data.address2==null){
       setError('address1',{message:"주소지를 선택해주세요."})
       return;
     }
-    setOrderList(OrderManager.addOrder([...orderList],data));
-    alert("주문을 장바구니에 담았습니다.")
+    setOrderList(OrderManager.editOrder(orderList,idx,data));
+    console.log(data);
     handleClose();
   };
+  const remove = () =>{
+    setOrderList(OrderManager.removeOrder(orderList,idx));
+  }
   return (
     <>
       <Card as={Hover} style={{ width: '22rem' }}>
-        <Card.Img loading="eager" variant="top" src="https://via.placeholder.com/300x200?text=+" alt="placeholder"/>
-        <Card.Img loading="lazy" variant="top" src={params.src_thumbnail} onLoad={(e)=>e.currentTarget.previousElementSibling?.remove()}/>
-        <Card.Body>
+        <Card.Header>
           <Card.Title>{params.dinner_name}</Card.Title>
-          <Card.Text>
-            {params.desc}
-          </Card.Text>
-          <Button variant="primary" onClick={handleOpen}>주문하기</Button>
+          <CloseButton onClick={remove}/>
+        </Card.Header>
+        <Card.Body>
         </Card.Body>
       </Card>
       <Modal
@@ -82,22 +91,21 @@ function Menu(params:IDinner) {
             <>
             <Tabs className="mb-3" defaultActiveKey={"0"} onSelect={(key)=>setStyle(styleList[parseInt(key?key:"0")])}>
               {styleList.map((style, idx) =>
-              <Tab key={`tab_${idx}`} eventKey={idx} title={style.style_name}/>)
+              <Tab key={idx} eventKey={idx} title={style.style_name}/>)
               }
             </Tabs>
             {detailList.map((key:string,idx)=>(
               (
                 detailedMenuTypeList[key]===undefined)?null:
-                <div key={idx}>
+                <>
                   <Form.Group key={idx} className="mb-3" controlId={`${idx}`}>
-                    <Form.Label key={`${idx}_1`}>{detailedMenuTypeList[key]?.label}:</Form.Label>
-                    <Form.Label key={`${idx}_2`}>{{
+                    <Form.Label>{detailedMenuTypeList[key]?.label}:</Form.Label>
+                    <Form.Label>{{
                           "Q": "보통",
                           "C": 1,
                           "B": "넣기",
                         }[detailedMenuTypeList[key]?.type]}</Form.Label>
-                    <Form.Range 
-                        key={`${idx}_3`}            
+                    <Form.Range                   
                         step={1}
                         min={0}
                         max={{
@@ -137,11 +145,10 @@ function Menu(params:IDinner) {
                   </Form.Group>
                   {
                   detailedMenuTypeList[key]?.name=="steak"?
-                    <Form.Group key={"grillType"} className="mb-3" controlId={`grillType`}>
-                    <Form.Label key={`grillType_1`}>{detailedMenuTypeList[key]?.label}:</Form.Label>
-                    <Form.Label key={`grillType_2`}>미디움</Form.Label>
-                    <Form.Range 
-                        key={`grillType_3`}                  
+                    <Form.Group key={"grillType"} className="mb-3" controlId={`${idx}`}>
+                    <Form.Label>{detailedMenuTypeList[key]?.label}:</Form.Label>
+                    <Form.Label>미디움</Form.Label>
+                    <Form.Range                   
                         step={1}
                         min={0}
                         max={4}
@@ -166,7 +173,7 @@ function Menu(params:IDinner) {
                     </Form.Group>
                     :null
                   }
-                </div>
+                </>
               ))}
             {userData?
               <Form.Group>
@@ -208,4 +215,4 @@ function Menu(params:IDinner) {
   );
 }
 
-export default Menu;
+export default Order;

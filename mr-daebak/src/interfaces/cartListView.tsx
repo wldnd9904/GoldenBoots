@@ -8,6 +8,7 @@ import { IOrder } from '../Order/Order';
 import { userDataAtom } from '../People/PeopleManager';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { orderListAtom } from '../Order/OrderManager';
+import Order from './orderView';
 
 
 const OverLay = styled.div`
@@ -49,7 +50,7 @@ function CartList() {
         }
         {
           orderList.map((order:IOrder,idx)=>
-            <></>
+            <Order key={idx} idx={idx} params={order} />
           )
         }
         </Offcanvas.Body>

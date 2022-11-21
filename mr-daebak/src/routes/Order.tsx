@@ -2,10 +2,21 @@ import Menu from "../interfaces/menuView";
 import Container from 'react-bootstrap/Container';
 import { Col, Row } from "react-bootstrap";
 import CartList from "../interfaces/cartListView";
-import {menuList} from "../Order/Menu";
 import { HelmetProvider, Helmet } from "react-helmet-async";
+import { useEffect } from "react";
+import MenuManager, { detailListAtom, dinnerListAtom, styleListAtom } from "../Order/MenuManager";
+import { useRecoilState } from "recoil";
+import OrderManager from "../Order/OrderManager";
 
 function Order(){
+    const [detailedMenuTypeList,setDetailedMenuTypeList] = useRecoilState(detailListAtom);
+    const [dinnerList, setDinnerList] = useRecoilState(dinnerListAtom);
+    const [styleList, setStyleList] = useRecoilState(styleListAtom);
+    useEffect(()=>{
+        setDetailedMenuTypeList(MenuManager.getDetailedMenuTypeList());
+        setDinnerList(MenuManager.getDinnerList());
+        setStyleList(MenuManager.getStyleList());
+    },[]);
     return (
         <>
             <HelmetProvider>
@@ -15,13 +26,14 @@ function Order(){
             </HelmetProvider>
             <div style={{padding:"20px"}}>
                 <Row xs={1} md={2} lg={3} xl={4} className="g-4">
-                {menuList.map((menu, idx) =>
+                {dinnerList.map((dinner, idx) =>
                     <Col key={idx}>
-                        <Menu key={idx} {...menu} />
+                        <Menu key={idx} {...dinner} />
                     </Col>
-                )}                {menuList.map((menu, idx) =>
-                    <Col key={idx}>
-                        <Menu key={idx} {...menu} />
+                )}                
+                {dinnerList.map((dinner, idx) =>
+                    <Col key={idx+100}>
+                        <Menu key={idx+100} {...dinner} />
                     </Col>
                 )}
                 </Row>
@@ -31,3 +43,7 @@ function Order(){
     )
 }
 export default Order;
+function useRecoilValue(detailListAtom: any) {
+    throw new Error("Function not implemented.");
+}
+
