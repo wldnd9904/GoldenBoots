@@ -3,12 +3,15 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const mysql      = require('mysql');
+const session = require('express-session');
+const MemoryStore=require('memorystore')(session);
 
 let corsOptions={
   origin:"*",
   credential:true
 }
 app.use(cors(corsOptions));
+
 const connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
@@ -28,11 +31,24 @@ app.use(express.urlencoded({
   extended: true
 }))
 
+const sessionObj={
+  secret:'kong',
+  resave: false,
+  saveUninitialized: true,
+  store: new MemoryStore({checkPeriod: 300000}),
+  cookie:{
+    maxAge:300000
+  },
+}
+app.use(session(sessionObj));
 
-app.get("/", function (요청, 응답) {
-  응답.sendFile(path.join(__dirname, "/mr-daebak/build/index.html"));
+app.get("/", function (req, res) {
+  console.log(req)
+  res.sendFile(path.join(__dirname, "/mr-daebak/build/index.html"));
 
 });
+
+connection.connect();
 
 app.post('/register',function(req,res){
   const userID=req.body.userID
@@ -58,7 +74,25 @@ app.post('/register',function(req,res){
   })
 })
 
-app.get("/dbtest",(req,res)=>{
+/*app.post('/login',function(req,res){
+  const userID=req.body.userID
+  const password=req.body.password
+
+  var sql_select={userID:userID, password:password}
+  connection.query('select userID from customer where userID=?',[userID],function(err,rows){
+    if(rows.length){
+      
+    }else{
+      res.json({'result':'fail'})
+      connection.query('insert into customer set?',sql_insert,function(err,rows){
+        if(err) throw err;
+        console.log('ok')
+        res.json({'result':'ok'})
+      })
+    }
+  })
+})*/
+/*app.get("/dbtest",(req,res)=>{
   connection.connect();
   connection.query('SELECT * from customer', (error, rows, fields) => {
   if (error) throw error;
@@ -66,4 +100,4 @@ app.get("/dbtest",(req,res)=>{
   res.send(rows);
 });
   connection.end();
-})
+})*/
