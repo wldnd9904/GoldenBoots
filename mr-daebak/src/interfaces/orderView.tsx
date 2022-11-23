@@ -64,6 +64,8 @@ function Order({idx,params}:IOrderProps) {
       return;
     }
     setOrderList(OrderManager.editOrder([...orderList],idx,data));
+    //if(getValues().description!="")
+      await OrderManager.editSentOrder(data,10);
     console.log(data);
     handleClose();
   };

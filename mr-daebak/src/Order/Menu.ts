@@ -2,7 +2,7 @@ export interface IDinner {
     [index:string]:any;
     dinnerID : number | undefined;
     dinner_name : string | undefined;
-    desc : string | undefined;
+    description : string | undefined;
     src_thumbnail : string | undefined;
     src_big : string | undefined;
     wine? : number | undefined;

@@ -5,7 +5,7 @@ import { IDetailedMenuType, IDetailedMenuTypeList, IDinner, IStyle } from "./Ord
 import { IOrder } from "./Order/Order";
 import { IAddress, IPeople, IRegisterForm } from "./People/People";
 
-const BASE_URL = "http://15.165.159.24:3000";
+const BASE_URL = "http://3.35.8.237:3000";
 
 
 const demoUserData:IPeople={
@@ -70,7 +70,7 @@ const demoDinners:IDinner[] = [
     {
         dinnerID: 1,
         dinner_name: "프렌치 디너",
-        desc: "커피 한 잔, 와인 한 잔, 샐러드, 스테이크 제공",
+        description: "커피 한 잔, 와인 한 잔, 샐러드, 스테이크 제공",
         src_thumbnail:"https://github.com/wldnd9904/GoldenBoots/blob/master/mr-daebak/src/Images/2_thumb.png?raw=true",
         src_big:"https://github.com/wldnd9904/GoldenBoots/blob/master/mr-daebak/src/Images/2_big.png?raw=true",
         wine: 1,
@@ -82,7 +82,7 @@ const demoDinners:IDinner[] = [
     {
         dinnerID: 2,
         dinner_name: "발렌타인 디너",
-        desc: "커피 한 잔, 와인 한 잔, 샐러드, 스테이크 제공",
+        description: "커피 한 잔, 와인 한 잔, 샐러드, 스테이크 제공",
         src_thumbnail:"https://github.com/wldnd9904/GoldenBoots/blob/master/mr-daebak/src/Images/2_thumb.png?raw=true",
         src_big:"https://github.com/wldnd9904/GoldenBoots/blob/master/mr-daebak/src/Images/2_big.png?raw=true",
         wine: 1,
@@ -155,13 +155,14 @@ const demoAddress:IAddress[] = [
 const demoRecentOrder:IOrder[]=[
     {
       userID: "sdf",
+      orderID:1,
       time: "1986-11-23 11:20",
       address1: "뫄뫄",
       address2: "솨솨",
       voucherID: 0,
       dinnerID: 0,
       dinner_name: "라라",
-      desc: "sdfdsf",
+      description: "sdfdsf",
       src_thumbnail: undefined,
       src_big: undefined,
       wine: undefined,
@@ -195,13 +196,14 @@ const demoRecentOrder:IOrder[]=[
       grillType : "2",
     },{
       userID: "sdf",
+      orderID:2,
       time: "1986-11-23 11:20",
       address1: "뫄뫄",
       address2: "솨솨",
       voucherID: 0,
       dinnerID: 0,
       dinner_name: "라라",
-      desc: "sdfdsf",
+      description: "sdfdsf",
       src_thumbnail: undefined,
       src_big: undefined,
       wine: undefined,
@@ -246,7 +248,13 @@ export async function loginAPI(id:string,pw:string){
     const request={userID:id, password:pw};
     let data = await axios.post(BASE_URL+"/login",request,{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
     console.log(data);
+    if(data.result==="fail") return undefined;
     return data;
+}
+export async function editUserDataAPI(data:IRegisterForm){
+    let message = await axios.post(BASE_URL+"/modified",data,{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data.result).catch((error)=>error);
+    console.log(data);
+    return message;
 }
 export async function getEventData() {
     let data = await axios.post(BASE_URL+"/event",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
@@ -274,13 +282,39 @@ export async function getDetailedMenuTypeListData() {
     return data;
 }
 export async function getAddressData(id:string) {
-    let data = await axios.post(BASE_URL+"/address",{userID:id},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    let data = await axios.post(BASE_URL+"/address2",{userID:id},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
     console.log(data);
     return data;
 }
-export function getUserDataAPI():IPeople {
-    return demoUserData;
+export async function addAddressAPI(addr:IAddress){
+    let data = await axios.post(BASE_URL+"/address",{...addr},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
 }
-export function getRecentOrderAPI():IOrder[]{
-    return demoRecentOrder;
+export async function removeAddressAPI(userID:string, addressID:number){
+    let data = await axios.post(BASE_URL+"/address3",{userID,addressID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
+
+export async function getRecentOrderAPI(userID:string){
+    let data = await axios.post(BASE_URL+"/recentorder",{userID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
+
+export async function sendOrderAPI(orderList:IOrder[]){
+    let data = await axios.post(BASE_URL+"/order",{orderList},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
+export async function editOrderAPI(order:IOrder, orderID:number){
+    let data = await axios.post(BASE_URL+"/orderedit",{order,orderID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
+export async function cancelOrderAPI(orderID:number){
+    let data = await axios.post(BASE_URL+"/ordercancel",{orderID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
 }

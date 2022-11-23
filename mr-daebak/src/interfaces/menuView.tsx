@@ -46,6 +46,7 @@ function Menu(params:IDinner) {
     Object.keys(params).map((key)=>{
       setValue(key,params[key]);
     })
+    setValue("description","");
     setDetailList([...Object.keys(params),...Object.keys(style)]);
     detailList.map((detail)=>console.log(detailedMenuTypeList[detail]))
   }
@@ -57,6 +58,8 @@ function Menu(params:IDinner) {
     }
     setOrderList(OrderManager.addOrder([...orderList],data));
     alert("주문을 장바구니에 담았습니다.")
+
+    console.log(orderList);
     handleClose();
     console.log(data);
   };

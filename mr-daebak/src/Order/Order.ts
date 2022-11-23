@@ -4,6 +4,7 @@ export interface IOrder extends IDinner, IStyle{
     //CUSTOMER_INF
     [index:string]:any;
     userID : string;
+    orderID : number;
     time : string;
     address1 : string;
     address2 : string;

@@ -1,5 +1,5 @@
 import { atom, useRecoilState } from "recoil";
-import { getAddressData, getUserDataAPI, loginAPI, registerAPI } from "../api";
+import { addAddressAPI, editUserDataAPI, getAddressData, loginAPI, registerAPI, removeAddressAPI } from "../api";
 import { IAddress, IPeople, IRegisterForm } from "./People";
 
 export default class PeopleManager{
@@ -13,8 +13,8 @@ export default class PeopleManager{
     public static async getUserData(id:string,pw:string) {
         return await loginAPI(id,pw);
     }
-    public static editUserData():void{
-
+    public static async editUserData(data:IRegisterForm){
+        return await editUserDataAPI(data);
     }
 
     public static async register(data:IRegisterForm){
@@ -26,14 +26,21 @@ export default class PeopleManager{
     }
     
     public static async getAddress(userID:string){
-        return getAddressData(userID);
+        return await getAddressData(userID);
     }
-    public static addAddress(addressList:IAddress[],data:IAddress):IAddress[]{
+    public static async addAddress(addressList:IAddress[],data:IAddress){
         addressList.push(data);
+        await addAddressAPI(data);
         return addressList;
     }
-    public static removeAddress(addressList:IAddress[],index:number):IAddress[]{
-        addressList.splice(index,1);
+    public static async removeAddress(addressList:IAddress[],userID:string,index:number){
+        let target=-1;
+        for(let i=0;i<addressList.length;i++){
+            if(addressList[i].addressID==index) target=i;
+        }
+        if (target==-1) return [];
+        addressList.splice(target,1);
+        await removeAddressAPI(userID,index);
         return addressList;
     }
 }

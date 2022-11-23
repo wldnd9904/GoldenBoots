@@ -35,7 +35,6 @@ function RegisterForm({show, handleClose}:IModal) {
       setDisable(false);
     }
   };
-  console.log(errors);
   return (
     <Modal
     show={show}

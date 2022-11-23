@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -8,7 +8,8 @@ import Row from 'react-bootstrap/Row';
 import { useForm } from 'react-hook-form';
 import { IPeople } from '../People/People';
 import { useRecoilState } from 'recoil';
-import { userDataAtom } from '../People/PeopleManager';
+import PeopleManager, { userDataAtom } from '../People/PeopleManager';
+import AddressSelectorView from './addressSelectorView';
 
 interface IRegisterForm extends IPeople{
   password1: string;
@@ -23,18 +24,27 @@ interface IModal{
 function MyPage({show, handleClose}:IModal) {
   const [userData, setUserData] = useRecoilState<IPeople>(userDataAtom);
   const { register, handleSubmit, formState:{errors}, setError, reset, setValue} = useForm<IRegisterForm>();
-  const onValid = (data:IRegisterForm) => {
+  const [disable, setDisable] = useState<boolean>(false);
+  const onValid = async (data:IRegisterForm) => {
+    setDisable(true);
     if(data.password1 !== data.password){
       setError("password1", {message:"비밀번호가 일치하지 않습니다."},{shouldFocus:true});
+      setDisable(false);
       return;
     }
-    //TODO: 아이디 중복확인
-    //아이디를 포스트하고 백엔드에서 아이디 있는지 검사하고 없다고 반환
-    //setError
-    //회원가입 정보 포스트 
-    reset();
-    alert("회원가입이 완료되었습니다. 로그인 해 주세요.");
-    handleClose();
+    console.log(data);
+    let apiData;
+    console.log(apiData = await PeopleManager.editUserData(data));
+    if(apiData){
+      setUserData(apiData);
+      alert("회원정보가 수정되었습니다.");
+      reset();
+      setDisable(false);
+      handleClose();
+    }else{
+      alert("회원정보 수정이 실패하였습니다.");
+      setDisable(false);
+    }
   };
   useEffect(() => {
     if(userData)reset(userData);
@@ -149,16 +159,13 @@ function MyPage({show, handleClose}:IModal) {
               <Form.Control {...register("birth", {required:"값이 필요합니다."})} type="date" placeholder="yyyy-mm-dd"/>
               {errors?.birth? (<Badge bg="secondary">{`${errors?.birth?.message}`}</Badge>):null}
             </Form.Group>
-
-          {/*<Form.Group className="mb-3" controlId="formAddress1">
-            <Form.Label>주소</Form.Label>
-            <Form.Control placeholder="서울특별시 동대문구 전농동" />
+          <Form.Group>
+              <Form.Label>주소</Form.Label>
+              <AddressSelectorView
+              selectable={false}
+              onSelect={()=>{}}
+              onDelete={()=>{}}/>
           </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formAddress2">
-            <Form.Label>상세주소</Form.Label>
-            <Form.Control placeholder="정보기술관 326호" />
-              </Form.Group>*/}
           <Button variant="primary" type="submit">
               정보 수정
           </Button>

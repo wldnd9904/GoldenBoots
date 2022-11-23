@@ -28,6 +28,9 @@ function CartList() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleSend = async () => {
+    await OrderManager.sendOrder(orderList);
+  }
 //<a href="https://www.flaticon.com/kr/free-icons/" title=" 아이콘"> 아이콘  제작자: DinosoftLabs - Flaticon</a>
   return (
     <>
@@ -52,6 +55,7 @@ function CartList() {
             <Order key={idx} idx={idx} params={order} />
           )
         }
+        <Button variant="outline-primary" onClick={handleSend}>주문하기</Button>
         </Offcanvas.Body>
       </Offcanvas>
     </>
