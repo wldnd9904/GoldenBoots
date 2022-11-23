@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -23,15 +23,22 @@ interface IModalForm{
 function LoginForm({show, handleClose}:IModalForm) {
   const [recentOrder, setRecentOrder] = useRecoilState(recentOrderAtom);
   const [userData, setUserData] = useRecoilState<IPeople>(userDataAtom);
+  const [disabled, setDisabled] = useState<boolean>(false);
   const { register, handleSubmit, formState:{errors},reset, setValue} = useForm<ILoginForm>();
   const [addressData, setAddressData] = useRecoilState<IAddress[]>(addressDataAtom);
   const onValid = async (data:ILoginForm) => {
-    setUserData(PeopleManager.getUserData());
+    setDisabled(true);
+    setUserData(await PeopleManager.getUserData(data.userID,data.password));
+    setDisabled(false);
+    alert("로그인되었습니다.");
+    reset();
+    handleClose();
+    /*
     setAddressData(PeopleManager.getAddress());
     setRecentOrder(OrderManager.getRecentOrder());
     alert("로그인되었습니다.");
     reset();
-    handleClose();
+    handleClose();*/
   };
   return (
     <Modal
@@ -55,7 +62,7 @@ function LoginForm({show, handleClose}:IModalForm) {
               <Form.Control {...register("password", {required:"값이 필요합니다."})} type="password" placeholder="Password" />
               {errors?.password? (<Badge bg="secondary">{`${errors?.password?.message}`}</Badge>):null}
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" disabled={disabled}>
             로그인
           </Button>
               {errors?.extraError? (<Badge bg="secondary">{`${errors?.extraError?.message}`}</Badge>):null}

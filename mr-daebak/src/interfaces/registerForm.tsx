@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -16,16 +16,24 @@ interface IModal{
 
 function RegisterForm({show, handleClose}:IModal) {
   const { register, handleSubmit, formState:{errors}, setError, reset} = useForm<IRegisterForm>();
-  const onValid = (data:IRegisterForm) => {
+  const [disable, setDisable] = useState<boolean>(false);
+  const onValid = async (data:IRegisterForm) => {
+    setDisable(true);
     if(data.password1 !== data.password){
       setError("password1", {message:"비밀번호가 일치하지 않습니다."},{shouldFocus:true});
+      setDisable(false);
       return;
     }
     console.log(data);
-    PeopleManager.register(data);
-    //reset();
-    //alert("회원가입이 완료되었습니다. 로그인 해 주세요.");
-    //handleClose();
+    if(await PeopleManager.register(data)==="ok"){
+      alert("회원가입이 완료되었습니다. 로그인 해주세요.");
+      reset();
+      setDisable(false);
+      handleClose();
+    }else{
+      alert("중복된 아이디입니다.");
+      setDisable(false);
+    }
   };
   console.log(errors);
   return (
@@ -141,7 +149,7 @@ function RegisterForm({show, handleClose}:IModal) {
           {errors?.extraError? (<Badge bg="secondary">{`${errors?.extraError?.message}`}</Badge>):null}
       </Modal.Body>
       <Modal.Footer>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" disabled={disable}>
               회원가입
           </Button>
       </Modal.Footer>

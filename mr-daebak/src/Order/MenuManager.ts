@@ -3,14 +3,14 @@ import { demoDetailedMenuTypeList, getDetailedMenuTypeListData, getDinnerData, g
 import {IDetailedMenuTypeList, IDinner, IStyle } from "./Menu";
 
 export default class MenuManager{
-    public static getDinnerList():IDinner[]{
-        return getDinnerData();
+    public static async getDinnerList(){
+        return await getDinnerData();
     }
-    public static getStyleList():IStyle[]{
-        return getStyleData();
+    public static async getStyleList(){
+        return await getStyleData();
     }
-    public static getDetailedMenuTypeList():IDetailedMenuTypeList{
-        return getDetailedMenuTypeListData();
+    public static async getDetailedMenuTypeList(){
+        return await getDetailedMenuTypeListData();
     }
 }
 

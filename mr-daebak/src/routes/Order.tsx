@@ -12,10 +12,11 @@ function Order(){
     const [detailedMenuTypeList,setDetailedMenuTypeList] = useRecoilState(detailListAtom);
     const [dinnerList, setDinnerList] = useRecoilState(dinnerListAtom);
     const [styleList, setStyleList] = useRecoilState(styleListAtom);
-    useEffect(()=>{
-        setDetailedMenuTypeList(MenuManager.getDetailedMenuTypeList());
-        setDinnerList(MenuManager.getDinnerList());
-        setStyleList(MenuManager.getStyleList());
+    useEffect(()=>{(async () =>{
+        setDetailedMenuTypeList(await MenuManager.getDetailedMenuTypeList());
+        setDinnerList(await MenuManager.getDinnerList());
+        setStyleList(await MenuManager.getStyleList());
+    })();
     },[]);
     return (
         <>

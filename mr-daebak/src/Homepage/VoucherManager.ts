@@ -3,8 +3,8 @@ import { getVoucherData } from "../api";
 import { IVoucher } from "./Voucher";
 
 export default class VoucherManager{
-    public static getVouchers(id:string):IVoucher[]{
-        return getVoucherData(id);
+    public static async getVouchers(id:string){
+        return await getVoucherData(id);
     }
     public static useVoucher(voucherID:number):void{
         

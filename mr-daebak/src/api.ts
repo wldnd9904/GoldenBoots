@@ -1,16 +1,12 @@
 import axios from "axios";
 import { IEvent } from "./Homepage/Event";
 import { IVoucher } from "./Homepage/Voucher";
-import { IDetailedMenuTypeList, IDinner, IStyle } from "./Order/Menu";
+import { IDetailedMenuType, IDetailedMenuTypeList, IDinner, IStyle } from "./Order/Menu";
 import { IOrder } from "./Order/Order";
 import { IAddress, IPeople, IRegisterForm } from "./People/People";
 
 const BASE_URL = "http://15.165.159.24:3000";
 
-export function registerAPI(data:IRegisterForm){
-    console.log(data);
-    axios.post(BASE_URL+"/register",data,{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>console.log(response)).catch((error)=>console.log(error))
-}
 
 const demoUserData:IPeople={
     userID: "",
@@ -241,24 +237,46 @@ const demoRecentOrder:IOrder[]=[
 ];
 
 
-
-export function getEventData():IEvent[] {
-    return demoEvents;
+export async function registerAPI(data:IRegisterForm){
+    let message = await axios.post(BASE_URL+"/register",data,{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data.result).catch((error)=>error);
+    console.log(data);
+    return message;
 }
-export function getVoucherData(userid:string):IVoucher[] {
-    return demoVouchers;
+export async function loginAPI(id:string,pw:string){
+    const request={userID:id, password:pw};
+    let data = await axios.post(BASE_URL+"/login",request,{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
 }
-export function getStyleData():IStyle[] {
-    return demoStyles;
+export async function getEventData() {
+    let data = await axios.post(BASE_URL+"/event",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
 }
-export function getDinnerData():IDinner[] {
-    return demoDinners;
+export async function getVoucherData(id:string) {
+    let data = await axios.post(BASE_URL+"/voucher",{userID:id},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
 }
-export function getDetailedMenuTypeListData():IDetailedMenuTypeList{
-    return demoDetailedMenuTypeList;
+export async function getStyleData() {
+    let data = await axios.post(BASE_URL+"/style",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
 }
-export function getAddressData():IAddress[] {
-    return demoAddress;
+export async function getDinnerData() {
+    let data = await axios.post(BASE_URL+"/dinner",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
+export async function getDetailedMenuTypeListData() {
+    let data = await axios.post(BASE_URL+"/detail",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
+export async function getAddressData(id:string) {
+    let data = await axios.post(BASE_URL+"/address",{userID:id},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
 }
 export function getUserDataAPI():IPeople {
     return demoUserData;
