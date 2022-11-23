@@ -24,8 +24,8 @@ export default class OrderManager{
     public static async getRecentOrder(userID:string){
         return await getRecentOrderAPI(userID);
     }
-    public static async editSentOrder(order:IOrder, orderID:number){
-        return await editOrderAPI(order, orderID);
+    public static async editSentOrder(order:IOrder){
+        return await editOrderAPI(order);
     }
 }
 

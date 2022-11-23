@@ -5,7 +5,7 @@ import { IDetailedMenuType, IDetailedMenuTypeList, IDinner, IStyle } from "./Ord
 import { IOrder } from "./Order/Order";
 import { IAddress, IPeople, IRegisterForm } from "./People/People";
 
-const BASE_URL = "http://3.35.8.237:3000";
+const BASE_URL = "http://3.39.193.225:3000";
 
 
 const demoUserData:IPeople={
@@ -308,8 +308,8 @@ export async function sendOrderAPI(orderList:IOrder[]){
     console.log(data);
     return data;
 }
-export async function editOrderAPI(order:IOrder, orderID:number){
-    let data = await axios.post(BASE_URL+"/orderedit",{order,orderID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+export async function editOrderAPI(order:IOrder){
+    let data = await axios.post(BASE_URL+"/orderedit",{order},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
     console.log(data);
     return data;
 }
