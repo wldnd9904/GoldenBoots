@@ -64,6 +64,8 @@ function Order({idx,params}:IOrderProps) {
       return;
     }
     setOrderList(OrderManager.editOrder([...orderList],idx,data));
+    if(getValues().description=="pending")
+      await OrderManager.editSentOrder(data);
     console.log(data);
     handleClose();
   };

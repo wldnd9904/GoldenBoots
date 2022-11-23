@@ -23,22 +23,24 @@ interface IModalForm{
 function LoginForm({show, handleClose}:IModalForm) {
   const [recentOrder, setRecentOrder] = useRecoilState(recentOrderAtom);
   const [userData, setUserData] = useRecoilState<IPeople>(userDataAtom);
+  const [addressList, setAddressList] = useRecoilState<IAddress[]>(addressDataAtom);
   const [disabled, setDisabled] = useState<boolean>(false);
   const { register, handleSubmit, formState:{errors},reset, setValue} = useForm<ILoginForm>();
-  const [addressData, setAddressData] = useRecoilState<IAddress[]>(addressDataAtom);
   const onValid = async (data:ILoginForm) => {
     setDisabled(true);
-    setUserData(await PeopleManager.getUserData(data.userID,data.password));
+    const apiData:IPeople = await PeopleManager.getUserData(data.userID,data.password)
+    if(apiData==undefined || apiData.userID != data.userID){
+      setDisabled(false);
+      alert("로그인 실패.");
+      return;
+    }
+    setUserData(apiData);
+    setAddressList(await PeopleManager.getAddress(data.userID));
+    setRecentOrder(await OrderManager.getRecentOrder(data.userID));
     setDisabled(false);
     alert("로그인되었습니다.");
     reset();
     handleClose();
-    /*
-    setAddressData(PeopleManager.getAddress());
-    setRecentOrder(OrderManager.getRecentOrder());
-    alert("로그인되었습니다.");
-    reset();
-    handleClose();*/
   };
   return (
     <Modal

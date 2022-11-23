@@ -58,14 +58,14 @@ function AddressSelectorView(params:IAddressSelectorView){
   const [name, setName] = useState<string>("");
   const [address1, setAddress1] = useState<string>("");
   const [address2, setAddress2] = useState<string>("");
-  const onValid = ()=>{
+  const onValid = async ()=>{
     if(name==""||address1==""||address2=="")return;
     const data:IAddress = {
       name: name, address1: address1, address2: address2,
-      addressID: 0,
+      addressID: addressList.length==0?0:addressList[addressList.length-1].addressID+1,
       userID: userData.userID,
     };
-    setAddressList(PeopleManager.addAddress([...addressList],data));
+    setAddressList(await PeopleManager.addAddress([...addressList],data));
     setAddMode(false);
   }
   const addAddress = () => {
@@ -74,8 +74,8 @@ function AddressSelectorView(params:IAddressSelectorView){
     setAddress1("");
     setAddress2("");
   }
-  const deleteAddress = (index:number) =>{
-    setAddressList(PeopleManager.removeAddress([...addressList],index));
+  const deleteAddress = async (index:number) =>{
+    setAddressList(await PeopleManager.removeAddress([...addressList],userData.userID,index));
   }
   const settings = {
     dots: true,
@@ -101,7 +101,7 @@ function AddressSelectorView(params:IAddressSelectorView){
         >
               <Card.Header>
                 <div style={{top:"-3px",position:"relative",float:"right"}}>
-                  <CloseButton onClick={()=>deleteAddress(idx)}/>
+                  <CloseButton onClick={()=>deleteAddress(data.addressID)}/>
                 </div>
                 {data.name}
               </Card.Header>

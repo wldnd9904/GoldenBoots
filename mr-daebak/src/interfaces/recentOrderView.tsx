@@ -2,7 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, CloseButton } from "react-bootstrap";
 import styled from "styled-components";
 import { IOrder } from "../Order/Order";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -35,6 +35,10 @@ function RecentOrderView(){
     setOrderList(OrderManager.addOrder([...orderList],data));
     console.log(data);
   }
+  const cancel = async (orderID:number) => {
+    //주문 취소하시습니까?
+    await OrderManager.cancelOrder(orderID);
+  }
   return (
     <Container>
       <Slider {...settings} >
@@ -43,6 +47,7 @@ function RecentOrderView(){
             <Card key={idx} onClick={()=>addOrder(data)}>
               <Card.Header>
                 <Card.Title>{data.dinner_name}</Card.Title>
+                <CloseButton style={{float:"right"}} onClick={()=>cancel(data.orderID)}/>
               </Card.Header>
               <Card.Body>
                 <Card.Title>{data.style_name}</Card.Title>
