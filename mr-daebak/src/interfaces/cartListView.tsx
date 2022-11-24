@@ -55,7 +55,7 @@ function CartList() {
             <Order key={idx} idx={idx} params={order} />
           )
         }
-        <Button variant="outline-primary" onClick={handleSend}>주문하기</Button>
+        <div style={{marginTop:"15px"}}>{orderList.length!=0?<Button variant="outline-primary" onClick={handleSend}>주문하기</Button>:"장바구니에 주문이 없습니다."}</div>
         </Offcanvas.Body>
       </Offcanvas>
     </>

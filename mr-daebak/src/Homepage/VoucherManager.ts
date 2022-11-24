@@ -1,5 +1,5 @@
 import { atom, useRecoilState } from "recoil";
-import { getVoucherData } from "../api";
+import { addVoucherAPI, deleteVoucherAPI, editVoucherAPI, getVoucherData, getVoucherListAPI } from "../api";
 import { IVoucher } from "./Voucher";
 
 export default class VoucherManager{
@@ -9,17 +9,19 @@ export default class VoucherManager{
     public static useVoucher(voucherID:number):void{
         
     }
-
-    public static addVoucher():void{
-        
+    public static async addVoucher(){
+        await addVoucherAPI();
     }
 
-    public static removeVoucher(voucherID:string):void{
-        
+    public static async deleteVoucher(voucherID:string){
+        await deleteVoucherAPI(voucherID);
     }
 
-    public static editVoucher(voucherID:string, voucherData:IVoucher):void{
-        
+    public static async editVoucher(voucherData:IVoucher){
+        await editVoucherAPI(voucherData);
+    }
+    public static async getVoucherList(){
+        return await getVoucherListAPI();
     }
 }
 

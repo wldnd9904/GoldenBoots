@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { demoDetailedMenuTypeList, getDetailedMenuTypeListData, getDinnerData, getStyleData } from "../api";
+import { addDinnerAPI, addStyleAPI, deleteDinnerAPI, deleteStyleAPI, demoDetailedMenuTypeList, editDinnerAPI, editStyleAPI, getDetailedMenuTypeListData, getDinnerData, getStyleData } from "../api";
 import {IDetailedMenuTypeList, IDinner, IStyle } from "./Menu";
 
 export default class MenuManager{
@@ -11,6 +11,24 @@ export default class MenuManager{
     }
     public static async getDetailedMenuTypeList(){
         return await getDetailedMenuTypeListData();
+    }
+    public static async deleteDinner(dinnerID:string){
+        return await deleteDinnerAPI(dinnerID);
+    }
+    public static async editDinner(data:IDinner){
+        return await editDinnerAPI(data);
+    }
+    public static async addDinner(){
+        return await addDinnerAPI();
+    }
+    public static async deleteStyle(styleID:string){
+        return await deleteStyleAPI(styleID);
+    }
+    public static async editStyle(data:IStyle){
+        return await editStyleAPI(data);
+    }
+    public static async addStyle(){
+        return await addStyleAPI();
     }
 }
 

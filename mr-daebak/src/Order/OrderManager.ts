@@ -27,6 +27,19 @@ export default class OrderManager{
     public static async editSentOrder(order:IOrder){
         return await editOrderAPI(order);
     }
+    public static getDefaultTime():string {
+        const time = new Date();
+        let returnTime:string = "";
+        if (time.getHours() < 10) {
+          returnTime += "0";
+        }
+        returnTime += time.getHours() + ":";
+        if (time.getMinutes() < 10) {
+          returnTime += "0";
+        }
+        returnTime += time.getMinutes();
+        return returnTime;
+      }
 }
 
 export const orderListAtom = atom<IOrder[]>({

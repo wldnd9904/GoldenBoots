@@ -52,6 +52,7 @@ function Order({idx,params}:IOrderProps) {
     setValue("styleID",style.styleID);
     setValue("style_name", params.style_name);
     setValue("userID", userData?userData.userID:"");
+    setDetailList([]);
     setDetailList([...Object.keys(params),...Object.keys(style)]);
     detailList.map((detail)=>console.log(detailedMenuTypeList[detail]))
   }
@@ -185,6 +186,11 @@ function Order({idx,params}:IOrderProps) {
                   }
                 </div>
               ))}
+            <Form.Group>
+              <Form.Label>예약시간</Form.Label>
+              <Form.Control {...register("time", {required:"값이 필요합니다."})} defaultValue={`${params.time}`} type="time" placeholder="" />
+              {errors?.time? (<Badge bg="secondary">{`${errors?.time?.message}`}</Badge>):null}
+            </Form.Group>
             {userData?
               <Form.Group>
                 <Form.Label>주소</Form.Label>

@@ -1,4 +1,5 @@
 export interface IStock {
+    [index:string]:any;
     wine? : number;
     steak? : number;
     coffee? : number;
@@ -12,7 +13,6 @@ export interface IStock {
     heart_little? : number;
     cupid? : number;
     plate_normal? : number;
-    dinner_price? : number;
     plate_box? : number;
     napkin_normal? : number;
     napkin_white_cotton? : number;

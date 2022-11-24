@@ -1,3 +1,4 @@
+import { IStock } from './Resources/Stock';
 import axios from "axios";
 import { IEvent } from "./Homepage/Event";
 import { IVoucher } from "./Homepage/Voucher";
@@ -5,11 +6,11 @@ import { IDetailedMenuType, IDetailedMenuTypeList, IDinner, IStyle } from "./Ord
 import { IOrder } from "./Order/Order";
 import { IAddress, IPeople, IRegisterForm } from "./People/People";
 
-const BASE_URL = "http://3.39.193.225:3000";
-
+const BASE_URL = "http://15.165.238.57:3000";
+const demo:boolean=true;
 
 const demoUserData:IPeople={
-    userID: "",
+    userID: "wldnd9904",
     password: "",
     email: "",
     name: "",
@@ -18,6 +19,28 @@ const demoUserData:IPeople={
     birth: "",
     isStaff: false
 }
+const demoUserListData:IPeople[]=[
+    {
+        userID: "wldnd9904",
+        password: "sdfdsf",
+        email: "wf@df.c",
+        name: "ss",
+        sex: "남성",
+        phone: "",
+        birth: "",
+        isStaff: false
+    },
+    {
+        userID: "wldnd99045",
+        password: "asdfdsaf",
+        email: "sdf@sefd.dfsdf",
+        name: "gd",
+        sex: "여성",
+        phone: "",
+        birth: "",
+        isStaff: true
+    }
+];
 const demoEvents:IEvent[] =[    {   
     eventID: 1,
     name: "이벤트",
@@ -162,7 +185,7 @@ const demoRecentOrder:IOrder[]=[
       voucherID: 0,
       dinnerID: 0,
       dinner_name: "라라",
-      description: "sdfdsf",
+      description: "pending",
       src_thumbnail: undefined,
       src_big: undefined,
       wine: undefined,
@@ -203,7 +226,7 @@ const demoRecentOrder:IOrder[]=[
       voucherID: 0,
       dinnerID: 0,
       dinner_name: "라라",
-      description: "sdfdsf",
+      description: "cancelled",
       src_thumbnail: undefined,
       src_big: undefined,
       wine: undefined,
@@ -237,6 +260,32 @@ const demoRecentOrder:IOrder[]=[
       grillType: "3",
     },
 ];
+const demoStock:IStock ={
+        wine : 100,
+        steak : 100,
+        coffee : 100,
+        salad : 100,
+        egg_scramble : 100,
+        bacon : 100,
+        bread : 10,
+        bread_baguette : 100,
+        champagne : 100,
+        cheese : 100,
+        heart_little : 100,
+        cupid : 100,
+        plate_normal : 100,
+        plate_box : 100,
+        napkin_normal : 100,
+        napkin_white_cotton : 100,
+        napkin_linen : 100,
+        plate_ceramic : 100,
+        glass_plastic : 100,
+        glass_ceramic : 100,
+        tray_wood : 100,
+        vase_flower : 100,
+        tray_silver : 100,
+        tray_plastic : 100,
+}
 
 
 export async function registerAPI(data:IRegisterForm){
@@ -245,43 +294,132 @@ export async function registerAPI(data:IRegisterForm){
     return message;
 }
 export async function loginAPI(id:string,pw:string){
+    if(demo)return demoUserData;
     const request={userID:id, password:pw};
     let data = await axios.post(BASE_URL+"/login",request,{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
     console.log(data);
     if(data.result==="fail") return undefined;
     return data;
 }
+export async function deleteUserAPI(userID:string){
+    let message = await axios.post(BASE_URL+"/userdelete",{userID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data.result).catch((error)=>error);
+    console.log(message);
+    return message;
+}
+export async function getUserListDataAPI(){
+    if(demo)return demoUserListData
+    let message = await axios.post(BASE_URL+"/userlist",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data.result).catch((error)=>error);
+    console.log(message);
+    return message;
+}
 export async function editUserDataAPI(data:IRegisterForm){
     let message = await axios.post(BASE_URL+"/modified",data,{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data.result).catch((error)=>error);
     console.log(data);
     return message;
 }
+export async function editUserDataStaffAPI(data:IPeople){
+    let message = await axios.post(BASE_URL+"/modified",data,{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data.result).catch((error)=>error);
+    console.log(data);
+    return message;
+}
 export async function getEventData() {
+    if(demo)return demoEvents;
     let data = await axios.post(BASE_URL+"/event",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
     console.log(data);
     return data;
 }
+export async function deleteEventAPI(eventID:string) {
+    let data = await axios.post(BASE_URL+"/eventdelete",{eventID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
+export async function editEventAPI(data:IEvent) {
+    let message = await axios.post(BASE_URL+"/eventedit",{data},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(message);
+    return message;
+}
+export async function addEventAPI() {
+    let message = await axios.post(BASE_URL+"/eventadd",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(message);
+    return message;
+}
 export async function getVoucherData(id:string) {
+    if(demo) return demoVouchers
     let data = await axios.post(BASE_URL+"/voucher",{userID:id},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
     console.log(data);
     return data;
 }
+export async function getVoucherListAPI() {
+    if(demo) return demoVouchers;
+    let data = await axios.post(BASE_URL+"/voucherlist",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
+export async function deleteVoucherAPI(voucherID:string) {
+    let data = await axios.post(BASE_URL+"/voucherdelete",{voucherID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
+export async function editVoucherAPI(data:IVoucher) {
+    let message = await axios.post(BASE_URL+"/voucheredit",{data},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(message);
+    return message;
+}
+export async function addVoucherAPI() {
+    let message = await axios.post(BASE_URL+"/voucheradd",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(message);
+    return message;
+}
 export async function getStyleData() {
+    if(demo)return demoStyles;
     let data = await axios.post(BASE_URL+"/style",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
     console.log(data);
     return data;
 }
+export async function deleteStyleAPI(styleID:string) {
+    let data = await axios.post(BASE_URL+"/styledelete",{styleID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
+export async function editStyleAPI(data:IStyle) {
+    let message = await axios.post(BASE_URL+"/styleedit",{data},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(message);
+    return message;
+}
+export async function addStyleAPI() {
+    let message = await axios.post(BASE_URL+"/styleadd",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(message);
+    return message;
+}
 export async function getDinnerData() {
+    if(demo)return demoDinners;
     let data = await axios.post(BASE_URL+"/dinner",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
     console.log(data);
     return data;
 }
+export async function deleteDinnerAPI(dinnerID:string) {
+    let data = await axios.post(BASE_URL+"/dinnerdelete",{dinnerID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
+export async function editDinnerAPI(data:IDinner) {
+    let message = await axios.post(BASE_URL+"/dinneredit",{data},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(message);
+    return message;
+}
+export async function addDinnerAPI() {
+    let message = await axios.post(BASE_URL+"/dinneradd",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(message);
+    return message;
+}
 export async function getDetailedMenuTypeListData() {
+    if(demo)return demoDetailedMenuTypeList;
     let data = await axios.post(BASE_URL+"/detail",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
     console.log(data);
     return data;
 }
 export async function getAddressData(id:string) {
+    if(demo)return demoAddress;
     let data = await axios.post(BASE_URL+"/address2",{userID:id},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
     console.log(data);
     return data;
@@ -298,11 +436,22 @@ export async function removeAddressAPI(userID:string, addressID:number){
 }
 
 export async function getRecentOrderAPI(userID:string){
+    if(demo)return demoRecentOrder;
     let data = await axios.post(BASE_URL+"/recentorder",{userID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
     console.log(data);
     return data;
 }
-
+export async function getStockAPI(){
+    if(demo)return demoStock;
+    let data = await axios.post(BASE_URL+"/stockget",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
+export async function setStockAPI(name:string,stock:string,price:string){
+    let data = await axios.post(BASE_URL+"/stockset",{name,stock,price},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
 export async function sendOrderAPI(orderList:IOrder[]){
     let data = await axios.post(BASE_URL+"/order",{orderList},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
     console.log(data);

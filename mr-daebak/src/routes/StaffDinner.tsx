@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import CarouselView from "../interfaces/carouselView";
 import { HelmetProvider, Helmet } from "react-helmet-async";
-import ResourceList from "../interfaces/resourceListView";
+import DinnerList from "../interfaces/dinnerListView";
 
 const Container = styled.div`
     padding: 0px 20px;
@@ -9,17 +8,17 @@ const Container = styled.div`
     position:relative;
 `;
 
-function Resources(){
+function StaffDinner(){
     return (<>
             <HelmetProvider>
                 <Helmet>
-                    <title>자원 관리</title>
+                    <title>디너 관리</title>
                 </Helmet>
             </HelmetProvider>
         <Container>
-            <ResourceList/>
+            <DinnerList/>
         </Container>
         </>
     )
 }
-export default Resources;
+export default StaffDinner;
