@@ -182,7 +182,7 @@ function Menu(params:IDinner) {
               ))}
               <Form.Group>
                 <Form.Label>예약시간</Form.Label>
-                <Form.Control {...register("time", {required:"값이 필요합니다."})} type="time" placeholder="" />
+                <Form.Control {...register("time", {required:"값이 필요합니다."})} defaultValue={`${OrderManager.getDefaultTime()}`} type="time" placeholder="" />
                 {errors?.time? (<Badge bg="secondary">{`${errors?.time?.message}`}</Badge>):null}
               </Form.Group>
             {userData?

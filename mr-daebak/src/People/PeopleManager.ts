@@ -1,5 +1,5 @@
 import { atom, useRecoilState } from "recoil";
-import { addAddressAPI, editUserDataAPI, getAddressData, getVoucherData, loginAPI, registerAPI, removeAddressAPI } from "../api";
+import { addAddressAPI, deleteUserAPI, editUserDataAPI, editUserDataStaffAPI, getAddressData, getUserListDataAPI, getVoucherData, loginAPI, registerAPI, removeAddressAPI } from "../api";
 import { IAddress, IPeople, IRegisterForm } from "./People";
 
 export default class PeopleManager{
@@ -10,11 +10,20 @@ export default class PeopleManager{
     public static logout():void{
 
     }
+    public static async getUserListData(){
+        return await getUserListDataAPI();
+    }
     public static async getUserData(id:string,pw:string) {
         return await loginAPI(id,pw);
     }
+    public static async deleteUser(userID:string){
+        await deleteUserAPI(userID);
+    }
     public static async editUserData(data:IRegisterForm){
         return await editUserDataAPI(data);
+    }
+    public static async editUserDataStaff(data:IPeople){
+        return await editUserDataStaffAPI(data);
     }
 
     public static async register(data:IRegisterForm){
@@ -62,5 +71,9 @@ export const userDataAtom = atom<IPeople>({
 });
 export const addressDataAtom = atom<IAddress[]>({
     key : "addressData",
+    default : [],
+});
+export const userDataListAtom = atom<IPeople[]>({
+    key : "userDataList",
     default : [],
 });
