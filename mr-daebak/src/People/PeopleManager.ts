@@ -1,5 +1,5 @@
 import { atom, useRecoilState } from "recoil";
-import { addAddressAPI, editUserDataAPI, getAddressData, loginAPI, registerAPI, removeAddressAPI } from "../api";
+import { addAddressAPI, editUserDataAPI, getAddressData, getVoucherData, loginAPI, registerAPI, removeAddressAPI } from "../api";
 import { IAddress, IPeople, IRegisterForm } from "./People";
 
 export default class PeopleManager{
@@ -24,7 +24,18 @@ export default class PeopleManager{
     public static removeUserData(userID:string):void{
 
     }
-    
+    public static async grantVoucher(userID:string, voucherID:number){
+        //TODO
+    }
+    public static async createVoucher(userID:string, voucherID:number){
+        //TODO
+    }
+    public static async deleteVoucher(userID:string, voucherID:number){
+        //TODO
+    }
+    public static async getVouchers(userID:string){
+        return await getVoucherData(userID);
+    }
     public static async getAddress(userID:string){
         return await getAddressData(userID);
     }

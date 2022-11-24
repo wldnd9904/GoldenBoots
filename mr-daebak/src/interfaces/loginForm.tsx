@@ -8,6 +8,8 @@ import { useRecoilState } from 'recoil';
 import { IAddress, IPeople } from '../People/People';
 import PeopleManager, { addressDataAtom, userDataAtom } from '../People/PeopleManager';
 import OrderManager, { recentOrderAtom } from '../Order/OrderManager';
+import { voucherDataAtom } from '../Homepage/VoucherManager';
+import { IVoucher } from '../Homepage/Voucher';
 
 interface ILoginForm{
   userID: string;
@@ -23,6 +25,7 @@ interface IModalForm{
 function LoginForm({show, handleClose}:IModalForm) {
   const [recentOrder, setRecentOrder] = useRecoilState(recentOrderAtom);
   const [userData, setUserData] = useRecoilState<IPeople>(userDataAtom);
+  const [voucherData, setVoucherData] = useRecoilState<IVoucher[]>(voucherDataAtom);
   const [addressList, setAddressList] = useRecoilState<IAddress[]>(addressDataAtom);
   const [disabled, setDisabled] = useState<boolean>(false);
   const { register, handleSubmit, formState:{errors},reset, setValue} = useForm<ILoginForm>();
@@ -35,6 +38,7 @@ function LoginForm({show, handleClose}:IModalForm) {
       return;
     }
     setUserData(apiData);
+    setVoucherData(await PeopleManager.getVouchers(data.userID));
     setAddressList(await PeopleManager.getAddress(data.userID));
     setRecentOrder(await OrderManager.getRecentOrder(data.userID));
     setDisabled(false);

@@ -180,6 +180,11 @@ function Menu(params:IDinner) {
                   }
                 </div>
               ))}
+              <Form.Group>
+                <Form.Label>예약시간</Form.Label>
+                <Form.Control {...register("time", {required:"값이 필요합니다."})} type="time" placeholder="" />
+                {errors?.time? (<Badge bg="secondary">{`${errors?.time?.message}`}</Badge>):null}
+              </Form.Group>
             {userData?
               <Form.Group>
                 <Form.Label>주소</Form.Label>

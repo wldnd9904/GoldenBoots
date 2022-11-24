@@ -5,7 +5,7 @@ import { IDetailedMenuType, IDetailedMenuTypeList, IDinner, IStyle } from "./Ord
 import { IOrder } from "./Order/Order";
 import { IAddress, IPeople, IRegisterForm } from "./People/People";
 
-const BASE_URL = "http://3.39.193.225:3000";
+const BASE_URL = "http://127.0.0.1:3000";
 
 
 const demoUserData:IPeople={
