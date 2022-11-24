@@ -10,6 +10,8 @@ import Resources from "./Resources";
 import StaffUser from "./StaffUser";
 import StaffStyle from "./StaffStyle";
 import StaffDinner from "./StaffDinner";
+import StaffVoucher from "./StaffVoucher";
+import StaffEvent from "./StaffEvent";
 
 const Spacer = styled.div`
 height:56px;
@@ -26,10 +28,11 @@ function Staff(){
                 <Route path={`/user`} element={<StaffUser/>}/>
                 <Route path={`/style`} element={<StaffStyle/>}/>
                 <Route path={`/dinner`} element={<StaffDinner/>}/>
-                {/*
-                <Route path={`/statistics`} element={<Statistics/>}/>
                 <Route path={`/voucher`} element={<StaffVoucher/>}/>
-    <Route path={`/event`} element={<StaffEvent/>}/>*/}
+                <Route path={`/event`} element={<StaffEvent/>}/>
+                {
+                //<Route path={`/statistics`} element={<Statistics/>}/>
+                }
             </Routes>
         </>
     )

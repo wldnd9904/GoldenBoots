@@ -1,22 +1,19 @@
 import { IEvent } from './Event';
 import { atom, useRecoilState } from "recoil";
-import { getEventData } from '../api';
+import { addEventAPI, deleteEventAPI, editEventAPI, getEventData } from '../api';
 
 export default class EventManager{
     public static async getEvents(){
         return await getEventData();
     }
-
-    public static addEvent():void{
-        
+    public static async addEvent(){
+        await addEventAPI();
     }
-
-    public static removeEvent(eventID:string):void{
-        
+    public static async deleteEvent(eventID:string){
+        await deleteEventAPI(eventID);
     }
-
-    public static editEvent(eventID:string, eventData:IEvent):void{
-        
+    public static async editEvent(eventData:IEvent){
+        await editEventAPI(eventData);
     }
 }
 

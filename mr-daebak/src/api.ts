@@ -323,14 +323,52 @@ export async function editUserDataStaffAPI(data:IPeople){
     return message;
 }
 export async function getEventData() {
+    if(demo)return demoEvents;
     let data = await axios.post(BASE_URL+"/event",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
     console.log(data);
     return data;
 }
+export async function deleteEventAPI(eventID:string) {
+    let data = await axios.post(BASE_URL+"/eventdelete",{eventID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
+export async function editEventAPI(data:IEvent) {
+    let message = await axios.post(BASE_URL+"/eventedit",{data},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(message);
+    return message;
+}
+export async function addEventAPI() {
+    let message = await axios.post(BASE_URL+"/eventadd",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(message);
+    return message;
+}
 export async function getVoucherData(id:string) {
+    if(demo) return demoVouchers
     let data = await axios.post(BASE_URL+"/voucher",{userID:id},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
     console.log(data);
     return data;
+}
+export async function getVoucherListAPI() {
+    if(demo) return demoVouchers;
+    let data = await axios.post(BASE_URL+"/voucherlist",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
+export async function deleteVoucherAPI(voucherID:string) {
+    let data = await axios.post(BASE_URL+"/voucherdelete",{voucherID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
+export async function editVoucherAPI(data:IVoucher) {
+    let message = await axios.post(BASE_URL+"/voucheredit",{data},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(message);
+    return message;
+}
+export async function addVoucherAPI() {
+    let message = await axios.post(BASE_URL+"/voucheradd",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(message);
+    return message;
 }
 export async function getStyleData() {
     if(demo)return demoStyles;
