@@ -34,6 +34,10 @@ function StaffVoucher(param:IVoucher) {
     alert("삭제되었습니다.");
   } 
   const onValid = async (data:IVoucher) => {
+    Object.keys(data).forEach(key => {
+    if (data[key] === '' || data[key] == null) {
+      delete data[key];
+    }})
     console.log(data);
     await VoucherManager.editVoucher(data);
     alert("수정 완료.")

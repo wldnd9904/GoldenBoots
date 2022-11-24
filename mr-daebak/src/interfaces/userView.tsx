@@ -36,6 +36,10 @@ function User(params:IPeople) {
     alert("삭제되었습니다.");
   } 
   const onValid = async (data:IPeople) => {
+    Object.keys(data).forEach(key => {
+    if (data[key] === '' || data[key] == null) {
+      delete data[key];
+    }})
     await PeopleManager.editUserDataStaff(data);
     alert("수정 완료.")
     handleClose();

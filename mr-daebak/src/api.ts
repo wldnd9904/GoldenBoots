@@ -7,7 +7,7 @@ import { IOrder } from "./Order/Order";
 import { IAddress, IPeople, IRegisterForm } from "./People/People";
 
 const BASE_URL = "http://15.165.238.57:3000";
-const demo:boolean=false;
+const demo:boolean=true;
 
 const demoUserData:IPeople={
     userID: "wldnd9904",
@@ -308,9 +308,9 @@ export async function deleteUserAPI(userID:string){
 }
 export async function getUserListDataAPI(){
     if(demo)return demoUserListData;
-    let message = await axios.post(BASE_URL+"/userlist",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data.result).catch((error)=>error);
-    console.log(message);
-    return message;
+    let data = await axios.post(BASE_URL+"/userlist",{},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
 }
 export async function editUserDataAPI(data:IRegisterForm){
     let message = await axios.post(BASE_URL+"/modified",data,{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data.result).catch((error)=>error);

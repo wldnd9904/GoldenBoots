@@ -1,4 +1,5 @@
 export interface IPeople{
+    [index:string]:any;
     userID: string;
     password: string;
     email: string;
