@@ -114,7 +114,7 @@ app.post('/event',function(req,res){
       res.json(rows)
     }else{
       console.log('event fail')
-      res.json({'result':'fail'})
+      res.json([])
     }
   })
 })
@@ -127,7 +127,7 @@ app.post('/voucher',function(req,res){
       res.json(rows)
     }else{
       console.log('voucher fail')
-      res.json({'result':'fail'})
+      res.json([])
     }
   })
 })
@@ -140,7 +140,7 @@ app.post('/style',function(req,res){
       res.json(rows)
     }else{
       console.log('style fail')
-      res.json({'result':'fail'})
+      res.json([])
     }
   })
 })
@@ -152,7 +152,7 @@ app.post('/dinner',function(req,res){
       res.json(rows)
     }else{
       console.log('dinner fail')
-      res.json({'result':'fail'})
+      res.json([])
     }
   })
 })
@@ -168,7 +168,7 @@ app.post('/detail',function(req,res){
       res.json(tmp)
     }else{
       console.log('detail fail')
-      res.json({'result':'fail'})
+      res.json([])
     }
   })
 })
@@ -216,7 +216,7 @@ app.post('/address3',function(req,res){
       })
     }else{
       console.log('address delete fail')
-      res.json({'result':'fail'})
+      res.json([])
     }
   })
 })
@@ -245,7 +245,7 @@ app.post('/modified',function(req,res){
       //res.json({'result':'modify ok'})
     }else{
       console.log('fail')
-      res.json({'result':'modify fail'})
+      res.json([])
     }
   })
 })
@@ -287,7 +287,7 @@ app.post('/ordercancel',function(req,res){
       })
     }else{
       console.log('order canceled fail')
-      res.json({'result':'fail'})
+      res.json([])
     }
   })
 })
@@ -321,17 +321,17 @@ app.post('/userdelete',function(req,res){
       })
     }else{
       console.log('user delete fail')
-      res.json({'result':'fail'})
+      res.json([])
     }
   })
 })
 // 회원 조회
 app.post('/userlist',function(req,res){
   connection.query('select * from customer',[], function(err,rows){
-      console.log('user find')
-      res.json(rows)
-    })
+    console.log('user find')
+    res.json(rows)
   })
+})
 // 재고 조회
 app.post('/stockget',function(req,res){
   connection.query('select * from stock',[], function(err,rows){
@@ -363,7 +363,7 @@ app.post('/styledelete',function(req,res){
       })
     }else{
       console.log('style delete fail')
-      res.json({'result':'fail'})
+      res.json([])
     }
   })
 })
@@ -415,25 +415,29 @@ app.post('/dinnerdelete',function(req,res){
       })
     }else{
       console.log('dinner delete fail')
-      res.json({'result':'fail'})
+      res.json([])
     }
   })
 })
 // 디너 추가
 app.post('/dinneradd',function(req,res){
   var k=0
-  if (req.body.data){
-    connection.query ("select max(dinnerID) as max_ID from dinner",[],function(err,rows){
+
+  connection.query ("select max(dinnerID) as max_ID from dinner",[],function(err,rows){
+    if(err) throw err;
+    k=rows[0].max_ID
+    console.log("dinner add:"+(k+1))
+    connection.query("insert into dinner (dinnerID) values (?)",[k+1],function(err,rows){
       if(err) throw err;
-      k=rows[0].max_ID
-      console.log("dinner add:"+(k+1))
-      req.body.data.map((dinnerlist)=>{
-        connection.query("insert into dinner (dinnerID, " + Object.keys(dinnerlist).toString() + ") values ("+ ++k+"," + `"`+ Object.values(dinnerlist).toString().replaceAll(",",`","`)+`"` + ")",[],function(err,rows){
-        if(err) throw err;
-      })
+      res.json(rows)
     })
+    /*req.body.data.map((dinnerlist)=>{
+      connection.query("insert into dinner (dinnerID, " + Object.keys(dinnerlist).toString() + ") values ("+ ++k+"," + `"`+ Object.values(dinnerlist).toString().replaceAll(",",`","`)+`"` + ")",[],function(err,rows){
+      if(err) throw err;
     })
-  }
+  })*/
+  })
+  
 })
 // 디너 수정
 app.post('/dinneredit',function(req,res){
@@ -461,7 +465,7 @@ app.post('/voucherlist',function(req,res){
       res.json(rows)
     }else{
       console.log('voucherlist fail')
-      res.json({'result':'fail'})
+      res.json([])
     }
   })
 })
@@ -477,7 +481,7 @@ app.post('/voucherdelete',function(req,res){
       })
     }else{
       console.log('voucher delete fail')
-      res.json({'result':'fail'})
+      res.json([])
     }
   })
 })
