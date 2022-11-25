@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import CarouselView from "../interfaces/carouselView";
+import CarouselView from "../Interfaces/carouselView";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 
 const Container = styled.div`

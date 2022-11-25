@@ -1,5 +1,5 @@
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import VoucherList from "../interfaces/voucherListView";
+import VoucherList from "../Interfaces/voucherListView";
 
 function Voucher(){
     return (

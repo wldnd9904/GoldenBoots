@@ -52,6 +52,7 @@ function Menu(params:IDinner) {
   }
   const handleClose = () => setShow(false);
   const onValid = (data:IOrder) => {
+    if(userData)setValue("phone",userData.phone);
     if(data.address1==null||data.address2==null){
       setError('address1',{message:"주소지를 선택해주세요."})
       return;
@@ -200,6 +201,16 @@ function Menu(params:IDinner) {
               </Form.Group>
               :
               <>
+              <Form.Group className="mb-3" controlId="formPhone">
+                <Form.Label>전화번호</Form.Label>
+                <Form.Control {...register("phone", {
+                  required:"값이 필요합니다.",
+                  pattern:{
+                    value:/^[0-9]{9,11}$/,
+                    message:"전화번호 형식이 맞지 않습니다."
+                  }})} type="tel" placeholder="01012345678"/>
+                {errors?.phone? (<Badge bg="secondary">{`${errors?.phone?.message}`}</Badge>):null}
+              </Form.Group>
               <Form.Group className="mb-3" controlId="formAddress1">
                 <Form.Label>주소</Form.Label>
                 <Form.Control {...register("address1", {required:"값이 필요합니다."})} type="text" placeholder="서울특별시 동대문구 전농동 서울시립대로" />

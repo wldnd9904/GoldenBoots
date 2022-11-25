@@ -16,12 +16,12 @@ function DinnerList(){
     (async()=>{
         await setDinnerListData(await MenuManager.getDinnerList());
     })();
-  })
+  },[]);
     return(
         <div style={{padding:"20px"}}>
             <Row xs={1} md={1} lg={1} className="g-4">
                 { dinnerListData?
-                dinnerListData.map((dinner:IDinner, idx) => (
+                dinnerListData.map((dinner:IDinner, idx) => ( 
                     <Col key={idx}>
                         <Dinner key={idx} {...dinner}/>
                     </Col>

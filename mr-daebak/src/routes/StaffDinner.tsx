@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { HelmetProvider, Helmet } from "react-helmet-async";
-import DinnerList from "../interfaces/dinnerListView";
+import DinnerList from "../Interfaces/dinnerListView";
+import { useRecoilValue } from "recoil";
+import { userDataAtom } from "../People/PeopleManager";
 
 const Container = styled.div`
     padding: 0px 20px;
@@ -9,6 +11,7 @@ const Container = styled.div`
 `;
 
 function StaffDinner(){
+    const userData = useRecoilValue(userDataAtom);
     return (<>
             <HelmetProvider>
                 <Helmet>
@@ -16,7 +19,8 @@ function StaffDinner(){
                 </Helmet>
             </HelmetProvider>
         <Container>
-            <DinnerList/>
+            {userData?.isStaff?
+            <DinnerList/>:"직원 계정으로 로그인 해주세요."}
         </Container>
         </>
     )

@@ -1,5 +1,5 @@
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import EventList from "../interfaces/eventListView";
+import EventList from "../Interfaces/eventListView";
 
 function Event(){
     return (

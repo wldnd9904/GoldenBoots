@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { HelmetProvider, Helmet } from "react-helmet-async";
-import StaffEventList from "../Interfaces/staffEventListView";
+import DinnerList from "../Interfaces/dinnerListView";
+import StaffOrderList from "../Interfaces/staffOrderListView";
 import { useRecoilValue } from "recoil";
 import { userDataAtom } from "../People/PeopleManager";
 
@@ -10,19 +11,19 @@ const Container = styled.div`
     position:relative;
 `;
 
-function StaffEvent(){
+function StaffOrder(){
     const userData = useRecoilValue(userDataAtom);
     return (<>
             <HelmetProvider>
                 <Helmet>
-                    <title>이벤트 관리</title>
+                    <title>주문 관리</title>
                 </Helmet>
             </HelmetProvider>
         <Container>
             {userData?.isStaff?
-            <StaffEventList/>:"직원 계정으로 로그인 해주세요."}
+            <StaffOrderList/>:"직원 계정으로 로그인 해주세요."}
         </Container>
         </>
     )
 }
-export default StaffEvent;
+export default StaffOrder;

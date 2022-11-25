@@ -5,8 +5,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import LoginForm from './interfaces/loginForm';
-import MyPage from './interfaces/myPage';
+import LoginForm from './Interfaces/loginForm';
+import MyPage from './Interfaces/myPage';
 import { IPeople } from './People/People';
 import { userDataAtom } from './People/PeopleManager';
 import {ReactComponent as Mic} from './Images/microphone.svg'
@@ -47,7 +47,7 @@ function StaffHeader() {
       {['md'].map((expand) => (
         <Navbar fixed="top"  key={expand} bg="white" expand={expand} className="mb-3" style={{boxShadow: "0px -10px 20px 1px gray"}}>
           <Container fluid>
-            <Navbar.Brand as={Link} to={'home'}>
+            <Navbar.Brand as={Link} to={'order'}>
                 <img alt="미스터 대박 서비스" src="https://github.com/wldnd9904/GoldenBoots/blob/master/mr-daebak/src/Images/daebak.png?raw=true" width="60px"/>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} onClick={handleNavShow} />
@@ -77,6 +77,9 @@ function StaffHeader() {
                     </Nav.Link>
                   </>
                   }
+                  <Nav.Link as={Link} to={'order'}>
+                    주문 관리
+                  </Nav.Link>  
                   <Nav.Link as={Link} to={'user'}>
                     사용자 관리
                   </Nav.Link>  

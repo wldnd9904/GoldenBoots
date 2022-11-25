@@ -15,7 +15,7 @@ function StaffVoucherList(){
     (async()=>{
         await setVoucherListData(await VoucherManager.getVoucherList());
     })();
-  })
+  },[])
     return(
         <div style={{padding:"20px"}}>
             <Row xs={1} md={1} lg={1} className="g-4">
