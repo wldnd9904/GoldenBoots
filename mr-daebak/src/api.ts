@@ -431,7 +431,7 @@ export async function loginAPI(id:string,pw:string){
 }
 export async function getUserDataAPI(userID:string){
     if(demo)return demoUserData;
-    let message = await axios.post(BASE_URL+"/userdelete",{userID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    let message = await axios.post(BASE_URL+"/userfind",{userID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
     console.log(message);
     return message;
 }

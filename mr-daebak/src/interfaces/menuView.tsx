@@ -198,9 +198,10 @@ function Menu(params:IDinner) {
                   required:"값이 필요합니다.",
               })} defaultValue={-1}>
                   <option value={-1}>선택안함</option>
-                  {
-                    voucherList.map((voucher:IVoucher)=>(
-                      <option value={voucher.voucherID}>{`${voucher.voucherName}: ${voucher.price}원`}</option>))
+                  {voucherList?
+                    voucherList.map((voucher:IVoucher,idx)=>(
+                      <option key={idx} value={voucher.voucherID}>{`${voucher.voucherName}: ${voucher.price}원`}</option>))
+                      :null
                   }
               </Form.Select>
               </Form.Group>

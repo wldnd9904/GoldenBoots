@@ -65,6 +65,7 @@ function AddressSelectorView(params:IAddressSelectorView){
       addressID: addressList.length==0?0:addressList[addressList.length-1].addressID+1,
       userID: userData.userID,
     };
+    console.log(data);
     setAddressList(await PeopleManager.addAddress([...addressList],data));
     setAddMode(false);
   }
