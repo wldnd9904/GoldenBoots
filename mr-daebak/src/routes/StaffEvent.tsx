@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { HelmetProvider, Helmet } from "react-helmet-async";
-import StaffEventList from "../interfaces/staffEventListView";
+import StaffEventList from "../Interfaces/staffEventListView";
 import { useRecoilValue } from "recoil";
 import { userDataAtom } from "../People/PeopleManager";
 

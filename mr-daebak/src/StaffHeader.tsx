@@ -5,8 +5,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import LoginForm from './interfaces/loginForm';
-import MyPage from './interfaces/myPage';
+import LoginForm from './Interfaces/loginForm';
+import MyPage from './Interfaces/myPage';
 import { IPeople } from './People/People';
 import { userDataAtom } from './People/PeopleManager';
 import {ReactComponent as Mic} from './Images/microphone.svg'

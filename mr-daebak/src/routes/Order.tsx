@@ -1,7 +1,7 @@
-import Menu from "../interfaces/menuView";
+import Menu from "../Interfaces/menuView";
 import Container from 'react-bootstrap/Container';
 import { Col, Row } from "react-bootstrap";
-import CartList from "../interfaces/cartListView";
+import CartList from "../Interfaces/cartListView";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import { useEffect } from "react";
 import MenuManager, { detailListAtom, dinnerListAtom, styleListAtom } from "../Order/MenuManager";

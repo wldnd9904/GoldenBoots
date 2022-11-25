@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { HelmetProvider, Helmet } from "react-helmet-async";
-import ResourceList from "../interfaces/resourceListView";
-import UserList from "../interfaces/userListView";
+import ResourceList from "../Interfaces/resourceListView";
+import UserList from "../Interfaces/userListView";
 import { useRecoilValue } from "recoil";
 import { userDataAtom } from "../People/PeopleManager";
 

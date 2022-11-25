@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import CarouselView from "../interfaces/carouselView";
+import CarouselView from "../Interfaces/carouselView";
 import { HelmetProvider, Helmet } from "react-helmet-async";
-import ResourceList from "../interfaces/resourceListView";
+import ResourceList from "../Interfaces/resourceListView";
 import { useRecoilValue } from "recoil";
 import { userDataAtom } from "../People/PeopleManager";
 
