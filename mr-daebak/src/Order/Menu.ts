@@ -1,10 +1,10 @@
 export interface IDinner {
     [index:string]:any;
-    dinnerID : number | undefined;
-    dinner_name : string | undefined;
-    description : string | undefined;
-    src_thumbnail : string | undefined;
-    src_big : string | undefined;
+    dinnerID? : number | undefined;
+    dinner_name? : string | undefined;
+    description? : string | undefined;
+    src_thumbnail? : string | undefined;
+    src_big? : string | undefined;
     wine? : number | undefined;
     steak? : number | undefined;
     coffee? : number | undefined;
@@ -23,8 +23,8 @@ export interface IDinner {
 
 export interface IStyle{
     [index:string]:any;
-    styleID: number | undefined;
-    style_name : string | undefined;
+    styleID?: number | undefined;
+    style_name? : string | undefined;
     plate_box? : number | undefined;
     napkin_normal? : number | undefined;
     napkin_white_cotton? : number | undefined;

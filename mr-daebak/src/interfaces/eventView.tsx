@@ -4,6 +4,9 @@ import Card from 'react-bootstrap/Card';
 import { useState } from 'react';
 import { IEvent } from '../Homepage/Event';
 import styled from 'styled-components';
+import VoucherManager from '../Homepage/VoucherManager';
+import { useRecoilValue } from 'recoil';
+import { userDataAtom } from '../People/PeopleManager';
 
 const Hover=styled.div`
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -15,9 +18,14 @@ const Hover=styled.div`
 `;
 
 function EventView(params:IEvent) {
+  const userData = useRecoilValue(userDataAtom);
   const [show, setShow] = useState(false);
   const handleOpen = () => setShow(true);
   const handleClose = () => setShow(false);
+  const grantVoucher = async()=>{
+    await VoucherManager.grantVoucher(userData.userID,params.voucherID?params.voucherID:-1);
+    alert("상품권을 수령하였습니다.");
+  }
   return (
     <>
       <Card as={Hover} style={{ width: '22rem' }} onClick={handleOpen}>
@@ -40,8 +48,8 @@ function EventView(params:IEvent) {
         <img width="100%" alt={params.name} src={params.src_big} />
         </Modal.Body>
         <Modal.Footer>
-            {   params.voucherID!==-1?
-                <Button variant="primary" type="submit">
+            {   (userData && params.voucherID!==-1)?
+                <Button variant="primary" onClick={grantVoucher}>
                 쿠폰 수령하기
                 </Button>
                 :

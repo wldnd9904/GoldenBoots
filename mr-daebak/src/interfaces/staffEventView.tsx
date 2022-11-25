@@ -25,7 +25,6 @@ function StaffEvent(param:IEvent) {
   const handleOpen = () => {
     setShow(true);
     setKeys(Object.keys(param));
-    console.log(keys);
     reset(param);
   }
   const handleClose = () => setShow(false);
@@ -43,7 +42,6 @@ function StaffEvent(param:IEvent) {
     alert("수정 완료.")
     handleClose();
   };
-  console.log(Object.keys(param))
   return (
     <>
       <Card as={Hover} style={{ width: '40rem' }}>

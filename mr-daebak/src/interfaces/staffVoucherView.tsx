@@ -25,7 +25,6 @@ function StaffVoucher(param:IVoucher) {
   const handleOpen = () => {
     setShow(true);
     setKeys(Object.keys(param));
-    console.log(keys);
     reset(param);
   }
   const handleClose = () => setShow(false);
@@ -38,12 +37,10 @@ function StaffVoucher(param:IVoucher) {
     if (data[key] === '' || data[key] == null) {
       delete data[key];
     }})
-    console.log(data);
     await VoucherManager.editVoucher(data);
     alert("수정 완료.")
     handleClose();
   };
-  console.log(Object.keys(param))
   return (
     <>
       <Card as={Hover} style={{ width: '40rem' }}>

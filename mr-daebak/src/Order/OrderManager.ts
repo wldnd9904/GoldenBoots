@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { cancelOrderAPI, editOrderAPI, getRecentOrderAPI, sendOrderAPI } from "../api";
+import { alterOrderStateAPI, cancelOrderAPI, editOrderAPI, getPendingOrderAPI, getRecentOrderAPI, sendOrderAPI } from "../api";
 import { IOrder } from "./Order";
 
 export default class OrderManager{
@@ -27,6 +27,12 @@ export default class OrderManager{
     public static async editSentOrder(order:IOrder){
         return await editOrderAPI(order);
     }
+    public static async getPendingOrder(){
+        return await getPendingOrderAPI();
+    }
+    public static async alterOrderState(orderID:number,state:string){
+        return await alterOrderStateAPI(orderID,state);
+    }
     public static getDefaultTime():string {
         const time = new Date();
         let returnTime:string = "";
@@ -50,4 +56,9 @@ export const orderListAtom = atom<IOrder[]>({
 export const recentOrderAtom = atom<IOrder[]>({
     key : "recentOrderList",
     default : [],
+});
+
+export const pendingOrderListAtom = atom<IOrder[]>({
+    key : "pendingOrderList",
+    default: []
 });

@@ -31,27 +31,51 @@ function RecentOrderView(){
     slidesToShow: 1,
     slidesToScroll: 1
   };
-  const addOrder = (data:IOrder) => {
+  const addOrder = (tmpData:IOrder) => {
+    let data = {...tmpData};
+    Object.keys(data).forEach(key=>{
+      if(!data[key])delete data[key];
+    });
+    delete data.orderID;
     setOrderList(OrderManager.addOrder([...orderList],data));
     console.log(data);
   }
   const cancel = async (orderID:number) => {
-    //주문 취소하시습니까?
     await OrderManager.cancelOrder(orderID);
+    alert("주문이 취소되었습니다.");
   }
   return (
     <Container>
       <Slider {...settings} >
         {
           recentOrderList.map((data:IOrder, idx)=>(
-            <Card key={idx} onClick={()=>addOrder(data)}>
+            <Card key={idx} border={
+              {
+                "pending":"danger",
+                "confirmed":"primary",
+                "cooking":"warning",
+                "delivering":"info",
+                "deliveryfinished":"success",
+                default:"dark",
+              }[data.description?data.description:""]
+            }>
               <Card.Header>
-                <Card.Title>{data.dinner_name}</Card.Title>
-                <CloseButton style={{float:"right"}} onClick={()=>cancel(data.orderID)}/>
+                <Card.Title>{`${data.dinner_name}: ${{
+            "pending":"대기 중",
+            "confirmed":"수락됨",
+            "cooking":"요리 중",
+            "delivering":"배송 중",
+            "deliveryfinished":"배송 완료",
+            "cancelled":"취소됨",
+            "rejected":"거절됨",
+            default:"",
+          }[data.description?data.description:""]}`}</Card.Title>
               </Card.Header>
               <Card.Body>
                 <Card.Title>{data.style_name}</Card.Title>
                 <Card.Text>{data.time}</Card.Text>
+                <Button variant="outline-primary" onClick={()=>addOrder(data)}>장바구니에 추가</Button>
+                {data.description=="pending"?<Button variant="outline-danger" onClick={()=>cancel(data.orderID?data.orderID:0)}>주문 취소</Button>:null}
               </Card.Body>
             </Card>
           ))

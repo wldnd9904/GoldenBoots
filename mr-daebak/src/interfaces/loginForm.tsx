@@ -31,7 +31,7 @@ function LoginForm({show, handleClose}:IModalForm) {
   const { register, handleSubmit, formState:{errors},reset, setValue} = useForm<ILoginForm>();
   const onValid = async (data:ILoginForm) => {
     setDisabled(true);
-    const apiData:IPeople = await PeopleManager.getUserData(data.userID,data.password)
+    const apiData:IPeople = await PeopleManager.login(data.userID,data.password)
     if(apiData==undefined || apiData.userID != data.userID){
       setDisabled(false);
       alert("로그인 실패.");
