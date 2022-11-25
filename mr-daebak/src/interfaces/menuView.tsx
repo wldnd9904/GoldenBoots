@@ -12,6 +12,8 @@ import { userDataAtom } from '../People/PeopleManager';
 import OrderManager, { orderListAtom } from '../Order/OrderManager';
 import { detailListAtom, dinnerListAtom, styleListAtom } from '../Order/MenuManager';
 import { IDinner, IStyle } from '../Order/Menu';
+import VoucherManager, { voucherDataAtom } from '../Homepage/VoucherManager';
+import { IVoucher } from '../Homepage/Voucher';
 
 const Hover=styled.div`
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -26,12 +28,14 @@ function Menu(params:IDinner) {
   const userData = useRecoilValue(userDataAtom);
   const detailedMenuTypeList = useRecoilValue(detailListAtom);
   const dinnerList = useRecoilValue(dinnerListAtom);
+  const [voucherList, setVoucherList] = useRecoilState(voucherDataAtom);
   const [orderList, setOrderList] = useRecoilState(orderListAtom);
   const styleList = useRecoilValue(styleListAtom);
   const [detailList, setDetailList] = useState<string[]>([]);
   const [show, setShow] = useState(false);
   const { register, handleSubmit, formState:{errors},clearErrors, setValue, setError, reset, getValues, watch} = useForm<IOrder>();
-  const handleOpen = () => {
+  const handleOpen = async () => {
+    if(userData&&!voucherList) setVoucherList(await VoucherManager.getVouchers(userData.userID));
     reset();
     setStyle(styleList[0]);
     setShow(true);
@@ -187,6 +191,19 @@ function Menu(params:IDinner) {
                 {errors?.time? (<Badge bg="secondary">{`${errors?.time?.message}`}</Badge>):null}
               </Form.Group>
             {userData?
+            <>
+              <Form.Group controlId="formVoucher">
+                <Form.Label>상품권</Form.Label>
+                <Form.Select {...register("voucherID", {
+                  required:"값이 필요합니다.",
+              })} defaultValue={-1}>
+                  <option value={-1}>선택안함</option>
+                  {
+                    voucherList.map((voucher:IVoucher)=>(
+                      <option value={voucher.voucherID}>{`${voucher.voucherName}: ${voucher.price}원`}</option>))
+                  }
+              </Form.Select>
+              </Form.Group>
               <Form.Group>
                 <Form.Label>주소</Form.Label>
                 <AddressSelectorView
@@ -199,6 +216,7 @@ function Menu(params:IDinner) {
                 onDelete={()=>{}}/>
                 {errors?.address1? (<Badge bg="secondary">{`${errors?.address1?.message}`}</Badge>):null}
               </Form.Group>
+              </>
               :
               <>
               <Form.Group className="mb-3" controlId="formPhone">

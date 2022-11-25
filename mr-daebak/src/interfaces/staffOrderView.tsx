@@ -49,11 +49,15 @@ function StaffOrder(param:IOrder) {
     if(nextState=="cooking"){
         const stockList:{name:string,count:number}[]=[];
         keys.forEach(key=>{
-          if(detailList[key])stockList.push({name:detailList[key].name, count:param[key]})})
+          if(detailList[key]&&param[key])stockList.push({name:detailList[key].name, count:param[key]})})
+        console.log(stockList);
         await StockManager.removeStock(stockList);
     }
     await OrderManager.alterOrderState(param.orderID?param.orderID:0,nextState?nextState:"cancelled");
   };
+  const reject = async() => {
+    await OrderManager.alterOrderState(param.orderID?param.orderID:0,"rejected");
+  }
   return (
     <>
       <Card as={Hover} style={{ width: '40rem' }}
@@ -89,6 +93,7 @@ function StaffOrder(param:IOrder) {
             default:"",
           }[param.description?param.description:""]}
         </Button>:null}
+        {(param.description?param.description:"")=="pending"?<Button variant="danger" onClick={reject}>거절</Button>:null}
         </Card.Body>
       </Card>
     <Modal

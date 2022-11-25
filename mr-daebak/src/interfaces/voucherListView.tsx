@@ -11,8 +11,9 @@ function VoucherList(){
   const userData = useRecoilValue(userDataAtom);
   const [voucherData, setVoucherData] = useRecoilState(voucherDataAtom);
   const showVouchers = async () =>{
-      setVoucherData(await VoucherManager.getVouchers(userData.userID));
+      if(!voucherData)setVoucherData(await VoucherManager.getVouchers(userData.userID));
   };
+  console.log(voucherData);
     return(
         <div style={{padding:"20px"}}>
         {userData?
