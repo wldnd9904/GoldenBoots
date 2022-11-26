@@ -1,13 +1,13 @@
 import { atom, useRecoilState } from "recoil";
-import { addVoucherAPI, deleteVoucherAPI, editVoucherAPI, getVoucherData, getVoucherListAPI, grantVoucherAPI } from "../api";
+import { addVoucherAPI, deleteVoucherAPI, editVoucherAPI, getVoucherData, getVoucherListAPI, grantVoucherAPI, _useVoucherAPI } from "../api";
 import { IVoucher } from "./Voucher";
 
 export default class VoucherManager{
     public static async getVouchers(id:string){
         return await getVoucherData(id);
     }
-    public static useVoucher(voucherID:number):void{
-        
+    public static async _useVoucher(userID:string, voucherID:number){
+        return await _useVoucherAPI(userID, voucherID);
     }
     public static async grantVoucher(userID:string, voucherID:number){
         return await grantVoucherAPI(userID, voucherID);

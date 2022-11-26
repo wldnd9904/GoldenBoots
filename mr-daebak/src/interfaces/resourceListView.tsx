@@ -7,6 +7,7 @@ import { IVoucher } from '../Homepage/Voucher';
 import VoucherManager, { voucherDataAtom } from '../Homepage/VoucherManager';
 import MenuManager, { detailListAtom } from '../Order/MenuManager';
 import { userDataAtom } from '../People/PeopleManager';
+import { IStock } from '../Resources/Stock';
 import StockManager, { stockDataAtom } from '../Resources/StockManager';
 import VoucherView from './voucherView';
 

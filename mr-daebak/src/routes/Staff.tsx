@@ -32,9 +32,6 @@ function Staff(){
                 <Route path={`/dinner`} element={<StaffDinner/>}/>
                 <Route path={`/voucher`} element={<StaffVoucher/>}/>
                 <Route path={`/event`} element={<StaffEvent/>}/>
-                {
-                //<Route path={`/statistics`} element={<Statistics/>}/>
-                }
             </Routes>
         </>
     )
