@@ -42,7 +42,7 @@ function EventView(params:IEvent) {
       >
         <Modal.Header closeButton>
           <Modal.Title>{params.name}</Modal.Title>
-          <h2>{`${params.from} ~ ${params.to}`}</h2>
+          <h2>{`${params.timefrom} ~ ${params.timeto}`}</h2>
         </Modal.Header>
         <Modal.Body>
         <img width="100%" alt={params.name} src={params.src_big} />

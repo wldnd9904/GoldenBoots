@@ -1,9 +1,10 @@
 import Modal from 'react-bootstrap/Modal';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { useRecoilState } from 'recoil';
 import OrderManager, { orderListAtom } from '../Order/OrderManager';
 import MenuManager, { detailListAtom, dinnerListAtom, styleListAtom } from '../Order/MenuManager';
+import { IOrder } from '../Order/Order';
 
 interface IModalForm{
     show: boolean;
@@ -12,6 +13,7 @@ interface IModalForm{
 
 function SpeechRecognitionView({show, handleClose}:IModalForm) {
   const [orderList, setOrderList] = useRecoilState(orderListAtom);
+  const [newOrderList, setNewOrderList] = useState<IOrder[]>([]);
   const [detailList, setDetailList] = useRecoilState(detailListAtom);
   const [dinnerList, setDinnerList] = useRecoilState(dinnerListAtom);
   const [styleList, setStyleList] = useRecoilState(styleListAtom);
@@ -23,7 +25,7 @@ function SpeechRecognitionView({show, handleClose}:IModalForm) {
   })();},[]);
   const stopListening = () =>{
     SpeechRecognition.stopListening();
-    setOrderList([...orderList,OrderManager.textToOrder(transcript,dinnerList,styleList,detailList)]);
+    setNewOrderList(OrderManager.textToOrder(transcript,dinnerList,styleList,detailList,"","","","",""));
   }
   return (
         <Modal
@@ -42,7 +44,7 @@ function SpeechRecognitionView({show, handleClose}:IModalForm) {
                 <div>
                     <p>{listening ? '음성 인식 중' : '대기 중'}</p>
                     <button onClick={()=>SpeechRecognition.startListening({continuous:true, language:"ko"})}>Start</button>
-                    <button onClick={SpeechRecognition.stopListening}>Stop</button>
+                    <button onClick={stopListening}>Stop</button>
                     <button onClick={resetTranscript}>Reset</button>
                     <p>{transcript}</p>
                 </div>

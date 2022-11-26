@@ -41,8 +41,12 @@ function CartList() {
   const handleShow = () => setShow(true);
   const handlePurchaseClose = () => setPurchaseShow(false);
   const handleSend = async () => {
+    console.log("gd");
     await OrderManager.sendOrder(orderList);
-    if(userData&&voucher!=-1)await VoucherManager._useVoucher(userData.userID, voucher);
+    console.log("gd");
+    if(userData&&voucher!=-1){
+      console.log("gd");
+      await VoucherManager._useVoucher(userData.userID, voucher);}
     alert("결제 완료되었습니다.");
     setOrderList([]);
     handlePurchaseClose();
@@ -122,7 +126,7 @@ function CartList() {
                   <option value={-1}>선택안함</option>
                   {voucherList?
                     voucherList.map((voucher:IVoucher,idx)=>(
-                      <option key={idx} value={idx}>{`${voucher.voucherName}: ${voucher.price}원`}</option>))
+                      <option key={idx} value={voucher.voucherID}>{`${voucher.voucherName}: ${voucher.price}원`}</option>))
                       :null
                   }
               </Form.Select>
