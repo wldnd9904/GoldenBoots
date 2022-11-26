@@ -12,6 +12,8 @@ import { userDataAtom } from '../People/PeopleManager';
 import OrderManager, { orderListAtom } from '../Order/OrderManager';
 import { detailListAtom, dinnerListAtom, styleListAtom } from '../Order/MenuManager';
 import { IStyle } from '../Order/Menu';
+import VoucherManager, { voucherDataAtom } from '../Homepage/VoucherManager';
+import { IVoucher } from '../Homepage/Voucher';
 
 const Hover=styled.div`
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -32,11 +34,13 @@ function Order({idx,params}:IOrderProps) {
   const styleList = useRecoilValue(styleListAtom);
   const dinnerList = useRecoilValue(dinnerListAtom);
   const [orderList, setOrderList] = useRecoilState(orderListAtom);
+  const [voucherList, setVoucherList] = useRecoilState(voucherDataAtom);
   const detailedMenuTypeList = useRecoilValue(detailListAtom);
   const [detailList, setDetailList] = useState<string[]>([]);
   const [show, setShow] = useState(false);
   const { register, handleSubmit, formState:{errors},clearErrors, setValue, setError, reset, getValues} = useForm<IOrder>();
-  const handleOpen = () => {
+  const handleOpen = async () => {
+    if(userData&&!voucherList) setVoucherList(await VoucherManager.getVouchers(userData.userID));
     reset();
     console.log(params);
     Object.keys(params).map(key=>{
@@ -192,6 +196,21 @@ function Order({idx,params}:IOrderProps) {
               {errors?.time? (<Badge bg="secondary">{`${errors?.time?.message}`}</Badge>):null}
             </Form.Group>
             {userData?
+              <>
+              <Form.Group controlId="formVoucher">
+                <Form.Label>상품권</Form.Label>
+                <Form.Select {...register("voucherID", {
+                  required:"값이 필요합니다.",
+              })} defaultValue={-1}>
+                  <option value={-1}>선택안함</option>
+                  {voucherList?
+                    voucherList.map((voucher:IVoucher,idx)=>(
+                      <option key={idx} value={voucher.voucherID}>{`${voucher.voucherName}: ${voucher.price}원`}</option>))
+                      :null
+                  }
+              </Form.Select>
+              {errors?.sex? (<Badge bg="secondary">{`${errors?.sex?.message}`}</Badge>):null}
+            </Form.Group>
               <Form.Group>
                 <Form.Label>주소</Form.Label>
                 <AddressSelectorView
@@ -205,6 +224,7 @@ function Order({idx,params}:IOrderProps) {
                 onDelete={()=>{}}/>
                 {errors?.address1? (<Badge bg="secondary">{`${errors?.address1?.message}`}</Badge>):null}
               </Form.Group>
+              </>
               :
               <>
               <Form.Group className="mb-3" controlId="formPhone">

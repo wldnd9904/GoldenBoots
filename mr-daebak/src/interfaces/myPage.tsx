@@ -32,19 +32,11 @@ function MyPage({show, handleClose}:IModal) {
       setDisable(false);
       return;
     }
-    console.log(data);
-    let apiData;
-    console.log(apiData = await PeopleManager.editUserData(data));
-    if(apiData){
-      setUserData(apiData);
-      alert("회원정보가 수정되었습니다.");
-      reset();
-      setDisable(false);
-      handleClose();
-    }else{
-      alert("회원정보 수정이 실패하였습니다.");
-      setDisable(false);
-    }
+    console.log(await PeopleManager.editUserData(data));
+    alert("회원정보가 수정되었습니다.");
+    reset();
+    setDisable(false);
+    handleClose();
   };
   useEffect(() => {
     if(userData)reset(userData);

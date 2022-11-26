@@ -22,7 +22,6 @@ function VoucherView(params:IVoucher) {
           <Card.Text style={{color:"gray"}}>~{params.expire}</Card.Text>
         </Card.Body>
         <Card.Footer>
-          <Button variant="primary">사용하기</Button>
         </Card.Footer>
       </Card>
   );
