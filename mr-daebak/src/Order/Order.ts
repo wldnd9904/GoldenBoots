@@ -9,7 +9,6 @@ export interface IOrder extends IDinner, IStyle{
     time? : string;
     address1? : string;
     address2? : string;
-    voucherID? : number;
     grillType? : string;
 };
 
@@ -20,7 +19,6 @@ export class OrderClass implements IOrder{
     time?: string;
     address1?: string;
     address2?: string;
-    voucherID?: number;
     grillType?: string;
     dinnerID: number | undefined;
     dinner_name: string | undefined;

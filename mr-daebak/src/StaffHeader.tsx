@@ -97,10 +97,7 @@ function StaffHeader() {
                   </Nav.Link>
                   <Nav.Link as={Link} to={'event'}>
                     이벤트 관리
-                  </Nav.Link>  
-                  <Nav.Link as={Link} to={'statistics'}>
-                    통계
-                  </Nav.Link>
+                  </Nav.Link> 
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

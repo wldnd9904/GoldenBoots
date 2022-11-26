@@ -7,7 +7,7 @@ import { IOrder } from "./Order/Order";
 import { IAddress, IPeople, IRegisterForm } from "./People/People";
 
 const BASE_URL = "http://15.165.238.57:3000";
-const demo:boolean=false;
+const demo:boolean=true;
 
 const demoUserData:IPeople={
     userID: "wldnd9904",
@@ -492,6 +492,12 @@ export async function getVoucherData(id:string) {
 export async function grantVoucherAPI(userID:string, voucherID:number) {
     if(demo) return {result:"ok"};
     let data = await axios.post(BASE_URL+"/vouchergrant",{userID, voucherID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log(data);
+    return data;
+}
+export async function _useVoucherAPI(userID:string, voucherID:number) {
+    if(demo) return {result:"ok"};
+    let data = await axios.post(BASE_URL+"/voucheruse",{userID, voucherID},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
     console.log(data);
     return data;
 }
