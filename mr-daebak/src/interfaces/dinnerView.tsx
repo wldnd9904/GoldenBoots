@@ -5,8 +5,9 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { CloseButton, Form } from 'react-bootstrap';
-import MenuManager, {  } from '../Order/MenuManager';
+import MenuManager, { dinnerListAtom } from '../Order/MenuManager';
 import { DinnerClass, IDinner } from '../Order/Menu';
+import { useRecoilState } from 'recoil';
 
 
 const Hover=styled.div`
@@ -19,6 +20,7 @@ const Hover=styled.div`
 `;
 
 function Dinner(params:IDinner) {
+  const [dinnerListData, setDinnerListData] = useRecoilState(dinnerListAtom);
   const [show, setShow] = useState(false);
   const [keys, setKeys] = useState<string[]>([]);
   const { register, handleSubmit, formState:{errors},clearErrors, setValue, setError, reset, getValues, watch} = useForm<IDinner>();
@@ -40,6 +42,7 @@ function Dinner(params:IDinner) {
     console.log(data);
     await MenuManager.editDinner(data);
     alert("수정 완료.")
+    await setDinnerListData(await MenuManager.getDinnerList());
     handleClose();
   };
   return (

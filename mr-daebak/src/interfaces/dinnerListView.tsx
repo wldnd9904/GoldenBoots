@@ -10,7 +10,8 @@ function DinnerList(){
   const [dinnerListData, setDinnerListData] = useRecoilState(dinnerListAtom);
   const newDinner = () => {(async ()=>{
     await MenuManager.addDinner();
-    alert("새 메뉴가 추가되었습니다.");
+    alert("새 디너가 추가되었습니다.");
+    await setDinnerListData(await MenuManager.getDinnerList());
   })();}
   useEffect(()=>{
     (async()=>{

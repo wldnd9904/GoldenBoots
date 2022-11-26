@@ -96,6 +96,7 @@ export class DinnerClass implements IDinner{
     heart_little?: number | undefined;
     cupid?: number | undefined;
     plate_normal?: number | undefined;
+    dinner_price?: number | undefined;
 };
 
 export class StyleClass implements IStyle{
