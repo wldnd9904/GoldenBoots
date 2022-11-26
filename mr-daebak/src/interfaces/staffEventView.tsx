@@ -48,7 +48,7 @@ function StaffEvent(param:IEvent) {
         <Card.Body>
           <CloseButton style={{float:"right"}} onClick={()=>{remove(`${param.eventID}`)}}/>
           <Card.Title>{`${param.eventID}: ${param.name}`}</Card.Title>
-          <Card.Subtitle>{`${param.from}: ${param.to}`}</Card.Subtitle>
+          <Card.Subtitle>{`${param.timefrom}: ${param.timeto}`}</Card.Subtitle>
           <Button variant="primary" onClick={handleOpen}>수정</Button>
         </Card.Body>
       </Card>
