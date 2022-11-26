@@ -156,6 +156,23 @@ app.post('/vouchergrant',function(req,res){
 
 
 })
+// 상품권 사용
+app.post('/voucheruse',function(req,res){
+  const voucherID=req.body.voucherID
+  const userID=req.body.userID
+  connection.query('select * from voucheruserrelation where voucherID=? and userID=?',[voucherID,userID], function(err,rows){
+    if(rows.length){
+      connection.query('delete from voucheruserrelation where voucherID=? and userID=?',[voucherID,userID],function(err,rows){
+        //if(err) throw err;
+        console.log('voucher use ok')
+        res.json({'result':'ok'})
+      })
+    }else{
+      console.log('voucher use fail')
+      res.json([])
+    }
+  })
+})
 
 // 스타일 조회
 app.post('/style',function(req,res){
@@ -283,12 +300,7 @@ app.post('/order',function(req,res){
         //if(err) throw err;
         connection.query("update ordering set description='pending' where orderID=?",[i],function(err,rows){
           //if(err) throw err;
-          // 상품권 사용시
-          if(order.voucherID!=undefined&&order.voucherID!=-1){
-            connection.query("delete from voucheruserrelation where userID=? and voucherID=? ",[order.userID,order.voucherID],function(err,rows){
-              //if(err) throw err;
-            })
-          }
+
         })
         //res.json(rows)
       })
