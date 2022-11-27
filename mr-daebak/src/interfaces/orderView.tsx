@@ -64,6 +64,8 @@ function Order({idx,params}:IOrderProps) {
       setError('address1',{message:"주소지를 선택해주세요."})
       return;
     }
+    data.description="pending";
+    if(userData)data.phone=userData.phone;
     setOrderList(OrderManager.editOrder([...orderList],idx,data));
     if(getValues().description=="pending")
       await OrderManager.editSentOrder(data);

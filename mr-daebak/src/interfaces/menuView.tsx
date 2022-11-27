@@ -56,6 +56,8 @@ function Menu(params:IDinner) {
       setError('address1',{message:"주소지를 선택해주세요."})
       return;
     }
+    data.description="pending";
+    if(userData)data.phone=userData.phone;
     setOrderList(OrderManager.addOrder([...orderList],data));
     alert("주문을 장바구니에 담았습니다.")
     handleClose();
