@@ -296,16 +296,16 @@ app.post('/order',function(req,res){
     connection.query ("select max(orderID) as max_ID from ordering",[],function(err,rows){
       i=rows[0].max_ID
       console.log("orderID: "+parseInt(i+1))
-      req.body.orderList.forEach((order)=>{
-        connection.query("insert into ordering (orderID," + Object.keys(order).toString() + ") values ("+ ++i+"," + `"`+ Object.values(order).toString().replaceAll(",",`","`)+`"` + ")",[],function(err,rows){
+      for(order in req.body.orderList){
+        connection.query("insert into ordering (orderID," + Object.keys(req.body.orderList[order]).toString() + ") values ("+ ++i+"," + `"`+ Object.values(req.body.orderList[order]).toString().replaceAll(",",`","`)+`"` + ")",[],function(err,rows){
         //if(err) throw err;
         connection.query("update ordering set description='pending' where orderID=?",[i],function(err,rows){
           //if(err) throw err;
 
         })
       })
-    })
-    
+    }
+    res.json({'result':'ok'})
       //if(err) throw err;
     })
   }
@@ -407,8 +407,8 @@ app.post('/stockuse',function(req,res){
   const data=req.body.data
   if(data!=undefined && data.length){
     for(pair in data) {
-      const name = data(pair).name
-      const count = data(pair).count
+      const name = data[pair].name
+      const count = data[pair].count
       connection.query ("select stock-? as remain from stock where name=?",[count,name],function(err,rows){
         //if(err) throw err;
         console.log(rows[0].remain)
@@ -418,10 +418,8 @@ app.post('/stockuse',function(req,res){
           console.log("stock edit ok")
         })
       })
-    
-    res.json({'result':'ok'})
     }
-
+    res.json({'result':'ok'})
   }
 })
 
