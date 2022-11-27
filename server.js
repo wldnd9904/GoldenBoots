@@ -151,7 +151,7 @@ app.post('/vouchergrant',function(req,res){
   connection.query('insert into voucheruserrelation values (?,?)',[voucherID,userID],function(err,rows){
     //if(err) console.log('voucher grant fail');
     console.log('voucher grant ok')
-    //res.json(rows[0])
+    res.json({'result':'OK'})
   })
 
 
@@ -160,6 +160,7 @@ app.post('/vouchergrant',function(req,res){
 app.post('/voucheruse',function(req,res){
   const voucherID=req.body.voucherID
   const userID=req.body.userID
+  console.log(voucherID,userID)
   connection.query('select * from voucheruserrelation where voucherID=? and userID=?',[voucherID,userID], function(err,rows){
     if(rows.length){
       connection.query('delete from voucheruserrelation where voucherID=? and userID=?',[voucherID,userID],function(err,rows){
@@ -302,7 +303,7 @@ app.post('/order',function(req,res){
           //if(err) throw err;
 
         })
-        //res.json(rows)
+        res.json({'result':'OK'})
       })
     })
       //if(err) throw err;
@@ -344,7 +345,7 @@ app.post('/orderedit',function(req,res){
         //if(err) throw err;
           connection.query("insert into ordering (" + Object.keys(order).toString() + ") values ("+ `"`+ Object.values(order).toString().replaceAll(",",`","`)+`"` + ")",[],function(err,rows){
             //if(err) throw err;
-            res.json({result:"ok"})
+            res.json({'result':"ok"})
             console.log("order edit ok")
          })
       })
@@ -397,6 +398,7 @@ app.post('/stockset',function(req,res){
     connection.query ("update detailedmenutype set price = ? where name=?",[price,name],function(err,rows){
       //if(err) throw err;
       console.log("stock price edit ok")
+      res.json({'result':'ok'})
     })
   })
 })
@@ -410,9 +412,11 @@ app.post('/stockuse',function(req,res){
       connection.query ("select stock-? as remain from stock where name=?",[count,name],function(err,rows){
         //if(err) throw err;
         console.log(rows[0].remain)
+        
         connection.query ("update stock set stock = ? where name=?",[rows[0].remain,name],function(err,rows){
           //if(err) throw err;
           console.log("stock edit ok")
+          res.json({'result':'ok'})
         })
       })
     })
@@ -462,7 +466,7 @@ app.post('/styleedit',function(req,res){
         //if(err) throw err;
         connection.query("insert into style (" + Object.keys(data).toString() + ") values ("+ `"`+ Object.values(data).toString().replaceAll(",",`","`)+`"` + ")",[],function(err,rows){
           //if(err) throw err;
-          res.json({result:"ok"})
+          res.json({'result':"ok"})
           console.log("style edit ok")
         })
       })
@@ -515,8 +519,8 @@ app.post('/dinneredit',function(req,res){
       connection.query ("delete from dinner where dinnerID=?",[dinnerID],function(err,rows){
         //if(err) throw err;
         connection.query("insert into dinner (" + Object.keys(data).toString() + ") values ("+ `"`+ Object.values(data).toString().replaceAll(",",`","`)+`"` + ")",[],function(err,rows){
-          //if(err) throw err;
-          res.json({result:"ok"})
+          if(err) throw err;
+          res.json({'result':"ok"})
           console.log("dinner edit ok")
         })
       })
@@ -562,7 +566,7 @@ app.post('/voucheredit',function(req,res){
         //if(err) throw err;
         connection.query("insert into voucher (" + Object.keys(data).toString() + ") values ("+ `"`+ Object.values(data).toString().replaceAll(",",`","`)+`"` + ")",[],function(err,rows){
           //if(err) throw err;
-          res.json({result:"ok"})
+          res.json({'result':"ok"})
           console.log("voucher edit ok")
         })
       })
@@ -600,12 +604,61 @@ app.post('/orderalter',function(req,res){
     connection.query ("update ordering set description=? where orderID=?",[state,orderID],function(err,rows){
       //if(err) throw err;
       console.log("order alter ok")
+      res.json({'result':'ok'})
     })
   })
 
 })
+// 이벤트 삭제
+app.post('/eventdelete',function(req,res){
+  const eventID=req.body.eventID
+  connection.query('select * from event where eventID=?',[eventID], function(err,rows){
+    if(rows.length){
+      connection.query('delete from event where eventID=?',[eventID],function(err,rows){
+        //if(err) throw err;
+        console.log('event delete ok')
+        res.json({'result':'ok'})
+      })
+    }else{
+      console.log('event delete fail')
+      res.json([])
+    }
+  })
+})
+// 이벤트 수정
+app.post('/eventedit',function(req,res){
+  const data=req.body.data
+  const eventID=req.body.data.eventID
+  //console.log(data)
+  if (req.body.data){
+    connection.query ("select * from event where eventID=?",[eventID],function(err,rows){
+      //if(err) throw err;
+      connection.query ("delete from event where eventID=?",[eventID],function(err,rows){
+        //if(err) throw err;
+        connection.query("insert into event (" + Object.keys(data).toString() + ") values ("+ `"`+ Object.values(data).toString().replaceAll(",",`","`)+`"` + ")",[],function(err,rows){
+          //if(err) throw err;
+          res.json({'result':"ok"})
+          console.log("event edit ok")
+        })
+      })
+    })
+  }
+})
+// 이벤트 추가
+app.post('/eventadd',function(req,res){
+  var n=0
 
-
+  connection.query ("select max(eventID) as max_ID from event",[],function(err,rows){
+    //if(err) throw err;
+    n=rows[0].max_ID
+    console.log("event add:"+(n+1))
+    connection.query("insert into event (eventID) values (?)",[n+1],function(err,rows){
+      //if(err) throw err;
+      res.json(rows)
+    })
+  })
+  
+})
 /*app.get("/dbtest",(req,res)=>{
   connection.connect();
   connection.query('SELECT * from customer', (error, rows, fields) => {
