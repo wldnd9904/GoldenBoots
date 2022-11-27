@@ -3,7 +3,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import { useRecoilState } from 'recoil';
 import { IStyle } from '../Order/Menu';
 import MenuManager, { styleListAtom } from '../Order/MenuManager';
-import Style from './styleView';
+import Style from './staffStyleView';
 
 
 function StyleList(){
@@ -11,6 +11,7 @@ function StyleList(){
   const newStyle = () => {(async ()=>{
     await MenuManager.addStyle();
     alert("새 메뉴가 추가되었습니다.");
+    await setStyleListData(await MenuManager.getStyleList());
   })();}
   useEffect(()=>{
     (async()=>{

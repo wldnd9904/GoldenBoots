@@ -4,15 +4,13 @@ import Card from 'react-bootstrap/Card';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { CloseButton, Form } from 'react-bootstrap';
-import { IVoucher, VoucherClass } from '../Homepage/Voucher';
-import VoucherManager from '../Homepage/VoucherManager';
-import { IOrder, OrderClass } from '../Order/Order';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { Form } from 'react-bootstrap';
+import { IOrder } from '../Order/Order';
+import { useRecoilState } from 'recoil';
 import MenuManager, { detailListAtom } from '../Order/MenuManager';
 import { IPeople } from '../People/People';
 import PeopleManager from '../People/PeopleManager';
-import OrderManager from '../Order/OrderManager';
+import OrderManager, { pendingOrderListAtom } from '../Order/OrderManager';
 import StockManager from '../Resources/StockManager';
 
 
@@ -26,6 +24,7 @@ const Hover=styled.div`
 `;
 
 function StaffOrder(param:IOrder) {
+  const [pendingOrderListData, setPendingOrderListData] = useRecoilState(pendingOrderListAtom);
   const [detailList,setDetailList] = useRecoilState(detailListAtom);
   const [userData,setUserData] = useState<IPeople>();
   const [show, setShow] = useState(false);
@@ -40,12 +39,18 @@ function StaffOrder(param:IOrder) {
   }
   const handleClose = () => setShow(false);
   const alter = async () => {
+    if(!detailList)setDetailList(await MenuManager.getDetailedMenuTypeList());
+    if(param.userID!=""||param.userID)setUserData(await PeopleManager.getUserData(param.userID?param.userID:""));
+    if(!keys)setKeys(Object.keys(param));
+    console.log("gdgdsg");
     const nextState={
       "pending":"confirmed",
       "confirmed":"cooking",
       "cooking":"delivering",
       "delivering":"deliveryfinished",
       default:"cancelled",}[param.description?param.description:""];
+    await OrderManager.alterOrderState(param.orderID?param.orderID:0,nextState?nextState:"cancelled");
+    await setPendingOrderListData(await OrderManager.getPendingOrder());
     if(nextState=="cooking"){
         const stockList:{name:string,count:number}[]=[];
         keys.forEach(key=>{
@@ -53,10 +58,10 @@ function StaffOrder(param:IOrder) {
         console.log(stockList);
         await StockManager.removeStock(stockList);
     }
-    await OrderManager.alterOrderState(param.orderID?param.orderID:0,nextState?nextState:"cancelled");
   };
   const reject = async() => {
     await OrderManager.alterOrderState(param.orderID?param.orderID:0,"rejected");
+    await setPendingOrderListData(await OrderManager.getPendingOrder());
   }
   return (
     <>

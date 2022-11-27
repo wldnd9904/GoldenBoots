@@ -6,7 +6,8 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { CloseButton, Form } from 'react-bootstrap';
 import { IVoucher, VoucherClass } from '../Homepage/Voucher';
-import VoucherManager from '../Homepage/VoucherManager';
+import VoucherManager, { voucherDataAtom } from '../Homepage/VoucherManager';
+import { useRecoilState } from 'recoil';
 
 
 const Hover=styled.div`
@@ -19,6 +20,7 @@ const Hover=styled.div`
 `;
 
 function StaffVoucher(param:IVoucher) {
+  const [voucherListData, setVoucherListData] = useRecoilState(voucherDataAtom);
   const [show, setShow] = useState(false);
   const [keys, setKeys] = useState<string[]>([]);
   const { register, handleSubmit, formState:{errors},clearErrors, setValue, setError, reset, getValues, watch} = useForm<IVoucher>();
@@ -31,6 +33,7 @@ function StaffVoucher(param:IVoucher) {
   const remove = async (voucherID:string) => {
     await VoucherManager.deleteVoucher(voucherID);
     alert("삭제되었습니다.");
+    await setVoucherListData(await VoucherManager.getVoucherList());
   } 
   const onValid = async (data:IVoucher) => {
     Object.keys(data).forEach(key => {
@@ -39,6 +42,7 @@ function StaffVoucher(param:IVoucher) {
     }})
     await VoucherManager.editVoucher(data);
     alert("수정 완료.")
+    await setVoucherListData(await VoucherManager.getVoucherList());
     handleClose();
   };
   return (

@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
-import { ReactNode, useState } from 'react';
+import {useState } from 'react';
 import AddressSelectorView from './addressSelectorView';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
@@ -48,7 +48,6 @@ function Menu(params:IDinner) {
     })
     setValue("description","");
     setDetailList([...Object.keys(params),...Object.keys(style)]);
-    detailList.map((detail)=>console.log(detailedMenuTypeList[detail]))
   }
   const handleClose = () => setShow(false);
   const onValid = (data:IOrder) => {
@@ -59,10 +58,7 @@ function Menu(params:IDinner) {
     }
     setOrderList(OrderManager.addOrder([...orderList],data));
     alert("주문을 장바구니에 담았습니다.")
-
-    console.log(orderList);
     handleClose();
-    console.log(data);
   };
   return (
     <>

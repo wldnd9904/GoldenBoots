@@ -32,11 +32,6 @@ function Order(){
                         <Menu key={idx} {...dinner} />
                     </Col>
                 )}                
-                {dinnerList.map((dinner, idx) =>
-                    <Col key={idx+100}>
-                        <Menu key={idx+100} {...dinner} />
-                    </Col>
-                )}
                 </Row>
             </div>
             <CartList/>

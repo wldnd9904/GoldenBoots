@@ -6,7 +6,8 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { CloseButton, Form } from 'react-bootstrap';
 import { EventClass, IEvent } from '../Homepage/Event';
-import EventManager from '../Homepage/EventManager';
+import EventManager, { eventDataAtom } from '../Homepage/EventManager';
+import { useRecoilState } from 'recoil';
 
 
 const Hover=styled.div`
@@ -19,6 +20,7 @@ const Hover=styled.div`
 `;
 
 function StaffEvent(param:IEvent) {
+  const [eventListData, setEventListData] = useRecoilState(eventDataAtom);
   const [show, setShow] = useState(false);
   const [keys, setKeys] = useState<string[]>([]);
   const { register, handleSubmit, formState:{errors},clearErrors, setValue, setError, reset, getValues, watch} = useForm<IEvent>();
@@ -31,6 +33,7 @@ function StaffEvent(param:IEvent) {
   const remove = async (eventID:string) => {
     await EventManager.deleteEvent(eventID);
     alert("삭제되었습니다.");
+    await setEventListData(await EventManager.getEvents());
   } 
   const onValid = async (data:IEvent) => {
     Object.keys(data).forEach(key => {
@@ -39,7 +42,8 @@ function StaffEvent(param:IEvent) {
       }})
     console.log(data);
     await EventManager.editEvent(data);
-    alert("수정 완료.")
+    alert("수정 완료.");
+    await setEventListData(await EventManager.getEvents());
     handleClose();
   };
   return (

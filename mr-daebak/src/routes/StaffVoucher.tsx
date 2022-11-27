@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { HelmetProvider, Helmet } from "react-helmet-async";
-import DinnerList from "../Interfaces/dinnerListView";
-import StyleList from "../Interfaces/styleListView";
+import DinnerList from "../Interfaces/staffDinnerListView";
+import StyleList from "../Interfaces/staffStyleListView";
 import StaffVoucherList from "../Interfaces/staffVoucherListView";
 import { useRecoilValue } from "recoil";
 import { userDataAtom } from "../People/PeopleManager";

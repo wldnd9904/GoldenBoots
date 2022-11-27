@@ -44,8 +44,8 @@ const demoUserListData:IPeople[]=[
 const demoEvents:IEvent[] =[    {   
     eventID: 1,
     name: "이벤트",
-    from: "2020-02-02",
-    to: "2020-02-03",
+    timefrom: "2020-02-02",
+    timeto: "2020-02-03",
     src_thumbnail: "https://cdn.dominos.co.kr/admin/upload/event/20221108_lj4LAFLa.png",
     src_big: "https://cdn.dominos.co.kr/renewal2018/w/event/221112_doubleUp/img.jpg",
     voucherID: 0,
@@ -53,8 +53,8 @@ const demoEvents:IEvent[] =[    {
 {   
     eventID: 2,
     name: "이벤트",
-    from: "2020-02-02",
-    to: "2020-02-03",
+    timefrom: "2020-02-02",
+    timeto: "2020-02-03",
     src_thumbnail: "https://cdn.dominos.co.kr/admin/upload/event/20221101_WUe2aN3t.jpg",
     src_big: "http://cdn.dominos.co.kr/renewal2018/w/event/221004_wildWestSteak/img.jpg",
     voucherID: -1,
@@ -62,8 +62,8 @@ const demoEvents:IEvent[] =[    {
 {   
     eventID: 3,
     name: "이벤트",
-    from: "2020-02-02",
-    to: "2020-02-03",
+    timefrom: "2020-02-02",
+    timeto: "2020-02-03",
     src_thumbnail: "https://cdn.dominos.co.kr/admin/upload/event/20221108_lj4LAFLa.png",
     src_big: "https://cdn.dominos.co.kr/renewal2018/w/event/221112_doubleUp/img.jpg",
     voucherID: -1,
@@ -619,7 +619,9 @@ export async function setStockAPI(name:string,stock:string,price:string){
 export async function removeStockAPI(data:{name:string,count:number}[]){
     if(demo)return {result:"ok"};
     let message = await axios.post(BASE_URL+"/stockuse",{data},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log("x");
     console.log(message);
+    console.log("gd");
     return message;
 }
 export async function sendOrderAPI(orderList:IOrder[]){
@@ -649,6 +651,7 @@ export async function getPendingOrderAPI(){
 export async function alterOrderStateAPI(orderID:number,state:string){
     if(demo)return {result:"ok"};
     let data = await axios.post(BASE_URL+"/orderalter",{orderID,state},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log("alter done");
     console.log(data);
     return data;
 }
