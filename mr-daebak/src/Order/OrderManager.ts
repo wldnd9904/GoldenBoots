@@ -6,8 +6,6 @@ import { IOrder } from "./Order";
 export default class OrderManager{
     static textToOrder(transcript: string, dinnerList: IDinner[], styleList: IStyle[], detailList: IDetailedMenuTypeList, userID:string, phone:string, address1:string, address2:string, time:string):IOrder[] {
       let ret:IOrder[]=[];
-      const demotranscript = "샴페인 축제 디너 디럭스 스타일 은쟁반 2개 추가요 그리고 발렌타인 디너에 고기는 미디움 웰던이고 스타일은 디럭스요";
-      console.log(demotranscript);
       const dinnerNameList:string[] = dinnerList.map(dinner=>dinner.dinner_name?.split(" ")[0] as string);
       const dinnerDictionary:{[index:string]:IDinner} = {};
       dinnerList.forEach(dinner=>dinnerDictionary[dinner.dinner_name?.split(" ")[0] as string]=dinner);
@@ -20,7 +18,7 @@ export default class OrderManager{
         detailNameList.push(detailList[key].label);
         detailDictionary[detailList[key].label]=key;
       });
-      const words=demotranscript.split(" ");
+      const words=transcript.split(" ");
       let from = 0, to = words.length;
       while(from!=to){
         let tmpOrder:IOrder={};
@@ -35,7 +33,7 @@ export default class OrderManager{
                     from=i;
                     gotDinner=true;
                     Object.keys(dinnerDictionary[words[i]]).forEach(key=>{
-                        if(dinnerDictionary[words[i]][key])tmpOrder[key]=dinnerDictionary[words[i]][key];
+                        if(dinnerDictionary[words[i]][key]==0||dinnerDictionary[words[i]][key])tmpOrder[key]=dinnerDictionary[words[i]][key];
                     })
                 }
             }};
@@ -48,7 +46,7 @@ export default class OrderManager{
                 if(!gotStyle){
                     gotStyle=true;
                     Object.keys(styleDictionary[stName]).forEach(key=>{
-                        if(styleDictionary[stName][key])tmpOrder[key]=styleDictionary[stName][key];
+                        if(styleDictionary[stName][key]==0||styleDictionary[stName][key])tmpOrder[key]=styleDictionary[stName][key];
                     })
                 }
             }});
@@ -134,7 +132,6 @@ export default class OrderManager{
         from=to;
         to=words.length;
       }
-      console.log(ret)
       return ret;
     }
     public static addOrder(orderList:IOrder[],order:IOrder):IOrder[]{ //장바구니에 추가

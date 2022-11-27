@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import LoginForm from './Interfaces/loginForm';
 import MyPage from './Interfaces/myPage';
 import { IPeople } from './People/People';
@@ -22,6 +22,7 @@ const MicBtn = styled(Mic)`
 
 function StaffHeader() {
   const [userData, setUserData] = useRecoilState<IPeople>(userDataAtom);
+  const resetUserData = useResetRecoilState(userDataAtom);
   const [modalType, setModalType] = useState("R");
   const [navShow, setNavShow] = useState(false);
   const handleNavClose = () => setNavShow(false);
@@ -32,6 +33,9 @@ function StaffHeader() {
     setShow(true);
     setNavShow(false);
     setModalType("L");
+  };
+  const logout = () => {
+    resetUserData();
   };
   const myPage = () => {
     setShow(true);
@@ -67,9 +71,14 @@ function StaffHeader() {
                 <Nav className="justify-content-end flex-grow-1 pe-3" onClick={()=>setNavShow(false)}>
                   {
                   userData?
+                  <>
                     <Nav.Link onClick={myPage}>
                         내 정보
                     </Nav.Link>
+                    <Nav.Link onClick={logout}>
+                        로그아웃
+                    </Nav.Link>
+                  </>
                   :
                   <>
                     <Nav.Link onClick={login}>

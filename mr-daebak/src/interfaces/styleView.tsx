@@ -5,8 +5,9 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { CloseButton, Form } from 'react-bootstrap';
-import MenuManager, {  } from '../Order/MenuManager';
+import MenuManager, { styleListAtom } from '../Order/MenuManager';
 import { StyleClass, IStyle } from '../Order/Menu';
+import { useRecoilState } from 'recoil';
 
 
 const Hover=styled.div`
@@ -19,6 +20,7 @@ const Hover=styled.div`
 `;
 
 function Style(params:IStyle) {
+  const [StyleListData, setStyleListData] = useRecoilState(styleListAtom);
   const [show, setShow] = useState(false);
   const [keys, setKeys] = useState<string[]>([]);
   const { register, handleSubmit, formState:{errors},clearErrors, setValue, setError, reset, getValues, watch} = useForm<IStyle>();
@@ -31,6 +33,7 @@ function Style(params:IStyle) {
   const remove = async (styleID:string) => {
     await MenuManager.deleteStyle(styleID);
     alert("삭제되었습니다.");
+    await setStyleListData(await MenuManager.getStyleList());
   } 
   const onValid = async (data:IStyle) => {
     Object.keys(data).forEach(key => {
@@ -40,6 +43,7 @@ function Style(params:IStyle) {
     console.log(data);
     await MenuManager.editStyle(data);
     alert("수정 완료.")
+    await setStyleListData(await MenuManager.getStyleList());
     handleClose();
   };
   return (

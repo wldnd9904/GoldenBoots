@@ -7,7 +7,7 @@ import { IOrder } from "./Order/Order";
 import { IAddress, IPeople, IRegisterForm } from "./People/People";
 
 const BASE_URL = "http://15.165.238.57:3000";
-const demo:boolean=false;
+const demo:boolean=true;
 
 const demoUserData:IPeople={
     userID: "wldnd9904",
@@ -619,7 +619,9 @@ export async function setStockAPI(name:string,stock:string,price:string){
 export async function removeStockAPI(data:{name:string,count:number}[]){
     if(demo)return {result:"ok"};
     let message = await axios.post(BASE_URL+"/stockuse",{data},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log("x");
     console.log(message);
+    console.log("gd");
     return message;
 }
 export async function sendOrderAPI(orderList:IOrder[]){
@@ -649,6 +651,7 @@ export async function getPendingOrderAPI(){
 export async function alterOrderStateAPI(orderID:number,state:string){
     if(demo)return {result:"ok"};
     let data = await axios.post(BASE_URL+"/orderalter",{orderID,state},{headers:{'Content-Type':'application/x-www-form-urlencoded'}}).then((response)=>response.data).catch((error)=>error);
+    console.log("alter done");
     console.log(data);
     return data;
 }

@@ -10,6 +10,7 @@ function StaffEventList(){
   const newEvent = () => {(async ()=>{
     await EventManager.addEvent();
     alert("새 이벤트가 추가되었습니다.");
+    await setEventListData(await EventManager.getEvents());
   })();}
   useEffect(()=>{
     (async()=>{

@@ -11,6 +11,7 @@ function StyleList(){
   const newStyle = () => {(async ()=>{
     await MenuManager.addStyle();
     alert("새 메뉴가 추가되었습니다.");
+    await setStyleListData(await MenuManager.getStyleList());
   })();}
   useEffect(()=>{
     (async()=>{

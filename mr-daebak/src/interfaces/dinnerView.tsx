@@ -33,6 +33,7 @@ function Dinner(params:IDinner) {
   const remove = async (DinnerID:string) => {
     await MenuManager.deleteDinner(DinnerID);
     alert("삭제되었습니다.");
+    await setDinnerListData(await MenuManager.getDinnerList());
   } 
   const onValid = async (data:IDinner) => {
     Object.keys(data).forEach(key => {

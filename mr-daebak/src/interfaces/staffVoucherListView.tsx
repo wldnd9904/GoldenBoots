@@ -10,6 +10,7 @@ function StaffVoucherList(){
   const newVoucher = () => {(async ()=>{
     await VoucherManager.addVoucher();
     alert("새 상품권이 추가되었습니다.");
+    await setVoucherListData(await VoucherManager.getVoucherList());
   })();}
   useEffect(()=>{
     (async()=>{
