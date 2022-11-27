@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { IOrder } from '../Order/Order';
 import { Badge, CloseButton, Col, Form, Row, Tab, Tabs } from 'react-bootstrap';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import PeopleManager, { userDataAtom } from '../People/PeopleManager';
+import PeopleManager, { userDataAtom, userDataListAtom } from '../People/PeopleManager';
 import OrderManager, { orderListAtom } from '../Order/OrderManager';
 import { detailListAtom, dinnerListAtom, styleListAtom } from '../Order/MenuManager';
 import { IDinner, IStyle } from '../Order/Menu';
@@ -25,6 +25,7 @@ const Hover=styled.div`
 
 function User(params:IPeople) {
   const [show, setShow] = useState(false);
+  const [userListData, setUserListData] = useRecoilState(userDataListAtom);
   const { register, handleSubmit, formState:{errors},clearErrors, setValue, setError, reset, getValues, watch} = useForm<IPeople>();
   const handleOpen = () => {
     setShow(true);
@@ -34,6 +35,7 @@ function User(params:IPeople) {
   const remove = async (userID:string) => {
     await PeopleManager.deleteUser(userID);
     alert("삭제되었습니다.");
+    await setUserListData(await PeopleManager.getUserListData());
   } 
   const onValid = async (data:IPeople) => {
     Object.keys(data).forEach(key => {
@@ -42,6 +44,7 @@ function User(params:IPeople) {
     }})
     await PeopleManager.editUserDataStaff(data);
     alert("수정 완료.")
+    await setUserListData(await PeopleManager.getUserListData());
     handleClose();
   };
   return (
@@ -156,7 +159,7 @@ function User(params:IPeople) {
               {errors?.birth? (<Badge bg="secondary">{`${errors?.birth?.message}`}</Badge>):null}
             </Form.Group>
             <Form.Group as={Col} controlId="formStaff">
-              <Form.Label>직원</Form.Label>
+              <span>직원</span>
               <Form.Check {...register("isStaff",{required:false})}/>
             </Form.Group>
           <Button variant="primary" type="submit">

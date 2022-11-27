@@ -48,6 +48,7 @@ function CartList() {
       console.log("gd");
       await VoucherManager._useVoucher(userData.userID, voucher);}
     alert("결제 완료되었습니다.");
+    if(userData)setVoucherList(await VoucherManager.getVouchers(userData.userID));
     setOrderList([]);
     handlePurchaseClose();
     handleClose();

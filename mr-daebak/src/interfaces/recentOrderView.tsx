@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { IOrder } from "../Order/Order";
 import { useRecoilState, useRecoilValue } from "recoil";
 import OrderManager, { orderListAtom, recentOrderAtom } from "../Order/OrderManager";
+import { userDataAtom } from "../People/PeopleManager";
 
 const Container = styled.div`
   padding:10px 20px;
@@ -24,6 +25,7 @@ const Container = styled.div`
 function RecentOrderView(){
   const recentOrderList = useRecoilValue(recentOrderAtom);
   const [orderList,setOrderList] = useRecoilState(orderListAtom);
+  const userData = useRecoilValue(userDataAtom);
   const settings = {
     dots: true,
     infinite: false,
@@ -37,6 +39,9 @@ function RecentOrderView(){
       if(!data[key])delete data[key];
     });
     delete data.orderID;
+    data.description="pending";
+    data.phone=userData.phone;
+    data.time=OrderManager.getDefaultTime();
     setOrderList(OrderManager.addOrder([...orderList],data));
     console.log(data);
   }

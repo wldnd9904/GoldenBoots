@@ -17,6 +17,7 @@ function ResourceList(){
     const [stockData, setStockData] = useRecoilState(stockDataAtom);
     const apply= async (resource:string,stock:string,price:string)=>{
         await StockManager.setStock(resource, stock, price);
+        alert("재고를 변경했습니다.");
     }
     useEffect(()=>{(async () =>{
         setResourceList(await MenuManager.getDetailedMenuTypeList());
