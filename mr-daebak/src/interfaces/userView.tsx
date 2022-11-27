@@ -159,7 +159,7 @@ function User(params:IPeople) {
               {errors?.birth? (<Badge bg="secondary">{`${errors?.birth?.message}`}</Badge>):null}
             </Form.Group>
             <Form.Group as={Col} controlId="formStaff">
-              <span>직원</span>
+              <Form.Label>직원</Form.Label>
               <Form.Check {...register("isStaff",{required:false})}/>
             </Form.Group>
           <Button variant="primary" type="submit">
