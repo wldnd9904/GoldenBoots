@@ -7,7 +7,7 @@ import { IOrder } from "./Order/Order";
 import { IAddress, IPeople, IRegisterForm } from "./People/People";
 
 const BASE_URL = "http://15.165.238.57:3000";
-const demo:boolean=true;
+const demo:boolean=false;
 
 const demoUserData:IPeople={
     userID: "wldnd9904",
@@ -44,8 +44,8 @@ const demoUserListData:IPeople[]=[
 const demoEvents:IEvent[] =[    {   
     eventID: 1,
     name: "이벤트",
-    from: "2020-02-02",
-    to: "2020-02-03",
+    timefrom: "2020-02-02",
+    timeto: "2020-02-03",
     src_thumbnail: "https://cdn.dominos.co.kr/admin/upload/event/20221108_lj4LAFLa.png",
     src_big: "https://cdn.dominos.co.kr/renewal2018/w/event/221112_doubleUp/img.jpg",
     voucherID: 0,
@@ -53,8 +53,8 @@ const demoEvents:IEvent[] =[    {
 {   
     eventID: 2,
     name: "이벤트",
-    from: "2020-02-02",
-    to: "2020-02-03",
+    timefrom: "2020-02-02",
+    timeto: "2020-02-03",
     src_thumbnail: "https://cdn.dominos.co.kr/admin/upload/event/20221101_WUe2aN3t.jpg",
     src_big: "http://cdn.dominos.co.kr/renewal2018/w/event/221004_wildWestSteak/img.jpg",
     voucherID: -1,
@@ -62,8 +62,8 @@ const demoEvents:IEvent[] =[    {
 {   
     eventID: 3,
     name: "이벤트",
-    from: "2020-02-02",
-    to: "2020-02-03",
+    timefrom: "2020-02-02",
+    timeto: "2020-02-03",
     src_thumbnail: "https://cdn.dominos.co.kr/admin/upload/event/20221108_lj4LAFLa.png",
     src_big: "https://cdn.dominos.co.kr/renewal2018/w/event/221112_doubleUp/img.jpg",
     voucherID: -1,

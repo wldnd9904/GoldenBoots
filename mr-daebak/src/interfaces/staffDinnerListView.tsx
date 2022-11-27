@@ -3,7 +3,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import { useRecoilState } from 'recoil';
 import { IDinner } from '../Order/Menu';
 import MenuManager, { dinnerListAtom } from '../Order/MenuManager';
-import Dinner from './dinnerView';
+import Dinner from './staffDinnerView';
 
 
 function DinnerList(){

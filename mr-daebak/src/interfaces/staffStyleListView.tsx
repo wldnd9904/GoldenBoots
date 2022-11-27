@@ -3,7 +3,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import { useRecoilState } from 'recoil';
 import { IStyle } from '../Order/Menu';
 import MenuManager, { styleListAtom } from '../Order/MenuManager';
-import Style from './styleView';
+import Style from './staffStyleView';
 
 
 function StyleList(){
