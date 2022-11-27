@@ -303,9 +303,9 @@ app.post('/order',function(req,res){
           //if(err) throw err;
 
         })
-        res.json({'result':'OK'})
       })
     })
+    
       //if(err) throw err;
     })
   }
@@ -406,9 +406,9 @@ app.post('/stockset',function(req,res){
 app.post('/stockuse',function(req,res){
   const data=req.body.data
   if(data!=undefined && data.length){
-    data.forEach(pair => {
-      const name = pair.name
-      const count = pair.count
+    for(pair in data) {
+      const name = data(pair).name
+      const count = data(pair).count
       connection.query ("select stock-? as remain from stock where name=?",[count,name],function(err,rows){
         //if(err) throw err;
         console.log(rows[0].remain)
@@ -416,10 +416,12 @@ app.post('/stockuse',function(req,res){
         connection.query ("update stock set stock = ? where name=?",[rows[0].remain,name],function(err,rows){
           //if(err) throw err;
           console.log("stock edit ok")
-          res.json({'result':'ok'})
         })
       })
-    })
+    
+    res.json({'result':'ok'})
+    }
+
   }
 })
 
