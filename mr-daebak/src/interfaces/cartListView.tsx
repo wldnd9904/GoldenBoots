@@ -32,6 +32,7 @@ function CartList() {
   const [show, setShow] = useState(false);
   const [purchaseShow, setPurchaseShow] = useState(false);
   const [voucherList, setVoucherList] = useRecoilState(voucherDataAtom);
+  const [recentOrderList, setRecentOrderList] = useRecoilState(recentOrderAtom);
   const detailedMenuTypeList = useRecoilValue(detailListAtom);
   const [receipt, setReceipt] = useState<string[]>([]);
   const [voucher, setVoucher] = useState<number>(-1);
@@ -49,6 +50,7 @@ function CartList() {
       await VoucherManager._useVoucher(userData.userID, voucher);}
     alert("결제 완료되었습니다.");
     if(userData)setVoucherList(await VoucherManager.getVouchers(userData.userID));
+    if(userData)setRecentOrderList(await OrderManager.getRecentOrder(userData.userID));
     setOrderList([]);
     handlePurchaseClose();
     handleClose();
