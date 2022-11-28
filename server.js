@@ -265,13 +265,15 @@ app.post('/modified',function(req,res){
   const password=req.body.password
   const email=req.body.email
   const name=req.body.name
-  const isStaff=req.body.isStaff
+  const isStaff=(req.body.isStaff=="true"?1:0)
   const sex=req.body.sex
   const phone=req.body.phone
   const birth=req.body.birth
   var sql_update={userID:userID, password:password, email:email, name:name, isStaff:isStaff,
     sex:sex,phone:phone,birth:birth}
+  //console.log(req.body)
   connection.query('select userID from customer where userID=?',[userID],function(err,rows){
+
     if(rows.length){
       console.log('modify ok')
       connection.query('Update customer set? where userID=?',[sql_update,userID],function(err,rows){
@@ -398,8 +400,8 @@ app.post('/stockset',function(req,res){
     connection.query ("update detailedmenutype set price = ? where name=?",[price,name],function(err,rows){
       //if(err) throw err;
       console.log("stock price edit ok")
-      res.json({'result':'ok'})
     })
+    res.json({'result':'ok'})
   })
 })
 // 재고 사용
