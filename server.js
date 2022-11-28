@@ -140,7 +140,7 @@ app.post('/voucher',function(req,res){
     connection.query(`select * from voucher where voucherID IN (${rows.map(data=>data.voucherID).toString()})`, [], function(err,rows){
       //console.log(rows)
       res.json(rows)
-      
+      //
     })
   })
 })
